@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Dashboard</title>
+<meta name="description" content="Ranking cuantitativo del S&P 500 por horizonte: corto, medio y largo plazo.">
+<meta name="theme-color" content="#0f172a">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Dashboard">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Cpath d='M10 44 L24 30 L34 38 L54 18' stroke='%2334d399' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Cpath d='M10 44 L24 30 L34 38 L54 18' stroke='%2334d399' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="app-header">
+  <h1>Dashboard financiero</h1>
+  <p class="sub">S&amp;P 500 por horizonte &middot; <span id="refreshed">Datos al: —</span></p>
+</header>
+
+<nav class="tabs" role="tablist" aria-label="Horizonte">
+  <button class="tab" data-tab="short" role="tab">Corto<span>semanas</span></button>
+  <button class="tab" data-tab="medium" role="tab">Medio<span>1–6 meses</span></button>
+  <button class="tab active" data-tab="long" role="tab" aria-selected="true">Largo<span>1+ años</span></button>
+</nav>
+
+<section id="filterPanel" class="filters" aria-label="Filtros de largo plazo">
+  <div class="filters-head">
+    <strong>Filtros de valoración y calidad</strong>
+    <span id="passCount" class="count">—</span>
+  </div>
+  <div class="filters-grid">
+    <label>PER &lt; <input type="number" id="f_maxPE" value="30" step="1" min="1"></label>
+    <label>PER futuro &lt; <input type="number" id="f_maxFwdPE" value="25" step="1" min="1"></label>
+    <label>P/Ventas &lt; <input type="number" id="f_maxPS" value="7" step="0.5" min="0.5"></label>
+    <label>PEG &lt; <input type="number" id="f_maxPEG" value="2" step="0.1" min="0.1"></label>
+    <label>ROE ≥ <input type="number" id="f_minROE" value="15" step="1"> %</label>
+    <label>Margen neto ≥ <input type="number" id="f_minMargin" value="10" step="1"> %</label>
+  </div>
+  <label class="div-toggle"><input type="checkbox" id="f_divOnly"> Solo con dividendo (&gt; 0)</label>
+  <p class="filters-note">Un dato ausente cuenta como "no pasa" el filtro.</p>
+</section>
+
+<div class="toolbar">
+  <input id="search" type="search" placeholder="Buscar símbolo o empresa…" autocomplete="off" aria-label="Buscar">
+  <select id="sector" aria-label="Sector"><option value="all">Todos los sectores</option></select>
+</div>
+
+<main id="list" aria-live="polite"></main>
+
+<footer>
+  <details>
+    <summary>Metodología</summary>
+    <p>Corto plazo: señales técnicas de semanas (RSI/EMA200). Medio plazo: momentum de 1 a 6 meses. Largo plazo: calidad fundamental (ROE, margen neto, PER) + valoración (PER futuro, Precio/Ventas, PEG) + tendencia. Los puntajes van de 0 a 100 por horizonte; la cobertura indica qué porcentaje de los datos estaba disponible para cada acción. Fuente: TradingView Stock Screener.</p>
+  </details>
+  <p class="disclaimer">Son screens cuantitativos, no asesoría financiera.</p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>
