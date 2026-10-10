@@ -35,8 +35,12 @@ body{
 .filters-note{font-size:12px; color:var(--mut); margin:8px 0 0;}
 
 .toolbar{display:flex; gap:8px; padding:0 16px 12px;}
-#search{flex:1; padding:12px; font-size:16px; border-radius:10px; border:1px solid var(--line); background:var(--card); color:var(--txt);}
-#sector{padding:12px 8px; font-size:14px; border-radius:10px; border:1px solid var(--line); background:var(--card); color:var(--txt); max-width:42%;}
+#search{flex:1; min-width:0; padding:12px; font-size:16px; border-radius:10px; border:1px solid var(--line); background:var(--card); color:var(--txt);}
+.menubtn{padding:12px 16px; font-size:18px; border-radius:10px; border:1px solid var(--line); background:var(--card); color:var(--txt); cursor:pointer;}
+.menudrop{margin:0 16px 12px; padding:14px; background:var(--card); border:1px solid var(--line); border-radius:12px;}
+.menudrop label{display:block; font-size:13px; color:var(--mut); margin-bottom:12px;}
+.menudrop label:last-child{margin-bottom:0;}
+.menudrop select{width:100%; margin-top:6px; padding:12px 8px; font-size:14px; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--txt);}
 
 #list{padding:0 16px;}
 .stock{margin-bottom:8px; background:var(--card); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
