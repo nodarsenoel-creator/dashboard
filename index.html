@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-title" content="Dashboard">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Cpath d='M10 44 L24 30 L34 38 L54 18' stroke='%2334d399' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Cpath d='M10 44 L24 30 L34 38 L54 18' stroke='%2334d399' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="styles.css?v=16">
+<link rel="stylesheet" href="styles.css?v=17">
 </head>
 <body>
 <header class="app-header">
@@ -21,6 +21,14 @@
 </header>
 
 <div class="tape" aria-label="Mercado en resumen"><div class="tape-track" id="tapeTrack"></div></div>
+
+<section id="newsSec" class="news" aria-label="Noticias del día" hidden>
+  <button class="news-head" id="newsToggle" aria-expanded="true">
+    <strong>📰 Noticias del día</strong><span id="newsCount" class="count"></span><span class="chev">▾</span>
+  </button>
+  <div id="newsList"></div>
+  <p class="news-note">El punto de color es el tono estimado automáticamente (no es consejo). Toca un ticker para ver la acción.</p>
+</section>
 
 <nav class="tabs" role="tablist" aria-label="Horizonte">
   <button class="tab" data-tab="short" role="tab">Corto<span>semanas</span></button>
@@ -77,6 +85,6 @@
   <p class="disclaimer">Son screens cuantitativos, no asesoría financiera.</p>
 </footer>
 
-<script src="app.js?v=16"></script>
+<script src="app.js?v=17"></script>
 </body>
 </html>
