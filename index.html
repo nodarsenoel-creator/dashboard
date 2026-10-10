@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Dashboard</title>
-<meta name="description" content="Ranking cuantitativo del S&P 500 por horizonte: corto, medio y largo plazo.">
+<meta name="description" content="Ranking cuantitativo del S&P 500 por horizonte: corto, medio y largo plazo, más favoritas y compras.">
 <meta name="theme-color" content="#0f172a">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-title" content="Dashboard">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Cpath d='M10 44 L24 30 L34 38 L54 18' stroke='%2334d399' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Cpath d='M10 44 L24 30 L34 38 L54 18' stroke='%2334d399' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="styles.css?v=2">
+<link rel="stylesheet" href="styles.css?v=3">
 </head>
 <body>
 <header class="app-header">
@@ -24,6 +24,7 @@
   <button class="tab" data-tab="short" role="tab">Corto<span>semanas</span></button>
   <button class="tab" data-tab="medium" role="tab">Medio<span>1–6 meses</span></button>
   <button class="tab active" data-tab="long" role="tab" aria-selected="true">Largo<span>1+ años</span></button>
+  <button class="tab" data-tab="mine" role="tab">Mías<span>⭐ y compras</span></button>
 </nav>
 
 <section id="filterPanel" class="filters" aria-label="Filtros de largo plazo">
@@ -40,6 +41,7 @@
     <label>Margen neto ≥ <input type="number" id="f_minMargin" value="10" step="1"> %</label>
   </div>
   <label class="div-toggle"><input type="checkbox" id="f_divOnly"> Solo con dividendo (&gt; 0)</label>
+  <div class="chip-row"><button id="top10Chip" class="chip" aria-pressed="false">Top 10 por score</button></div>
   <p class="filters-note">Un dato ausente cuenta como "no pasa" el filtro.</p>
 </section>
 
@@ -58,6 +60,6 @@
   <p class="disclaimer">Son screens cuantitativos, no asesoría financiera.</p>
 </footer>
 
-<script src="app.js?v=2"></script>
+<script src="app.js?v=3"></script>
 </body>
 </html>
