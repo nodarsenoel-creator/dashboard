@@ -38,6 +38,57 @@ const bigCap = (v) => {
 const cls = (v) => (v == null ? '' : (v > 0 ? 'up' : (v < 0 ? 'down' : '')));
 const badgeCls = (s) => (s == null ? '' : (s >= 70 ? 'g' : (s >= 50 ? 'y' : '')));
 
+/* ---------- TradingView: gráfico en el detalle ---------- */
+const TV_EXCH = { NYSE: 'NYSE', NASDAQ: 'NASDAQ', AMEX: 'AMEX', ARCA: 'AMEX', CBOE: 'CBOE' };
+function tvSymbol(s) {
+  if (!s || !s.symbol) return '';
+  const px = TV_EXCH[String(s.exchange || '').toUpperCase()];
+  return px ? px + ':' + s.symbol : s.symbol; // sin prefijo: TradingView lo resuelve
+}
+function tvConfig(symbol) {
+  return {
+    autosize: true,
+    symbol: symbol,
+    interval: 'D',
+    timezone: 'America/New_York',
+    theme: 'dark',
+    style: '1', // velas japonesas
+    locale: 'es',
+    toolbar_bg: '#0f172a',
+    enable_publishing: false,
+    allow_symbol_change: false,
+    hide_side_toolbar: true,
+    // NOTA: el widget no acepta parámetros de estudios por config;
+    // RSI y EMA se cargan con sus valores por defecto (EMA largo 9).
+    // El usuario puede cambiar el largo del EMA a 200 en el propio gráfico.
+    studies: ['STD;RSI', 'STD;EMA'],
+    support_host: 'https://www.tradingview.com',
+  };
+}
+function mountTVChart(art) {
+  const box = art.querySelector('.tv-chart');
+  if (!box || box.dataset.mounted) return;
+  const sym = art.dataset.sym;
+  const stock = STOCKS.find((x) => x.symbol === sym);
+  const symbol = tvSymbol(stock || { symbol: sym });
+  if (!symbol) return;
+  box.innerHTML =
+    '<div class="tradingview-widget-container" style="height:100%;width:100%">' +
+    '<div class="tradingview-widget-container__widget" style="height:100%;width:100%"></div>' +
+    '</div>';
+  const sc = document.createElement('script');
+  sc.type = 'text/javascript';
+  sc.async = true;
+  sc.src = 'https://s3.tradingview.com/external-embedding/embed-widget-advanced-chart.js';
+  sc.textContent = JSON.stringify(tvConfig(symbol));
+  box.firstChild.appendChild(sc);
+  box.dataset.mounted = symbol;
+}
+function unmountTVChart(art) {
+  const box = art.querySelector('.tv-chart');
+  if (box) { box.innerHTML = ''; delete box.dataset.mounted; }
+}
+
 /* ---------- filtros largo plazo (null = no pasa) ---------- */
 function passesLong(s) {
   const f = state.f;
@@ -103,6 +154,7 @@ function detailHTML(s) {
     kvRow('6 meses', '<span class="' + cls(s.perf6m) + '">' + pct(s.perf6m) + '</span>') +
     kvRow('1 año', '<span class="' + cls(s.perfYear) + '">' + pct(s.perfYear) + '</span>') +
     '</dl>' +
+    '<h4>Gráfico</h4><div class="tv-chart" role="img" aria-label="Gráfico de ' + esc(s.symbol) + '"></div>' +
     '<p class="meta-line">' + esc(s.company) + ' · ' + esc(s.sector) + ' · ' + esc(s.exchange) +
     ' · cobertura: ' + num(s[TABS[state.tab].cov], 0) + '%</p>' +
     '</div>';
@@ -141,11 +193,15 @@ function render() {
     btn.addEventListener('click', () => {
       const art = btn.closest('.stock');
       const sym = art.dataset.sym;
-      if (state.open.has(sym)) { state.open.delete(sym); art.classList.remove('open'); }
-      else { state.open.add(sym); art.classList.add('open'); }
+      if (state.open.has(sym)) {
+        state.open.delete(sym); art.classList.remove('open'); unmountTVChart(art);
+      } else {
+        state.open.add(sym); art.classList.add('open'); mountTVChart(art);
+      }
       btn.setAttribute('aria-expanded', state.open.has(sym));
     });
   });
+  box.querySelectorAll('.stock.open').forEach(mountTVChart);
 }
 
 /* ---------- init ---------- */
