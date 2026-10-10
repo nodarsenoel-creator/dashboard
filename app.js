@@ -15,6 +15,7 @@ const state = {
   tab: 'long',
   query: '',
   sector: 'all',
+  sigfilter: 'all',
   top10: false,
   open: new Set(),
   f: { maxPE: 30, maxFwdPE: 25, maxPS: 7, maxPEG: 2, minROE: 15, minMargin: 10, divOnly: false },
@@ -150,6 +151,7 @@ function visibleStocks() {
   const arr = STOCKS.filter((s) => {
     if (state.tab === 'long' && !passesLong(s)) return false;
     if (state.sector !== 'all' && s.sector !== state.sector) return false;
+    if (state.sigfilter && state.sigfilter !== 'all' && !(s.sig && s.sig[state.sigfilter])) return false;
     if (q && !(String(s.symbol).toLowerCase().includes(q) || String(s.company).toLowerCase().includes(q))) return false;
     return true;
   }).sort((a, b) => (b[TABS[state.tab].score] ?? -1) - (a[TABS[state.tab].score] ?? -1));
@@ -616,6 +618,7 @@ function init(data) {
 
   $('#search').addEventListener('input', (e) => { state.query = e.target.value; render(); });
   sel.addEventListener('change', (e) => { state.sector = e.target.value; render(); });
+  $('#sigfilter').addEventListener('change', (e) => { state.sigfilter = e.target.value; render(); });
 
   // selector de objetivo en la sección de probabilidades (delegado, una sola vez)
   $('#list').addEventListener('click', (e) => {
