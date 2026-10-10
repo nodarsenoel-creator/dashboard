@@ -137,6 +137,16 @@ footer details p{margin:6px 0 0; line-height:1.5;}
 .buy-prob{margin-top:6px; font-size:13px; color:var(--mut);}
 .buy-prob strong{font-variant-numeric:tabular-nums;}
 
+/* ---------- cinta de mercado ---------- */
+.tape{overflow:hidden; white-space:nowrap; border-bottom:1px solid var(--line);
+  background:var(--card); mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);}
+.tape-track{display:inline-flex; align-items:center; gap:14px; padding:7px 0;
+  animation:tape-scroll 36s linear infinite; will-change:transform;}
+@keyframes tape-scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.titem{font-size:13px; color:var(--mut); font-variant-numeric:tabular-nums;}
+.titem b{color:var(--fg); font-weight:600;}
+.tsep{color:var(--line); font-size:10px;}
+
 /* ---------- heat map gamma ---------- */
 .gxmap{margin:4px 0 2px;}
 .gxrow{display:flex; align-items:center; gap:8px; padding:2px 0; font-size:13px;}
