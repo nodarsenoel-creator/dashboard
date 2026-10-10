@@ -367,16 +367,21 @@ function buyRowHTML(b, i) {
       (pr.pm != null ? ' · mercado <strong class="' + probCls(pr.pm) + '">' + probPct(pr.pm) + '</strong>' : '') +
       '</div>'
     : '';
-  return '<div class="buy">' +
-    '<div class="buy-top"><strong>' + esc(b.symbol) + '</strong>' +
+  return '<div class="buy' + (state.open.has(b.symbol) ? ' open' : '') +
+    '" data-sym="' + esc(b.symbol) + '">' +
+    '<button class="buyrow" aria-expanded="' + state.open.has(b.symbol) +
+    '" aria-label="Ver detalle de ' + esc(b.symbol) + '">' +
+    '<span class="buy-top"><strong>' + esc(b.symbol) + '</strong>' +
     '<span class="mut">' + esc(String(b.shares)) + ' acc @ ' + money(b.price) +
-    (b.date ? ' · ' + esc(b.date) : '') + '</span></div>' +
-    '<div class="buy-bot"><span>Ahora: ' + money(cur) + '</span>' +
-    '<span class="' + cls(pl) + '">' + moneyS(pl) + ' (' + pct(plp) + ')</span></div>' +
+    (b.date ? ' · ' + esc(b.date) : '') + '</span></span>' +
+    '<span class="buy-bot"><span>Ahora: ' + money(cur) + '</span>' +
+    '<span class="' + cls(pl) + '">' + moneyS(pl) + ' (' + pct(plp) + ')</span></span>' +
+    '</button>' +
     (isValueTrap(st || {}) ? '<div class="buy-prob">⚠️ ' + TRAP_TIP + '</div>' : '') +
     probLine +
     '<div class="buy-actions"><button class="link" data-edit="' + i + '">Editar</button>' +
     '<button class="link danger" data-del="' + i + '">Borrar</button></div>' +
+    (st ? detailHTML(st) : '') +
     '</div>';
 }
 
@@ -409,7 +414,19 @@ function renderMine() {
 
   box.innerHTML = html;
   bindRows(box);
-  box.querySelectorAll('.stock.open').forEach(mountTVChart);
+  box.querySelectorAll('.buyrow').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const card = btn.closest('.buy');
+      const sym = card.dataset.sym;
+      if (state.open.has(sym)) {
+        state.open.delete(sym); card.classList.remove('open'); unmountTVChart(card);
+      } else {
+        state.open.add(sym); card.classList.add('open'); mountTVChart(card);
+      }
+      btn.setAttribute('aria-expanded', state.open.has(sym));
+    });
+  });
+  box.querySelectorAll('.stock.open, .buy.open').forEach(mountTVChart);
 
   const form = $('#buyForm');
   const showForm = (idx) => {
