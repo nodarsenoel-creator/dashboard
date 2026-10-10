@@ -134,6 +134,17 @@ footer details p{margin:6px 0 0; line-height:1.5;}
 .buy-prob{margin-top:6px; font-size:13px; color:var(--mut);}
 .buy-prob strong{font-variant-numeric:tabular-nums;}
 
+/* ---------- heat map gamma ---------- */
+.gxmap{margin:4px 0 2px;}
+.gxrow{display:flex; align-items:center; gap:8px; padding:2px 0; font-size:13px;}
+.gxrow.gxspot .gxk{color:#fff; font-weight:800;}
+.gxk{min-width:62px; text-align:right; font-variant-numeric:tabular-nums; color:var(--mut);}
+.gxk.gxflip{color:var(--warn); font-weight:800;}
+.gxtrack{flex:1; height:14px; background:var(--card2); border-radius:4px; overflow:hidden;}
+.gxpos{height:100%; background:#22c55e;}
+.gxneg{height:100%; background:#ef4444;}
+.gxv{min-width:56px; text-align:right; font-variant-numeric:tabular-nums; color:var(--mut); font-size:12px;}
+
 /* ---------- trampa de valor ---------- */
 .wtrap{font-size:14px; cursor:help;}
 .trap-banner{
