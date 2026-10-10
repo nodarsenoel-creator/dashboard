@@ -133,3 +133,10 @@ footer details p{margin:6px 0 0; line-height:1.5;}
 .pv{font-weight:800; font-size:16px;}
 .buy-prob{margin-top:6px; font-size:13px; color:var(--mut);}
 .buy-prob strong{font-variant-numeric:tabular-nums;}
+
+/* ---------- trampa de valor ---------- */
+.wtrap{font-size:14px; cursor:help;}
+.trap-banner{
+  background:rgba(248,113,113,.12); border:1px solid #f87171; color:#fca5a5;
+  border-radius:8px; padding:8px 10px; font-size:13px; margin-bottom:10px; line-height:1.4;
+}
