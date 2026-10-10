@@ -147,6 +147,8 @@ footer details p{margin:6px 0 0; line-height:1.5;}
 .gxpos{height:100%; background:#22c55e;}
 .gxneg{height:100%; background:#ef4444;}
 .gxv{min-width:56px; text-align:right; font-variant-numeric:tabular-nums; color:var(--mut); font-size:12px;}
+.target-line{font-size:14px; margin:8px 0 2px;}
+.target-line b{font-size:17px;}
 
 /* ---------- trampa de valor ---------- */
 .wtrap{font-size:14px; cursor:help;}
