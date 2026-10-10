@@ -172,6 +172,48 @@ function kvRow(k, v) {
   return '<div><dt>' + k + '</dt><dd>' + v + '</dd></div>';
 }
 
+/* ---------- probabilidades de alcanzar objetivos ---------- */
+const PROB_TARGETS = { max10d: 'Máx 10d', p5: '+5%', p10: '+10%' };
+function probPct(v) { return (v == null || !isFinite(v)) ? '—' : Math.round(v * 100) + '%'; }
+function probCls(p) {
+  return (p == null || !isFinite(p)) ? '' : (p >= 0.65 ? 'up' : (p >= 0.4 ? 'mid' : 'down'));
+}
+function probSectionHTML(s) {
+  const pr = s.prob;
+  if (!pr || !pr.max10d) return '<h4>Probabilidades</h4><p class="meta-line">Sin datos suficientes.</p>';
+  const t = pr.max10d;
+  const ivLine = (pr.iv != null)
+    ? ' · IV ' + num(pr.iv * 100, 1) + '%' + (pr.ivExp ? ' (' + esc(pr.ivExp) + ')' : '')
+    : '';
+  return '<h4>Probabilidades <span class="hsub">de tocar el objetivo en 30 días</span></h4>' +
+    '<div class="probs" data-sym="' + esc(s.symbol) + '">' +
+    '<div class="prob-targets">' +
+    '<button class="chip sm on" data-pt="max10d">Máx 10d</button>' +
+    '<button class="chip sm" data-pt="p5">+5%</button>' +
+    '<button class="chip sm" data-pt="p10">+10%</button>' +
+    '</div>' +
+    '<dl class="kv">' +
+    '<div><dt>Estadística (histórica)</dt><dd class="pv ' + probCls(t.p) + '" data-pv="p">' + probPct(t.p) + '</dd></div>' +
+    '<div><dt>Mercado (opciones)</dt><dd class="pv ' + probCls(t.pm) + '" data-pv="pm">' + probPct(t.pm) + '</dd></div>' +
+    '</dl>' +
+    '<p class="meta-line" data-pline>Objetivo: ' + money(t.level) + ivLine + '</p>' +
+    '</div>';
+}
+function refreshProbLine(wrap, s, key) {
+  const t = s.prob[key];
+  if (!t) return;
+  wrap.querySelectorAll('[data-pt]').forEach((b) => b.classList.toggle('on', b.dataset.pt === key));
+  [['p', t.p], ['pm', t.pm]].forEach(([name, v]) => {
+    const dd = wrap.querySelector('[data-pv="' + name + '"]');
+    dd.textContent = probPct(v);
+    dd.className = 'pv ' + probCls(v);
+  });
+  const ivLine = (s.prob.iv != null)
+    ? ' · IV ' + num(s.prob.iv * 100, 1) + '%' + (s.prob.ivExp ? ' (' + esc(s.prob.ivExp) + ')' : '')
+    : '';
+  wrap.querySelector('[data-pline]').textContent = 'Objetivo: ' + money(t.level) + ivLine;
+}
+
 function detailHTML(s) {
   const distEma = (s.price != null && s.ema200 != null && s.ema200 !== 0)
     ? ((s.price - s.ema200) / s.ema200) * 100 : null;
@@ -199,6 +241,7 @@ function detailHTML(s) {
     kvRow('6 meses', '<span class="' + cls(s.perf6m) + '">' + pct(s.perf6m) + '</span>') +
     kvRow('1 año', '<span class="' + cls(s.perfYear) + '">' + pct(s.perfYear) + '</span>') +
     '</dl>' +
+    probSectionHTML(s) +
     '<h4>Gráfico</h4><div class="tv-chart" role="img" aria-label="Gráfico de ' + esc(s.symbol) + '"></div>' +
     '<p class="meta-line">' + esc(s.company) + ' · ' + esc(s.sector) + ' · ' + esc(s.exchange) +
     ' · cobertura: ' + num(s[TABS[state.tab].cov], 0) + '%</p>' +
@@ -263,12 +306,20 @@ function buyRowHTML(b, i) {
   const cur = st ? st.price : null;
   const pl = (cur != null && isFinite(cur)) ? (cur - b.price) * b.shares : null;
   const plp = (pl != null && b.price) ? ((cur - b.price) / b.price) * 100 : null;
+  const pr = st && st.prob && st.prob.max10d;
+  const probLine = pr
+    ? '<div class="buy-prob">P(tocar máx 10d ' + money(pr.level) + ' en 30d): ' +
+      '<strong class="' + probCls(pr.p) + '">' + probPct(pr.p) + '</strong>' +
+      (pr.pm != null ? ' · mercado <strong class="' + probCls(pr.pm) + '">' + probPct(pr.pm) + '</strong>' : '') +
+      '</div>'
+    : '';
   return '<div class="buy">' +
     '<div class="buy-top"><strong>' + esc(b.symbol) + '</strong>' +
     '<span class="mut">' + esc(String(b.shares)) + ' acc @ ' + money(b.price) +
     (b.date ? ' · ' + esc(b.date) : '') + '</span></div>' +
     '<div class="buy-bot"><span>Ahora: ' + money(cur) + '</span>' +
     '<span class="' + cls(pl) + '">' + moneyS(pl) + ' (' + pct(plp) + ')</span></div>' +
+    probLine +
     '<div class="buy-actions"><button class="link" data-edit="' + i + '">Editar</button>' +
     '<button class="link danger" data-del="' + i + '">Borrar</button></div>' +
     '</div>';
@@ -425,6 +476,15 @@ function init(data) {
 
   $('#search').addEventListener('input', (e) => { state.query = e.target.value; render(); });
   sel.addEventListener('change', (e) => { state.sector = e.target.value; render(); });
+
+  // selector de objetivo en la sección de probabilidades (delegado, una sola vez)
+  $('#list').addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-pt]');
+    if (!btn) return;
+    const wrap = btn.closest('.probs');
+    const s = stockBySym(wrap.dataset.sym);
+    if (s && s.prob && s.prob[btn.dataset.pt]) refreshProbLine(wrap, s, btn.dataset.pt);
+  });
 
   bindFilters();
   readFilters();
