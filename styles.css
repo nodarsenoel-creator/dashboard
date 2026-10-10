@@ -60,6 +60,12 @@ body{
 .kv dt{color:var(--mut);} .kv dd{margin:0; font-variant-numeric:tabular-nums; text-align:right;}
 .meta-line{font-size:12px; color:var(--mut); margin-top:10px;}
 
+.tv-chart{
+  height:420px; width:100%; margin-top:6px;
+  background:var(--bg); border:1px solid var(--line); border-radius:8px; overflow:hidden;
+}
+.tv-chart .tradingview-widget-container iframe{border:0;}
+
 .empty{background:var(--card); border:1px dashed var(--warn); border-radius:12px; padding:20px; text-align:center;}
 .empty strong{display:block; margin-bottom:8px; font-size:16px;}
 .empty p{color:var(--mut); font-size:14px; margin:0;}
