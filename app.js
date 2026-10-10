@@ -8,18 +8,58 @@ const TABS = {
   short:  { label: 'Corto', score: 'shortScore',  cov: 'shortCoverage' },
   medium: { label: 'Medio', score: 'mediumScore', cov: 'mediumCoverage' },
   long:   { label: 'Largo', score: 'longScore',   cov: 'longCoverage' },
+  mine:   { label: 'Mías', score: 'longScore',   cov: 'longCoverage' },
 };
 
 const state = {
   tab: 'long',
   query: '',
   sector: 'all',
+  top10: false,
   open: new Set(),
   f: { maxPE: 30, maxFwdPE: 25, maxPS: 7, maxPEG: 2, minROE: 15, minMargin: 10, divOnly: false },
 };
 
 let STOCKS = [];
 let META = {};
+let FAVS = [];
+let BUYS = [];
+let editingIdx = -1;
+let SYMLIST_HTML = '';
+
+/* ---------- persistencia local (favoritas y compras) ---------- */
+const LS_FAVS = 'dash_favs';
+const LS_BUYS = 'dash_buys';
+function loadStore() {
+  try { FAVS = JSON.parse(localStorage.getItem(LS_FAVS) || '[]'); } catch (e) { FAVS = []; }
+  if (!Array.isArray(FAVS)) FAVS = [];
+  let raw = null;
+  try { raw = localStorage.getItem(LS_BUYS); } catch (e) { raw = null; }
+  if (raw == null) {
+    // primera visita: pre-carga las compras confirmadas (editables y borrables)
+    BUYS = [
+      { symbol: 'VZ', shares: 2, price: 46.35, date: '2026-10-08' },
+      { symbol: 'T', shares: 1, price: 24.87, date: '2026-10-08' },
+    ];
+    saveBuys();
+  } else {
+    try { BUYS = JSON.parse(raw); } catch (e) { BUYS = []; }
+    if (!Array.isArray(BUYS)) BUYS = [];
+  }
+}
+function saveFavs() { try { localStorage.setItem(LS_FAVS, JSON.stringify(FAVS)); } catch (e) {} }
+function saveBuys() { try { localStorage.setItem(LS_BUYS, JSON.stringify(BUYS)); } catch (e) {} }
+function toggleFav(sym, btn) {
+  const i = FAVS.indexOf(sym);
+  if (i >= 0) FAVS.splice(i, 1); else FAVS.push(sym);
+  saveFavs();
+  if (state.tab === 'mine') { render(); return; }
+  const on = FAVS.indexOf(sym) >= 0;
+  btn.classList.toggle('on', on);
+  btn.textContent = on ? '★' : '☆';
+  btn.setAttribute('aria-pressed', String(on));
+}
+function stockBySym(sym) { return STOCKS.find((s) => s.symbol === sym); }
 
 /* ---------- formato ---------- */
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
@@ -28,6 +68,8 @@ const num = (v, d = 2) => (v == null || !isFinite(v)) ? '—' : Number(v).toFixe
 const pct = (v, d = 1) => (v == null || !isFinite(v)) ? '—' : (v > 0 ? '+' : '') + Number(v).toFixed(d) + '%';
 const money = (v) => (v == null || !isFinite(v)) ? '—'
   : '$' + Number(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const moneyS = (v) => (v == null || !isFinite(v)) ? '—'
+  : (v < 0 ? '-' : (v > 0 ? '+' : '')) + '$' + Math.abs(v).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 const bigCap = (v) => {
   if (v == null || !isFinite(v)) return '—';
   if (v >= 1e12) return '$' + (v / 1e12).toFixed(2) + 'T';
@@ -104,12 +146,14 @@ function passesLong(s) {
 
 function visibleStocks() {
   const q = state.query.trim().toLowerCase();
-  return STOCKS.filter((s) => {
+  const arr = STOCKS.filter((s) => {
     if (state.tab === 'long' && !passesLong(s)) return false;
     if (state.sector !== 'all' && s.sector !== state.sector) return false;
     if (q && !(String(s.symbol).toLowerCase().includes(q) || String(s.company).toLowerCase().includes(q))) return false;
     return true;
   }).sort((a, b) => (b[TABS[state.tab].score] ?? -1) - (a[TABS[state.tab].score] ?? -1));
+  if (state.tab === 'long' && state.top10) return arr.slice(0, 10);
+  return arr;
 }
 
 function passCount() {
@@ -119,8 +163,9 @@ function passCount() {
 /* ---------- render ---------- */
 function renderCount() {
   const el = $('#passCount');
-  if (state.tab === 'long') el.textContent = passCount() + ' de ' + STOCKS.length + ' pasan';
-  else el.textContent = '';
+  if (state.tab === 'long') {
+    el.textContent = state.top10 ? 'Top 10 por score' : passCount() + ' de ' + STOCKS.length + ' pasan';
+  } else el.textContent = '';
 }
 
 function kvRow(k, v) {
@@ -160,9 +205,158 @@ function detailHTML(s) {
     '</div>';
 }
 
+/* ---------- filas de acciones (con estrella de favorita) ---------- */
+function stockArticle(s, sk) {
+  const sc = s[sk];
+  const open = state.open.has(s.symbol) ? ' open' : '';
+  const fav = FAVS.indexOf(s.symbol) >= 0;
+  return '<article class="stock' + open + '" data-sym="' + esc(s.symbol) + '">' +
+    '<div class="rowwrap">' +
+    '<button class="row" aria-expanded="' + state.open.has(s.symbol) + '">' +
+    '<span class="sym">' + esc(s.symbol) + '</span>' +
+    '<span class="nm">' + esc(s.company) + '</span>' +
+    '<span class="px">' + money(s.price) +
+    '<small class="' + cls(s.changePct) + '">' + pct(s.changePct) + '</small></span>' +
+    '<span class="badge ' + badgeCls(sc) + '">' + (sc == null ? '—' : sc) + '</span>' +
+    '</button>' +
+    '<button class="fav' + (fav ? ' on' : '') + '" data-fav="' + esc(s.symbol) + '" aria-pressed="' + fav +
+    '" aria-label="Marcar ' + esc(s.symbol) + ' como favorita">' + (fav ? '★' : '☆') + '</button>' +
+    '</div>' + detailHTML(s) + '</article>';
+}
+
+function bindRows(box) {
+  box.querySelectorAll('.row').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const art = btn.closest('.stock');
+      const sym = art.dataset.sym;
+      if (state.open.has(sym)) {
+        state.open.delete(sym); art.classList.remove('open'); unmountTVChart(art);
+      } else {
+        state.open.add(sym); art.classList.add('open'); mountTVChart(art);
+      }
+      btn.setAttribute('aria-expanded', state.open.has(sym));
+    });
+  });
+  box.querySelectorAll('.fav').forEach((btn) => {
+    btn.addEventListener('click', () => toggleFav(btn.dataset.fav, btn));
+  });
+}
+
+/* ---------- pestaña Mías: favoritas + compras ---------- */
+function portfolioHTML() {
+  let val = 0, cost = 0;
+  BUYS.forEach((b) => {
+    const st = stockBySym(b.symbol);
+    if (st && st.price != null && isFinite(st.price)) val += b.shares * st.price;
+    cost += b.shares * b.price;
+  });
+  const pl = val - cost;
+  const plp = cost > 0 ? (pl / cost) * 100 : null;
+  return '<div class="pfcard">' +
+    '<div><span>Valor total</span><strong>' + money(val) + '</strong></div>' +
+    '<div><span>Ganancia / pérdida</span><strong class="' + cls(pl) + '">' +
+    moneyS(pl) + ' (' + pct(plp) + ')</strong></div></div>';
+}
+
+function buyRowHTML(b, i) {
+  const st = stockBySym(b.symbol);
+  const cur = st ? st.price : null;
+  const pl = (cur != null && isFinite(cur)) ? (cur - b.price) * b.shares : null;
+  const plp = (pl != null && b.price) ? ((cur - b.price) / b.price) * 100 : null;
+  return '<div class="buy">' +
+    '<div class="buy-top"><strong>' + esc(b.symbol) + '</strong>' +
+    '<span class="mut">' + esc(String(b.shares)) + ' acc @ ' + money(b.price) +
+    (b.date ? ' · ' + esc(b.date) : '') + '</span></div>' +
+    '<div class="buy-bot"><span>Ahora: ' + money(cur) + '</span>' +
+    '<span class="' + cls(pl) + '">' + moneyS(pl) + ' (' + pct(plp) + ')</span></div>' +
+    '<div class="buy-actions"><button class="link" data-edit="' + i + '">Editar</button>' +
+    '<button class="link danger" data-del="' + i + '">Borrar</button></div>' +
+    '</div>';
+}
+
+function renderMine() {
+  renderCount();
+  const box = $('#list');
+  const favStocks = FAVS.map(stockBySym).filter(Boolean)
+    .sort((a, b) => (b.longScore ?? -1) - (a.longScore ?? -1));
+
+  let html = '<h3 class="sec-title">⭐ Favoritas</h3>';
+  html += favStocks.length
+    ? favStocks.map((s) => stockArticle(s, 'longScore')).join('')
+    : '<div class="empty"><strong>Sin favoritas</strong>' +
+      '<p>Toca la ⭐ en cualquier acción para seguirla aquí.</p></div>';
+
+  html += '<h3 class="sec-title">💼 Mis compras</h3>';
+  html += portfolioHTML();
+  html += '<button id="addBuy" class="btn">+ Agregar compra</button>';
+  html += '<form id="buyForm" class="buy-form" hidden>' +
+    '<label>Símbolo<input id="b_sym" list="symlist" autocomplete="off" placeholder="Ej: KO"></label>' +
+    '<datalist id="symlist">' + SYMLIST_HTML + '</datalist>' +
+    '<label>Cantidad<input id="b_shares" type="number" min="0" step="any" inputmode="decimal"></label>' +
+    '<label>Precio de compra<input id="b_price" type="number" min="0" step="0.01" inputmode="decimal"></label>' +
+    '<label>Fecha<input id="b_date" type="date"></label>' +
+    '<p class="form-err" id="b_err" hidden></p>' +
+    '<div class="form-actions"><button type="submit" class="btn sm" id="b_save">Guardar</button>' +
+    '<button type="button" class="btn sm ghost" id="b_cancel">Cancelar</button></div>' +
+    '</form>';
+  html += '<div id="buyList">' + BUYS.map(buyRowHTML).join('') + '</div>';
+
+  box.innerHTML = html;
+  bindRows(box);
+  box.querySelectorAll('.stock.open').forEach(mountTVChart);
+
+  const form = $('#buyForm');
+  const showForm = (idx) => {
+    editingIdx = idx;
+    $('#b_err').hidden = true;
+    if (idx >= 0) {
+      const b = BUYS[idx];
+      $('#b_sym').value = b.symbol; $('#b_shares').value = b.shares;
+      $('#b_price').value = b.price; $('#b_date').value = b.date || '';
+      $('#b_save').textContent = 'Guardar cambios';
+    } else {
+      $('#b_sym').value = ''; $('#b_shares').value = '';
+      $('#b_price').value = ''; $('#b_date').value = new Date().toISOString().slice(0, 10);
+      $('#b_save').textContent = 'Guardar';
+    }
+    form.hidden = false;
+    form.scrollIntoView({ block: 'nearest' });
+  };
+  const hideForm = () => { form.hidden = true; editingIdx = -1; };
+
+  $('#addBuy').addEventListener('click', () => showForm(-1));
+  $('#b_cancel').addEventListener('click', hideForm);
+  box.querySelectorAll('[data-edit]').forEach((b) =>
+    b.addEventListener('click', () => showForm(parseInt(b.dataset.edit, 10))));
+  box.querySelectorAll('[data-del]').forEach((b) =>
+    b.addEventListener('click', () => {
+      const i = parseInt(b.dataset.del, 10);
+      if (confirm('¿Borrar la compra de ' + BUYS[i].symbol + '?')) {
+        BUYS.splice(i, 1); saveBuys(); render();
+      }
+    }));
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const err = $('#b_err');
+    const sym = $('#b_sym').value.trim().toUpperCase();
+    const shares = parseFloat($('#b_shares').value);
+    const price = parseFloat($('#b_price').value);
+    const date = $('#b_date').value;
+    const fail = (m) => { err.textContent = m; err.hidden = false; };
+    if (!stockBySym(sym)) return fail('Símbolo no encontrado en la lista.');
+    if (!(shares > 0)) return fail('La cantidad debe ser mayor que 0.');
+    if (!(price >= 0)) return fail('El precio no puede ser negativo.');
+    const rec = { symbol: sym, shares: shares, price: price, date: date };
+    if (editingIdx >= 0) BUYS[editingIdx] = rec; else BUYS.push(rec);
+    saveBuys(); render();
+  });
+}
+
 function render() {
-  // panel de filtros solo en Largo
+  // panel de filtros solo en Largo; toolbar oculta en Mías
   $('#filterPanel').style.display = state.tab === 'long' ? '' : 'none';
+  document.querySelector('.toolbar').style.display = state.tab === 'mine' ? 'none' : '';
+  if (state.tab === 'mine') { renderMine(); return; }
   renderCount();
 
   const list = visibleStocks();
@@ -176,31 +370,8 @@ function render() {
     return;
   }
   const sk = TABS[state.tab].score;
-  box.innerHTML = list.map((s) => {
-    const sc = s[sk];
-    const open = state.open.has(s.symbol) ? ' open' : '';
-    return '<article class="stock' + open + '" data-sym="' + esc(s.symbol) + '">' +
-      '<button class="row" aria-expanded="' + state.open.has(s.symbol) + '">' +
-      '<span class="sym">' + esc(s.symbol) + '</span>' +
-      '<span class="nm">' + esc(s.company) + '</span>' +
-      '<span class="px">' + money(s.price) +
-      '<small class="' + cls(s.changePct) + '">' + pct(s.changePct) + '</small></span>' +
-      '<span class="badge ' + badgeCls(sc) + '">' + (sc == null ? '—' : sc) + '</span>' +
-      '</button>' + detailHTML(s) + '</article>';
-  }).join('');
-
-  box.querySelectorAll('.row').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const art = btn.closest('.stock');
-      const sym = art.dataset.sym;
-      if (state.open.has(sym)) {
-        state.open.delete(sym); art.classList.remove('open'); unmountTVChart(art);
-      } else {
-        state.open.add(sym); art.classList.add('open'); mountTVChart(art);
-      }
-      btn.setAttribute('aria-expanded', state.open.has(sym));
-    });
-  });
+  box.innerHTML = list.map((s) => stockArticle(s, sk)).join('');
+  bindRows(box);
   box.querySelectorAll('.stock.open').forEach(mountTVChart);
 }
 
@@ -231,6 +402,9 @@ function bindFilters() {
 function init(data) {
   STOCKS = data.stocks || [];
   META = data.meta || {};
+  loadStore();
+  SYMLIST_HTML = STOCKS.map((s) =>
+    '<option value="' + esc(s.symbol) + '">' + esc(s.company) + '</option>').join('');
   $('#refreshed').textContent = 'Datos al: ' + fmtDate(META.refreshedAt);
 
   const sectors = [...new Set(STOCKS.map((s) => s.sector).filter(Boolean))].sort();
@@ -254,6 +428,13 @@ function init(data) {
 
   bindFilters();
   readFilters();
+  $('#top10Chip').addEventListener('click', () => {
+    state.top10 = !state.top10;
+    const c = $('#top10Chip');
+    c.classList.toggle('on', state.top10);
+    c.setAttribute('aria-pressed', String(state.top10));
+    render();
+  });
   render();
 }
 
