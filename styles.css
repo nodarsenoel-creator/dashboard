@@ -104,6 +104,9 @@ footer details p{margin:6px 0 0; line-height:1.5;}
 .pfcard span{display:block; font-size:12px; color:var(--mut); margin-bottom:4px;}
 .pfcard strong{font-size:18px; font-variant-numeric:tabular-nums;}
 .buy{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px; margin-bottom:8px;}
+.buy.open .detail{display:block;}
+.buyrow{display:block; width:100%; background:none; border:none; padding:0; margin:0;
+  color:inherit; font:inherit; text-align:left; cursor:pointer;}
 .buy-top{display:flex; justify-content:space-between; align-items:baseline; gap:8px;}
 .buy-top strong{font-size:16px;}
 .buy .mut{font-size:12px; color:var(--mut); text-align:right;}
