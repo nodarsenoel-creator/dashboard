@@ -223,6 +223,24 @@ function trapBannerHTML(s) {
     : '';
 }
 
+/* ---------- cinta de mercado ---------- */
+function renderTape(tape) {
+  const track = document.getElementById('tapeTrack');
+  if (!track) return;
+  if (!tape.length) { track.innerHTML = ''; return; }
+  const item = (t) => {
+    const up = t.chgPct >= 0;
+    return '<span class="titem"><b>' + esc(t.label) + '</b> ' + fmtNum(t.price) +
+      ' <span class="' + (up ? 'up' : 'down') + '">' + (up ? '▲' : '▼') +
+      Math.abs(t.chgPct).toFixed(2) + '%</span></span>';
+  };
+  const half = tape.map(item).join('<span class="tsep">•</span>');
+  track.innerHTML = half + '<span class="tsep">•</span>' + half + '<span class="tsep">•</span>';
+}
+function fmtNum(v) {
+  return v >= 1000 ? Math.round(v).toLocaleString('en-US') : (Math.round(v * 100) / 100).toString();
+}
+
 /* ---------- probabilidades de alcanzar objetivos ---------- */
 const PROB_TARGETS = { max10d: 'Máx 10d', p5: '+5%', p10: '+10%' };
 const PROB_DESCR = { max10d: 'máximo de los últimos 10 días', p5: '5% sobre el precio actual', p10: '10% sobre el precio actual' };
@@ -540,6 +558,7 @@ function init(data) {
   STOCKS = data.stocks || [];
   META = data.meta || {};
   loadStore();
+  renderTape(data.tape || []);
   SYMLIST_HTML = STOCKS.map((s) =>
     '<option value="' + esc(s.symbol) + '">' + esc(s.company) + '</option>').join('');
   $('#refreshed').textContent = 'Datos al: ' + fmtDate(META.refreshedAt);
