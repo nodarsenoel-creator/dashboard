@@ -228,11 +228,15 @@ const PROB_TARGETS = { max10d: 'Máx 10d', p5: '+5%', p10: '+10%' };
 const PROB_DESCR = { max10d: 'máximo de los últimos 10 días', p5: '5% sobre el precio actual', p10: '10% sobre el precio actual' };
 function probTargetLine(s, key) {
   const t = s.prob[key];
+  const done = t.level <= s.price;
   const ivLine = (s.prob.iv != null)
     ? ' · IV ' + num(s.prob.iv * 100, 1) + '%' + (s.prob.ivExp ? ' (' + esc(s.prob.ivExp) + ')' : '')
     : '';
   return '🎯 Objetivo: <b>' + money(t.level) + '</b> <span class="mut">(' +
-    PROB_DESCR[key] + ')' + ivLine + '</span>';
+    PROB_DESCR[key] + (done ? ' — ya está en ese precio' : '') + ')' + ivLine + '</span>';
+}
+function probCell(v, done) {
+  return done ? 'ya está ahí' : probPct(v);
 }
 function probPct(v) { return (v == null || !isFinite(v)) ? '—' : Math.round(v * 100) + '%'; }
 function probCls(p) {
@@ -242,6 +246,7 @@ function probSectionHTML(s) {
   const pr = s.prob;
   if (!pr || !pr.max10d) return '<h4>Probabilidades</h4><p class="meta-line">Sin datos suficientes.</p>';
   const t = pr.max10d;
+  const done = t.level <= s.price;
   return '<h4>Probabilidades <span class="hsub">de tocar el objetivo en 30 días</span></h4>' +
     '<div class="probs" data-sym="' + esc(s.symbol) + '">' +
     '<div class="prob-targets">' +
@@ -250,8 +255,8 @@ function probSectionHTML(s) {
     '<button class="chip sm" data-pt="p10">+10%</button>' +
     '</div>' +
     '<dl class="kv">' +
-    '<div><dt>Estadística (histórica)</dt><dd class="pv ' + probCls(t.p) + '" data-pv="p">' + probPct(t.p) + '</dd></div>' +
-    '<div><dt>Mercado (opciones)</dt><dd class="pv ' + probCls(t.pm) + '" data-pv="pm">' + probPct(t.pm) + '</dd></div>' +
+    '<div><dt>Estadística (histórica)</dt><dd class="pv ' + (done ? 'up' : probCls(t.p)) + '" data-pv="p">' + probCell(t.p, done) + '</dd></div>' +
+    '<div><dt>Mercado (opciones)</dt><dd class="pv ' + (done ? 'up' : probCls(t.pm)) + '" data-pv="pm">' + probCell(t.pm, done) + '</dd></div>' +
     '</dl>' +
     '<p class="target-line" data-pline>' + probTargetLine(s, 'max10d') + '</p>' +
     '</div>';
@@ -259,11 +264,12 @@ function probSectionHTML(s) {
 function refreshProbLine(wrap, s, key) {
   const t = s.prob[key];
   if (!t) return;
+  const done = t.level <= s.price;
   wrap.querySelectorAll('[data-pt]').forEach((b) => b.classList.toggle('on', b.dataset.pt === key));
   [['p', t.p], ['pm', t.pm]].forEach(([name, v]) => {
     const dd = wrap.querySelector('[data-pv="' + name + '"]');
-    dd.textContent = probPct(v);
-    dd.className = 'pv ' + probCls(v);
+    dd.textContent = probCell(v, done);
+    dd.className = 'pv ' + (done ? 'up' : probCls(v));
   });
   wrap.querySelector('[data-pline]').innerHTML = probTargetLine(s, key);
 }
@@ -364,11 +370,14 @@ function buyRowHTML(b, i) {
   const pl = (cur != null && isFinite(cur)) ? (cur - b.price) * b.shares : null;
   const plp = (pl != null && b.price) ? ((cur - b.price) / b.price) * 100 : null;
   const pr = st && st.prob && st.prob.max10d;
+  const prDone = pr && cur != null && pr.level <= cur;
   const probLine = pr
-    ? '<div class="buy-prob">P(tocar máx 10d ' + money(pr.level) + ' en 30d): ' +
-      '<strong class="' + probCls(pr.p) + '">' + probPct(pr.p) + '</strong>' +
-      (pr.pm != null ? ' · mercado <strong class="' + probCls(pr.pm) + '">' + probPct(pr.pm) + '</strong>' : '') +
-      '</div>'
+    ? (prDone
+      ? '<div class="buy-prob">Máx 10d ' + money(pr.level) + ': <strong class="up">ya recuperado ✓</strong></div>'
+      : '<div class="buy-prob">P(tocar máx 10d ' + money(pr.level) + ' en 30d): ' +
+        '<strong class="' + probCls(pr.p) + '">' + probPct(pr.p) + '</strong>' +
+        (pr.pm != null ? ' · mercado <strong class="' + probCls(pr.pm) + '">' + probPct(pr.pm) + '</strong>' : '') +
+        '</div>')
     : '';
   return '<div class="buy' + (state.open.has(b.symbol) ? ' open' : '') +
     '" data-sym="' + esc(b.symbol) + '">' +
