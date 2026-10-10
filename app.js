@@ -172,6 +172,41 @@ function kvRow(k, v) {
   return '<div><dt>' + k + '</dt><dd>' + v + '</dd></div>';
 }
 
+/* ---------- heat map gamma (precalculado en el cron) ---------- */
+function fmtGex(v) {
+  const a = Math.abs(v);
+  if (a >= 1e9) return (v / 1e9).toFixed(2) + 'B';
+  if (a >= 1e6) return (v / 1e6).toFixed(1) + 'M';
+  return Math.round(v / 1e3) + 'K';
+}
+function gexHTML(s) {
+  const g = s.gexmap;
+  if (!g || !g.strikes || g.strikes.length < 3) {
+    return '<h4>Heat Map Gamma</h4>' +
+      '<p class="meta-line">Precalculado solo para el watchlist (top 40 + tus tickers).</p>';
+  }
+  const mx = Math.max.apply(null, g.gex.map((v) => Math.abs(v)).concat([1]));
+  const order = g.strikes.map((_, i) => i).sort((a, b) => g.strikes[b] - g.strikes[a]);
+  let rows = '';
+  order.forEach((i) => {
+    const st = g.strikes[i], v = g.gex[i];
+    const w = (Math.abs(v) / mx * 100).toFixed(1);
+    const isSpot = Math.abs(st - g.spot) < g.spot * 0.003;
+    const isFlip = g.flip != null && st === g.flip;
+    rows += '<div class="gxrow' + (isSpot ? ' gxspot' : '') + '">' +
+      '<span class="gxk' + (isFlip ? ' gxflip' : '') + '">' + st + '</span>' +
+      '<div class="gxtrack"><div class="' + (v >= 0 ? 'gxpos' : 'gxneg') +
+      '" style="width:' + w + '%"></div></div>' +
+      '<span class="gxv">' + fmtGex(v) + '</span></div>';
+  });
+  const lvl = (lbl, v) => '<span>' + lbl + ': <b>' + (v == null ? '—' : v) + '</b></span>';
+  return '<h4>Heat Map Gamma <span class="hsub">retraso ~15 min</span></h4>' +
+    '<div class="gxmap">' + rows + '</div>' +
+    '<p class="meta-line">' + lvl('Flip', g.flip) + ' · ' + lvl('Muro call', g.cw) +
+    ' · ' + lvl('Muro put', g.pw) +
+    ' · <span class="up">■</span> positiva <span class="down">■</span> negativa</p>';
+}
+
 /* ---------- trampa de valor: parece barata pero los beneficios caen ----------
    Regla: PER futuro > PER actual (el consenso espera menos beneficios),
    o PEG negativo (crecimiento esperado negativo). */
@@ -234,6 +269,7 @@ function detailHTML(s) {
   const distEma = (s.price != null && s.ema200 != null && s.ema200 !== 0)
     ? ((s.price - s.ema200) / s.ema200) * 100 : null;
   return '<div class="detail">' +
+    gexHTML(s) +
     trapBannerHTML(s) +
     '<h4>Fundamental</h4><dl class="kv">' +
     kvRow('PER', num(s.pe)) +
