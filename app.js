@@ -547,7 +547,7 @@ function renderMine() {
 function render() {
   // panel de filtros solo en Largo; toolbar oculta en Mías
   $('#filterPanel').style.display = state.tab === 'long' ? '' : 'none';
-  document.querySelector('.toolbar').style.display = state.tab === 'mine' ? 'none' : '';
+  document.querySelector('.toolbarwrap').style.display = state.tab === 'mine' ? 'none' : '';
   if (state.tab === 'mine') { renderMine(); return; }
   renderCount();
 
@@ -619,6 +619,11 @@ function init(data) {
   $('#search').addEventListener('input', (e) => { state.query = e.target.value; render(); });
   sel.addEventListener('change', (e) => { state.sector = e.target.value; render(); });
   $('#sigfilter').addEventListener('change', (e) => { state.sigfilter = e.target.value; render(); });
+  $('#menuBtn').addEventListener('click', () => {
+    const d = $('#menuDrop'), open = d.hidden;
+    d.hidden = !open;
+    $('#menuBtn').setAttribute('aria-expanded', String(open));
+  });
 
   // selector de objetivo en la sección de probabilidades (delegado, una sola vez)
   $('#list').addEventListener('click', (e) => {
