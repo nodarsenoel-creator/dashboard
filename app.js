@@ -100,10 +100,11 @@ function tvConfig(symbol) {
     enable_publishing: false,
     allow_symbol_change: false,
     hide_side_toolbar: true,
-    // NOTA: el widget no acepta parámetros de estudios por config;
-    // RSI y EMA se cargan con sus valores por defecto (EMA largo 9).
+    backgroundColor: 'rgba(6, 10, 22, 1)',
+    gridColor: 'rgba(56, 189, 248, 0.07)',
+    // Estudios con valores por defecto: RSI(14), EMA(9) y Bollinger(20,2).
     // El usuario puede cambiar el largo del EMA a 200 en el propio gráfico.
-    studies: ['STD;RSI', 'STD;EMA'],
+    studies: ['STD;RSI', 'STD;EMA', 'STD;Bollinger_Bands'],
     support_host: 'https://www.tradingview.com',
   };
 }
