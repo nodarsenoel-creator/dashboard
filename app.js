@@ -161,6 +161,19 @@ function checkCriteria(s) {
   return { bad, nodata };
 }
 function failReasons(s) { return checkCriteria(s).bad; }
+/* ---------- regla mediano plazo: meta +50% / stop −20% ---------- */
+function tpSlHTML(b, cur) {
+  if (b.horizon !== 'mediano' || !(b.price > 0)) return '';
+  const tp = b.price * 1.5, sl = b.price * 0.8;
+  let st = '';
+  if (cur != null && isFinite(cur)) {
+    if (cur >= tp) st = ' · <strong class="up">¡meta alcanzada! 🎉</strong>';
+    else if (cur <= sl) st = ' · <strong class="down">stop tocado 🛑</strong>';
+    else st = ' · <span class="mut">va ' + pct((cur - b.price) / b.price * 100) + '</span>';
+  }
+  return '<div class="buy-prob">🎯 Meta +50%: <strong>' + money(tp) + '</strong>' +
+    ' · Stop −20%: <strong>' + money(sl) + '</strong>' + st + '</div>';
+}
 function etfBadgeHTML(s) {
   if (!s || s.price == null) return '';
   const c = checkCriteria(s);
@@ -518,12 +531,14 @@ function buyRowHTML(b, i) {
     '" aria-label="Ver detalle de ' + esc(b.symbol) + '">' +
     '<span class="buy-top"><strong>' + esc(b.symbol) + '</strong>' +
     '<span class="mut">' + esc(String(b.shares)) + ' acc @ ' + money(b.price) +
-    (b.date ? ' · ' + esc(b.date) : '') + '</span></span>' +
+    (b.date ? ' · ' + esc(b.date) : '') +
+    (b.horizon === 'mediano' ? ' · mediano plazo' : '') + '</span></span>' +
     '<span class="buy-bot"><span>Ahora: ' + money(cur) + '</span>' +
     '<span class="' + cls(pl) + '">' + moneyS(pl) + ' (' + pct(plp) + ')</span></span>' +
     '</button>' +
     (isValueTrap(st || {}) ? '<div class="buy-prob">⚠️ ' + TRAP_TIP + '</div>' : '') +
     etfBadgeHTML(st) +
+    tpSlHTML(b, cur) +
     probLine +
     '<div class="buy-actions"><button class="link" data-edit="' + i + '">Editar</button>' +
     '<button class="link danger" data-del="' + i + '">Borrar</button></div>' +
@@ -552,6 +567,7 @@ function renderMine() {
     '<label>Cantidad<input id="b_shares" type="number" min="0" step="any" inputmode="decimal"></label>' +
     '<label>Precio de compra<input id="b_price" type="number" min="0" step="0.01" inputmode="decimal"></label>' +
     '<label>Fecha<input id="b_date" type="date"></label>' +
+    '<label>Horizonte<select id="b_horizon"><option value="largo">Largo plazo (sin mirar)</option><option value="mediano">Mediano plazo (meta +50% / stop −20%)</option></select></label>' +
     '<p class="form-err" id="b_err" hidden></p>' +
     '<div class="form-actions"><button type="submit" class="btn sm" id="b_save">Guardar</button>' +
     '<button type="button" class="btn sm ghost" id="b_cancel">Cancelar</button></div>' +
@@ -595,10 +611,12 @@ function renderMine() {
       const b = BUYS[idx];
       $('#b_sym').value = b.symbol; $('#b_shares').value = b.shares;
       $('#b_price').value = b.price; $('#b_date').value = b.date || '';
+      $('#b_horizon').value = b.horizon || 'largo';
       $('#b_save').textContent = 'Guardar cambios';
     } else {
       $('#b_sym').value = ''; $('#b_shares').value = '';
       $('#b_price').value = ''; $('#b_date').value = new Date().toISOString().slice(0, 10);
+      $('#b_horizon').value = 'largo';
       $('#b_save').textContent = 'Guardar';
     }
     form.hidden = false;
@@ -624,11 +642,12 @@ function renderMine() {
     const shares = parseFloat($('#b_shares').value);
     const price = parseFloat($('#b_price').value);
     const date = $('#b_date').value;
+    const horizon = $('#b_horizon').value === 'mediano' ? 'mediano' : 'largo';
     const fail = (m) => { err.textContent = m; err.hidden = false; };
     if (!stockBySym(sym)) return fail('Símbolo no encontrado en la lista.');
     if (!(shares > 0)) return fail('La cantidad debe ser mayor que 0.');
     if (!(price >= 0)) return fail('El precio no puede ser negativo.');
-    const rec = { symbol: sym, shares: shares, price: price, date: date };
+    const rec = { symbol: sym, shares: shares, price: price, date: date, horizon: horizon };
     if (editingIdx >= 0) BUYS[editingIdx] = rec; else BUYS.push(rec);
     saveBuys(); render();
   });
