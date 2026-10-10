@@ -172,6 +172,39 @@ function kvRow(k, v) {
   return '<div><dt>' + k + '</dt><dd>' + v + '</dd></div>';
 }
 
+/* ---------- señales del día (medallitas) ---------- */
+function sigBadges(s) {
+  const g = s.sig;
+  if (!g) return '';
+  let h = '';
+  if (g.boll) h += '<span class="sigb boll">🟢 Bollinger</span>';
+  if (g.rp) h += '<span class="sigb rpiso">🔵 REBOTE piso</span>';
+  if (g.rt) h += '<span class="sigb rtecho">🔴 REBOTE techo</span>';
+  return h ? '<div class="sigrow">' + h + '</div>' : '';
+}
+function sigDetailHTML(s) {
+  const g = s.sig;
+  if (!g || !(g.boll || g.rp || g.rt)) return '';
+  let h = '<h4>Señales de hoy</h4><div class="sigdetail">';
+  if (g.boll)
+    h += '<p>🟢 <b>Bollinger recuperando:</b> cerró bajo la banda inferior y volvió adentro — el gatillo del susto (filo fino en acciones, mejor en SPY).</p>';
+  if (g.rp) {
+    let flip = '';
+    if (s.gexmap && s.gexmap.flip != null)
+      flip = ' Flip en $' + s.gexmap.flip + ': ' +
+        (s.price < s.gexmap.flip ? 'bajo el flip ✓' : 'sobre el flip ⚠');
+    h += '<p>🔵 <b>REBOTE piso:</b> primer día con RSI&lt;30, cerca del mínimo de 10 días y sobre la EMA200.' + flip + '</p>';
+  }
+  if (g.rt) {
+    let flip = '';
+    if (s.gexmap && s.gexmap.flip != null)
+      flip = ' Flip en $' + s.gexmap.flip + ': ' +
+        (s.price < s.gexmap.flip ? 'bajo el flip ✓' : 'sobre el flip ⚠');
+    h += '<p>🔴 <b>REBOTE techo:</b> primer día con RSI&gt;70, cerca del máximo de 10 días y bajo la EMA200.' + flip + '</p>';
+  }
+  return h + '</div>';
+}
+
 /* ---------- heat map gamma (precalculado en el cron) ---------- */
 function fmtGex(v) {
   const a = Math.abs(v);
@@ -300,6 +333,7 @@ function detailHTML(s) {
   return '<div class="detail">' +
     gexHTML(s) +
     trapBannerHTML(s) +
+    sigDetailHTML(s) +
     '<h4>Fundamental</h4><dl class="kv">' +
     kvRow('PER', num(s.pe)) +
     kvRow('PER futuro', num(s.forwardPe)) +
@@ -347,7 +381,7 @@ function stockArticle(s, sk) {
     '</button>' +
     '<button class="fav' + (fav ? ' on' : '') + '" data-fav="' + esc(s.symbol) + '" aria-pressed="' + fav +
     '" aria-label="Marcar ' + esc(s.symbol) + ' como favorita">' + (fav ? '★' : '☆') + '</button>' +
-    '</div>' + detailHTML(s) + '</article>';
+    '</div>' + sigBadges(s) + detailHTML(s) + '</article>';
 }
 
 function bindRows(box) {
