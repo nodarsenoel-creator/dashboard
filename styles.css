@@ -81,3 +81,46 @@ footer details p{margin:6px 0 0; line-height:1.5;}
   .filters-grid{grid-template-columns:repeat(3,1fr);}
   .kv{grid-template-columns:1fr 1fr 1fr;}
 }
+
+/* ---------- Mías: favoritas, compras, Top 10 ---------- */
+.rowwrap{display:flex; align-items:stretch;}
+.rowwrap .row{flex:1; width:auto; min-width:0;}
+.fav{
+  background:none; border:none; cursor:pointer; line-height:1;
+  font-size:23px; padding:12px 14px 12px 6px; color:var(--low);
+}
+.fav.on{color:var(--warn);}
+.sec-title{font-size:16px; margin:18px 4px 10px;}
+.sec-title:first-child{margin-top:2px;}
+.chip-row{padding:10px 0 2px;}
+.chip{
+  display:inline-block; padding:9px 16px; border-radius:999px; cursor:pointer;
+  border:1px solid var(--line); background:var(--card2); color:var(--txt);
+  font-size:14px; font-weight:700;
+}
+.chip.on{background:var(--acc); border-color:var(--acc); color:#06281c;}
+.pfcard{display:flex; gap:10px; margin-bottom:12px;}
+.pfcard>div{flex:1; background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px;}
+.pfcard span{display:block; font-size:12px; color:var(--mut); margin-bottom:4px;}
+.pfcard strong{font-size:18px; font-variant-numeric:tabular-nums;}
+.buy{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px; margin-bottom:8px;}
+.buy-top{display:flex; justify-content:space-between; align-items:baseline; gap:8px;}
+.buy-top strong{font-size:16px;}
+.buy .mut{font-size:12px; color:var(--mut); text-align:right;}
+.buy-bot{display:flex; justify-content:space-between; margin-top:6px; font-size:14px; font-variant-numeric:tabular-nums;}
+.buy-actions{display:flex; gap:18px; margin-top:8px;}
+.link{background:none; border:none; color:var(--acc); font-size:14px; cursor:pointer; padding:6px 0;}
+.link.danger{color:#f87171;}
+.btn{
+  display:block; width:100%; padding:13px; border-radius:12px; border:none; cursor:pointer;
+  background:var(--acc); color:#06281c; font-size:16px; font-weight:800; margin:4px 0 12px;
+}
+.btn.ghost{background:var(--card2); color:var(--txt);}
+.btn.sm{width:auto; display:inline-block; padding:10px 18px; font-size:15px; margin:0;}
+.buy-form{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px; margin-bottom:12px; display:grid; gap:10px;}
+.buy-form[hidden]{display:none;}
+.buy-form label{font-size:13px; color:var(--mut); display:grid; gap:4px;}
+.buy-form input{padding:10px; font-size:16px; border-radius:8px; border:1px solid var(--line); background:var(--bg); color:var(--txt);}
+.form-actions{display:flex; gap:10px;}
+.form-err{color:#f87171; font-size:13px; margin:0;}
+.form-err[hidden]{display:none;}
