@@ -245,20 +245,22 @@ function probCls(p) {
 function probSectionHTML(s) {
   const pr = s.prob;
   if (!pr || !pr.max10d) return '<h4>Probabilidades</h4><p class="meta-line">Sin datos suficientes.</p>';
-  const t = pr.max10d;
+  // si ya está en el máximo de 10d, ese objetivo no pinta nada: arrancar en +5%
+  const defKey = (pr.max10d.level <= s.price && pr.p5) ? 'p5' : 'max10d';
+  const t = pr[defKey];
   const done = t.level <= s.price;
   return '<h4>Probabilidades <span class="hsub">de tocar el objetivo en 30 días</span></h4>' +
     '<div class="probs" data-sym="' + esc(s.symbol) + '">' +
     '<div class="prob-targets">' +
-    '<button class="chip sm on" data-pt="max10d">Máx 10d</button>' +
-    '<button class="chip sm" data-pt="p5">+5%</button>' +
-    '<button class="chip sm" data-pt="p10">+10%</button>' +
+    '<button class="chip sm' + (defKey === 'max10d' ? ' on' : '') + '" data-pt="max10d">Máx 10d</button>' +
+    '<button class="chip sm' + (defKey === 'p5' ? ' on' : '') + '" data-pt="p5">+5%</button>' +
+    '<button class="chip sm' + (defKey === 'p10' ? ' on' : '') + '" data-pt="p10">+10%</button>' +
     '</div>' +
     '<dl class="kv">' +
     '<div><dt>Estadística (histórica)</dt><dd class="pv ' + (done ? 'up' : probCls(t.p)) + '" data-pv="p">' + probCell(t.p, done) + '</dd></div>' +
     '<div><dt>Mercado (opciones)</dt><dd class="pv ' + (done ? 'up' : probCls(t.pm)) + '" data-pv="pm">' + probCell(t.pm, done) + '</dd></div>' +
     '</dl>' +
-    '<p class="target-line" data-pline>' + probTargetLine(s, 'max10d') + '</p>' +
+    '<p class="target-line" data-pline>' + probTargetLine(s, defKey) + '</p>' +
     '</div>';
 }
 function refreshProbLine(wrap, s, key) {
