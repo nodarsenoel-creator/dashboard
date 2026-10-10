@@ -124,3 +124,12 @@ footer details p{margin:6px 0 0; line-height:1.5;}
 .form-actions{display:flex; gap:10px;}
 .form-err{color:#f87171; font-size:13px; margin:0;}
 .form-err[hidden]{display:none;}
+
+/* ---------- probabilidades ---------- */
+.hsub{font-weight:400; text-transform:none; letter-spacing:0;}
+.prob-targets{display:flex; gap:8px; margin:2px 0 8px;}
+.chip.sm{padding:7px 14px; font-size:13px;}
+.mid{color:var(--warn);}
+.pv{font-weight:800; font-size:16px;}
+.buy-prob{margin-top:6px; font-size:13px; color:var(--mut);}
+.buy-prob strong{font-variant-numeric:tabular-nums;}
