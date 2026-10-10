@@ -147,6 +147,36 @@ function passesLong(s) {
   return true;
 }
 
+/* ---------- ETF personal: regla de permanencia ---------- */
+function checkCriteria(s) {
+  const f = state.f, bad = [], nodata = [];
+  const chk = (ok, has, label) => { if (!has) nodata.push(label); else if (!ok) bad.push(label); };
+  chk(s.pe < f.maxPE, s.pe != null, 'PER ' + num(s.pe) + ' (pide <' + f.maxPE + ')');
+  chk(s.forwardPe < f.maxFwdPE, s.forwardPe != null, 'PER fut ' + num(s.forwardPe) + ' (pide <' + f.maxFwdPE + ')');
+  chk(s.priceToSales < f.maxPS, s.priceToSales != null, 'P/V ' + num(s.priceToSales) + ' (pide <' + f.maxPS + ')');
+  chk(s.peg < f.maxPEG, s.peg != null, 'PEG ' + num(s.peg) + ' (pide <' + f.maxPEG + ')');
+  chk(s.roe >= f.minROE, s.roe != null, 'ROE ' + num(s.roe, 1) + '% (pide ≥' + f.minROE + '%)');
+  chk(s.netMargin >= f.minMargin, s.netMargin != null, 'margen ' + num(s.netMargin, 1) + '% (pide ≥' + f.minMargin + '%)');
+  if (f.divOnly) chk(s.dividendYield > 0, s.dividendYield != null, 'sin dividendo');
+  return { bad, nodata };
+}
+function failReasons(s) { return checkCriteria(s).bad; }
+function etfBadgeHTML(s) {
+  if (!s || s.price == null) return '';
+  const c = checkCriteria(s);
+  if (c.bad.length)
+    return '<div class="buy-prob">🔴 <strong>No cumple</strong> los criterios del ETF → candidata a vender. Falla: ' + esc(c.bad.join(' · ')) + '</div>';
+  if (c.nodata.length)
+    return '<div class="buy-prob">🟡 <strong>Cumple</strong> en lo medido; sin dato para: ' + esc(c.nodata.join(' · ')) + '</div>';
+  return '<div class="buy-prob">🟢 <strong>Cumple</strong> los criterios del ETF</div>';
+}
+function etfCandidates() {
+  const held = {};
+  BUYS.forEach((b) => { held[b.symbol] = true; });
+  return STOCKS.filter((s) => !held[s.symbol] && passesLong(s))
+    .sort((a, b) => (b.longScore ?? -1) - (a.longScore ?? -1)).slice(0, 5);
+}
+
 function visibleStocks() {
   const q = state.query.trim().toLowerCase();
   const arr = STOCKS.filter((s) => {
@@ -493,6 +523,7 @@ function buyRowHTML(b, i) {
     '<span class="' + cls(pl) + '">' + moneyS(pl) + ' (' + pct(plp) + ')</span></span>' +
     '</button>' +
     (isValueTrap(st || {}) ? '<div class="buy-prob">⚠️ ' + TRAP_TIP + '</div>' : '') +
+    etfBadgeHTML(st) +
     probLine +
     '<div class="buy-actions"><button class="link" data-edit="' + i + '">Editar</button>' +
     '<button class="link danger" data-del="' + i + '">Borrar</button></div>' +
@@ -526,6 +557,19 @@ function renderMine() {
     '<button type="button" class="btn sm ghost" id="b_cancel">Cancelar</button></div>' +
     '</form>';
   html += '<div id="buyList">' + BUYS.map(buyRowHTML).join('') + '</div>';
+
+  const fails = BUYS.filter((b) => { const st = stockBySym(b.symbol); return st && failReasons(st).length > 0; });
+  const cands = etfCandidates();
+  html += '<h3 class="sec-title">🎯 Candidatos del ETF</h3>' +
+    '<p class="rule-note">Regla: cada compra debe cumplir los criterios de calidad de la pestaña Largo. ' +
+    'Si deja de cumplir → se vende y se reemplaza por un candidato de abajo. ' +
+    (fails.length
+      ? 'Hoy tienes <strong>' + fails.length + '</strong> compra(s) que no cumplen: ' + fails.map((b) => esc(b.symbol)).join(', ') + '.'
+      : 'Hoy todas tus compras cumplen ✓.') +
+    ' Revisa una vez al mes, no cada día.</p>';
+  html += cands.length
+    ? cands.map((s) => stockArticle(s, 'longScore')).join('')
+    : '<div class="empty"><strong>Sin candidatos</strong><p>Ninguna acción pasa los filtros ahora mismo.</p></div>';
 
   box.innerHTML = html;
   bindRows(box);
