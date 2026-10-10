@@ -172,6 +172,22 @@ function kvRow(k, v) {
   return '<div><dt>' + k + '</dt><dd>' + v + '</dd></div>';
 }
 
+/* ---------- trampa de valor: parece barata pero los beneficios caen ----------
+   Regla: PER futuro > PER actual (el consenso espera menos beneficios),
+   o PEG negativo (crecimiento esperado negativo). */
+function isValueTrap(s) {
+  if (!(s.pe > 0)) return false;
+  if (s.forwardPe > 0 && s.forwardPe > s.pe * 1.05) return true;
+  if (s.peg != null && isFinite(s.peg) && s.peg < 0) return true;
+  return false;
+}
+const TRAP_TIP = 'Posible trampa de valor: parece barata pero el consenso espera que los beneficios caigan.';
+function trapBannerHTML(s) {
+  return isValueTrap(s)
+    ? '<div class="trap-banner">⚠️ ' + TRAP_TIP + '</div>'
+    : '';
+}
+
 /* ---------- probabilidades de alcanzar objetivos ---------- */
 const PROB_TARGETS = { max10d: 'Máx 10d', p5: '+5%', p10: '+10%' };
 function probPct(v) { return (v == null || !isFinite(v)) ? '—' : Math.round(v * 100) + '%'; }
@@ -218,6 +234,7 @@ function detailHTML(s) {
   const distEma = (s.price != null && s.ema200 != null && s.ema200 !== 0)
     ? ((s.price - s.ema200) / s.ema200) * 100 : null;
   return '<div class="detail">' +
+    trapBannerHTML(s) +
     '<h4>Fundamental</h4><dl class="kv">' +
     kvRow('PER', num(s.pe)) +
     kvRow('PER futuro', num(s.forwardPe)) +
@@ -256,7 +273,8 @@ function stockArticle(s, sk) {
   return '<article class="stock' + open + '" data-sym="' + esc(s.symbol) + '">' +
     '<div class="rowwrap">' +
     '<button class="row" aria-expanded="' + state.open.has(s.symbol) + '">' +
-    '<span class="sym">' + esc(s.symbol) + '</span>' +
+    '<span class="sym">' + esc(s.symbol) +
+    (isValueTrap(s) ? ' <span class="wtrap" title="' + TRAP_TIP + '">⚠️</span>' : '') + '</span>' +
     '<span class="nm">' + esc(s.company) + '</span>' +
     '<span class="px">' + money(s.price) +
     '<small class="' + cls(s.changePct) + '">' + pct(s.changePct) + '</small></span>' +
@@ -319,6 +337,7 @@ function buyRowHTML(b, i) {
     (b.date ? ' · ' + esc(b.date) : '') + '</span></div>' +
     '<div class="buy-bot"><span>Ahora: ' + money(cur) + '</span>' +
     '<span class="' + cls(pl) + '">' + moneyS(pl) + ' (' + pct(plp) + ')</span></div>' +
+    (isValueTrap(st || {}) ? '<div class="buy-prob">⚠️ ' + TRAP_TIP + '</div>' : '') +
     probLine +
     '<div class="buy-actions"><button class="link" data-edit="' + i + '">Editar</button>' +
     '<button class="link danger" data-del="' + i + '">Borrar</button></div>' +
