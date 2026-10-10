@@ -438,7 +438,7 @@ function init(data) {
   render();
 }
 
-fetch('data.json')
+fetch('data.json', {cache: 'no-store'})
   .then((r) => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
   .then(init)
   .catch((e) => {
