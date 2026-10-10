@@ -62,7 +62,9 @@ body{
 
 .tv-chart{
   height:420px; width:100%; margin-top:6px;
-  background:var(--bg); border:1px solid var(--line); border-radius:8px; overflow:hidden;
+  background:var(--bg); border-radius:12px; overflow:hidden;
+  border:1px solid rgba(56,189,248,.35);
+  box-shadow:0 0 18px rgba(56,189,248,.14), inset 0 0 28px rgba(56,189,248,.05);
 }
 .tv-chart .tradingview-widget-container iframe{border:0;}
 
