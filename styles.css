@@ -74,6 +74,26 @@ body{
 
 .empty{background:var(--card); border:1px dashed var(--warn); border-radius:12px; padding:20px; text-align:center;}
 .empty strong{display:block; margin-bottom:8px; font-size:16px;}
+
+/* ---------- noticias ---------- */
+.news{max-width:760px; margin:0 auto 12px; padding:0 16px;}
+.news-head{width:100%; display:flex; align-items:center; gap:8px; padding:10px 14px;
+  background:var(--card); border:1px solid var(--line); border-radius:12px; color:var(--txt);
+  font-size:15px; cursor:pointer;}
+.news-head .count{color:var(--mut); font-size:13px;}
+.news-head .chev{margin-left:auto; color:var(--mut);}
+#newsList{margin-top:8px; display:flex; flex-direction:column; gap:8px;}
+.nitem{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:10px 12px;}
+.nitem .ntop{display:flex; gap:8px; align-items:flex-start;}
+.ndot{flex:none; margin-top:2px;}
+.nitem a.ntitle{color:var(--txt); text-decoration:none; font-size:14px; line-height:1.35;}
+.nitem a.ntitle:active{text-decoration:underline;}
+.nmeta{font-size:12px; color:var(--mut); margin-top:6px; display:flex; flex-wrap:wrap; gap:6px; align-items:center;}
+.nchip{padding:3px 10px; font-size:12px; font-weight:700; border-radius:999px; cursor:pointer;
+  border:1px solid rgba(56,189,248,.4); background:rgba(56,189,248,.08); color:var(--txt);}
+.news-note{font-size:12px; color:var(--mut); margin:8px 2px 0;}
+.snews{margin:10px 0;}
+.snews h4{margin:0 0 8px;}
 .empty p{color:var(--mut); font-size:14px; margin:0;}
 
 footer{padding:18px 16px 34px; color:var(--mut); font-size:13px;}
