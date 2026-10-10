@@ -22,6 +22,7 @@ const state = {
 };
 
 let STOCKS = [];
+let NEWS = [];
 let META = {};
 let FAVS = [];
 let BUYS = [];
@@ -337,6 +338,7 @@ function detailHTML(s) {
     gexHTML(s) +
     trapBannerHTML(s) +
     sigDetailHTML(s) +
+    newsStockHTML(s) +
     '<h4>Fundamental</h4><dl class="kv">' +
     kvRow('PER', num(s.pe)) +
     kvRow('PER futuro', num(s.forwardPe)) +
@@ -365,6 +367,50 @@ function detailHTML(s) {
     '<p class="meta-line">' + esc(s.company) + ' · ' + esc(s.sector) + ' · ' + esc(s.exchange) +
     ' · cobertura: ' + num(s[TABS[state.tab].cov], 0) + '%</p>' +
     '</div>';
+}
+
+/* ---------- noticias ---------- */
+const TONE_DOT = { pos: '🟢', neg: '🔴', neu: '⚪' };
+function toneDot(t) { return TONE_DOT[t] || '⚪'; }
+function renderNews() {
+  const sec = $('#newsSec');
+  if (!sec) return;
+  if (!NEWS.length) { sec.hidden = true; return; }
+  sec.hidden = false;
+  $('#newsCount').textContent = NEWS.length + ' titulares';
+  $('#newsList').innerHTML = NEWS.map((n) =>
+    '<div class="nitem"><div class="ntop"><span class="ndot">' + toneDot(n.tone) + '</span>' +
+    '<a class="ntitle" href="' + esc(n.u) + '" target="_blank" rel="noopener">' + esc(n.t) + '</a></div>' +
+    '<div class="nmeta"><span>' + esc(n.src) + '</span>' +
+    (n.tickers || []).map((t) => '<button class="nchip" data-sym="' + esc(t) + '">' + esc(t) + '</button>').join('') +
+    '</div></div>').join('');
+}
+function newsStockHTML(s) {
+  const hits = NEWS.filter((n) => (n.tickers || []).indexOf(s.symbol) !== -1);
+  if (!hits.length) return '';
+  return '<div class="snews"><h4>📰 Noticias que la mencionan</h4>' +
+    hits.map((n) =>
+      '<div class="nitem"><div class="ntop"><span class="ndot">' + toneDot(n.tone) + '</span>' +
+      '<a class="ntitle" href="' + esc(n.u) + '" target="_blank" rel="noopener">' + esc(n.t) + '</a></div>' +
+      '<div class="nmeta"><span>' + esc(n.src) + '</span></div></div>').join('') + '</div>';
+}
+function bindNews() {
+  const t = $('#newsToggle');
+  if (t) t.addEventListener('click', () => {
+    const l = $('#newsList'), open = l.hidden;
+    l.hidden = !open;
+    t.setAttribute('aria-expanded', String(open));
+    t.querySelector('.chev').textContent = open ? '▾' : '▸';
+  });
+  const nl = $('#newsList');
+  if (nl) nl.addEventListener('click', (e) => {
+    const b = e.target.closest('.nchip');
+    if (!b) return;
+    state.query = b.dataset.sym;
+    const si = $('#search'); if (si) si.value = state.query;
+    render();
+    const lst = $('#list'); if (lst) lst.scrollIntoView();
+  });
 }
 
 /* ---------- filas de acciones (con estrella de favorita) ---------- */
@@ -596,6 +642,9 @@ function init(data) {
   META = data.meta || {};
   loadStore();
   renderTape(data.tape || []);
+  NEWS = data.news || [];
+  renderNews();
+  bindNews();
   SYMLIST_HTML = STOCKS.map((s) =>
     '<option value="' + esc(s.symbol) + '">' + esc(s.company) + '</option>').join('');
   $('#refreshed').textContent = 'Datos al: ' + fmtDate(META.refreshedAt);
