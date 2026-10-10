@@ -83,6 +83,7 @@ body{
 .news-head .count{color:var(--mut); font-size:13px;}
 .news-head .chev{margin-left:auto; color:var(--mut);}
 #newsList{margin-top:8px; display:flex; flex-direction:column; gap:8px;}
+#newsList[hidden]{display:none;}
 .nitem{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:10px 12px;}
 .nitem .ntop{display:flex; gap:8px; align-items:flex-start;}
 .ndot{flex:none; margin-top:2px;}
