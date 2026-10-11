@@ -536,11 +536,28 @@ function p_touch_down(S, H, T, r, q, sig) {
 function calcStock(sym) {
   return stockBySym(sym) || BENCH[sym] || null;
 }
+let calcMode = 'spread';
 function renderCalc() {
   renderCount();
   const box = $('#list');
   box.innerHTML =
-    '<h3 class="sec-title">🧮 Probabilidad por trade</h3>' +
+    '<h3 class="sec-title">🧮 Calculadora por trade <span class="mut" style="font-size:12px">🧪 papel</span></h3>' +
+    '<div class="chip-row">' +
+    '<button class="chip sm" data-cm="spread">Spread</button>' +
+    '<button class="chip sm" data-cm="csp">CSP (put vendido)</button>' +
+    '<button class="chip sm" data-cm="cov">Covered call</button></div>' +
+    '<div id="calcBody"></div>';
+  box.querySelectorAll('[data-cm]').forEach((b) => {
+    b.classList.toggle('on', b.dataset.cm === calcMode);
+    b.addEventListener('click', () => { calcMode = b.dataset.cm; renderCalc(); });
+  });
+  const body = $('#calcBody');
+  if (calcMode === 'csp') renderCspCalc(body);
+  else if (calcMode === 'cov') renderCovCalc(body);
+  else renderSpreadCalc(body);
+}
+function renderSpreadCalc(box) {
+  box.innerHTML =
     '<p class="rule-note">¿Qué chance tiene tu spread de tocar el target antes del vencimiento? ' +
     'La IV se deduce de tu débito real. Fórmula validada contra simulación.</p>' +
     '<form id="calcForm" class="calc-form">' +
@@ -607,6 +624,144 @@ function renderCalc() {
       '<div><dt>P(tocar target) estadística</dt><dd><strong class="' + probCls(pHv) + '">' + probPct(pHv) + '</strong> <span class="mut">con HV 60d</span></dd></div>' +
       '<div><dt>P(tocar target) mercado</dt><dd><strong class="' + probCls(pIv) + '">' + probPct(pIv) + '</strong> <span class="mut">con IV de tu débito</span></dd></div>' +
       '</div><p class="news-note">Probabilidades del modelo, no garantías. El débito ya es tu pérdida máxima.</p>';
+  });
+}
+
+/* ---------- Calc: CSP (put vendido) ---------- */
+function d2of(S, K, T, r, q, sig) {
+  const sT = sig * Math.sqrt(T);
+  return (Math.log(S / K) + (r - q - 0.5 * sig * sig) * T) / sT;
+}
+function wallNote(st, key, label) {
+  const w = st && st.gexmap && st.gexmap[key];
+  return w ? ' <span class="mut">(' + label + ' ' + money(w) + ')</span>' : '';
+}
+function renderCspCalc(box) {
+  box.innerHTML =
+    '<p class="rule-note">Vendes un put bajo el soporte: si cae ahí, compras la acción con descuento; ' +
+    'si no, te quedas la prima. En vivo necesitas <strong>strike × 100</strong> de colateral por contrato.</p>' +
+    '<form id="cspForm" class="calc-form">' +
+    '<label>Símbolo<input id="p_sym" list="psymlist" autocomplete="off" placeholder="Ej: VZ"><datalist id="psymlist"><option value="SPY">SPDR S&P 500 ETF</option><option value="QQQ">Invesco QQQ Trust</option>' + SYMLIST_HTML + '</datalist></label>' +
+    '<div id="p_info" class="mut"></div>' +
+    '<div class="calc-grid">' +
+    '<label>Strike del put<input id="p_k" type="number" step="any" inputmode="decimal" placeholder="Ej: 44"></label>' +
+    '<label>Días al vencimiento<input id="p_dte" type="number" min="1" value="30" inputmode="numeric"></label>' +
+    '</div>' +
+    '<p class="form-err" id="p_err" hidden></p>' +
+    '<button type="submit" class="btn">Calcular</button>' +
+    '</form><div id="cspOut"></div>';
+
+  const syncInfo = () => {
+    const st = calcStock(($('#p_sym').value || '').trim().toUpperCase());
+    const kEl = $('#p_k');
+    let note = '';
+    if (st && st.price != null) {
+      note = 'Precio: ' + money(st.price) + (st.prob && st.prob.hv ? ' · HV 60d: ' + pct(st.prob.hv * 100) : '');
+      const pw = st.gexmap && st.gexmap.pw;
+      if (pw && !kEl.value) { kEl.value = pw; note += ' · strike sugerido: muro put'; }
+      else if (pw) note += wallNote(st, 'pw', 'muro put');
+    }
+    $('#p_info').innerHTML = note;
+  };
+  $('#p_sym').addEventListener('input', syncInfo);
+
+  $('#cspForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const err = $('#p_err');
+    const fail = (m) => { err.textContent = m; err.hidden = false; $('#cspOut').innerHTML = ''; };
+    err.hidden = true;
+    const sym = ($('#p_sym').value || '').trim().toUpperCase();
+    const st = calcStock(sym);
+    if (!st) return fail('Símbolo no encontrado en la lista.');
+    const S = st.price, hv = st.prob && st.prob.hv;
+    if (!(S > 0)) return fail('Sin precio para ' + sym + '.');
+    if (!(hv > 0)) return fail('Sin volatilidad histórica para ' + sym + '.');
+    const K = parseFloat($('#p_k').value), dte = parseInt($('#p_dte').value, 10);
+    if (!(K > 0)) return fail('Pon el strike del put.');
+    if (!(dte >= 1)) return fail('El vencimiento debe ser al menos 1 día.');
+    const r = 0.045, q = st.dividendYield != null ? st.dividendYield / 100 : 0.01;
+    const T = dte / 365;
+    const iv = st.prob && st.prob.iv > 0 ? st.prob.iv : null;
+    const one = (sig, tag) => {
+      const prem = bs_put(S, K, T, r, q, sig);
+      const pA = ncdf(-d2of(S, K, T, r, q, sig));
+      const ret = prem / (K - prem);
+      return '<div><dt>' + tag + '</dt><dd></dd></div>' +
+        '<div><dt>Prima estimada</dt><dd>' + money(prem) + ' /acción</dd></div>' +
+        '<div><dt>P(asignación)</dt><dd><strong class="' + probCls(pA) + '">' + probPct(pA) + '</strong></dd></div>' +
+        '<div><dt>Retorno si no te asignan</dt><dd>' + pct(ret * 100) + ' en ' + dte + 'd <span class="mut">(' + pct(ret * 365 / dte * 100) + ' anualizado)</span></dd></div>' +
+        '<div><dt>Breakeven</dt><dd>' + money(K - prem) + '</dd></div>';
+    };
+    let html = '<div class="calc-out">' + one(hv, 'Con HV 60d (estadística)');
+    if (iv) html += one(iv, 'Con IV de mercado');
+    html += '<div><dt>Colateral por contrato (en vivo)</dt><dd>' + money(K * 100) + '</dd></div>';
+    html += '</div><p class="news-note">Si te asignan, compras 100 acciones a ' + money(K) + ' (' + money(K * 100) + '). Probabilidades del modelo, no garantías.</p>';
+    $('#cspOut').innerHTML = html;
+  });
+}
+
+/* ---------- Calc: Covered call ---------- */
+function renderCovCalc(box) {
+  box.innerHTML =
+    '<p class="rule-note">Vendes un call sobre tus 100 acciones: si sube al strike, te las llevan con ganancia; ' +
+    'si no, te quedas la prima. Requiere tener las acciones (en vivo).</p>' +
+    '<form id="covForm" class="calc-form">' +
+    '<label>Símbolo<input id="v_sym" list="vsymlist" autocomplete="off" placeholder="Ej: KO"><datalist id="vsymlist"><option value="SPY">SPDR S&P 500 ETF</option><option value="QQQ">Invesco QQQ Trust</option>' + SYMLIST_HTML + '</datalist></label>' +
+    '<div id="v_info" class="mut"></div>' +
+    '<div class="calc-grid">' +
+    '<label>Strike del call<input id="v_k" type="number" step="any" inputmode="decimal" placeholder="Ej: 95"></label>' +
+    '<label>Días al vencimiento<input id="v_dte" type="number" min="1" value="30" inputmode="numeric"></label>' +
+    '</div>' +
+    '<p class="form-err" id="v_err" hidden></p>' +
+    '<button type="submit" class="btn">Calcular</button>' +
+    '</form><div id="covOut"></div>';
+
+  const syncInfo = () => {
+    const st = calcStock(($('#v_sym').value || '').trim().toUpperCase());
+    const kEl = $('#v_k');
+    let note = '';
+    if (st && st.price != null) {
+      note = 'Precio: ' + money(st.price) + (st.prob && st.prob.hv ? ' · HV 60d: ' + pct(st.prob.hv * 100) : '');
+      const cw = st.gexmap && st.gexmap.cw;
+      if (cw && !kEl.value) { kEl.value = cw; note += ' · strike sugerido: muro call'; }
+      else if (cw) note += wallNote(st, 'cw', 'muro call');
+    }
+    $('#v_info').innerHTML = note;
+  };
+  $('#v_sym').addEventListener('input', syncInfo);
+
+  $('#covForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const err = $('#v_err');
+    const fail = (m) => { err.textContent = m; err.hidden = false; $('#covOut').innerHTML = ''; };
+    err.hidden = true;
+    const sym = ($('#v_sym').value || '').trim().toUpperCase();
+    const st = calcStock(sym);
+    if (!st) return fail('Símbolo no encontrado en la lista.');
+    const S = st.price, hv = st.prob && st.prob.hv;
+    if (!(S > 0)) return fail('Sin precio para ' + sym + '.');
+    if (!(hv > 0)) return fail('Sin volatilidad histórica para ' + sym + '.');
+    const K = parseFloat($('#v_k').value), dte = parseInt($('#v_dte').value, 10);
+    if (!(K > 0)) return fail('Pon el strike del call.');
+    if (!(dte >= 1)) return fail('El vencimiento debe ser al menos 1 día.');
+    const r = 0.045, q = st.dividendYield != null ? st.dividendYield / 100 : 0.01;
+    const T = dte / 365;
+    const iv = st.prob && st.prob.iv > 0 ? st.prob.iv : null;
+    const one = (sig, tag) => {
+      const prem = bs_call(S, K, T, r, q, sig);
+      const pA = ncdf(d2of(S, K, T, r, q, sig));
+      const maxP = (K - S) + prem;
+      const ret = maxP / (S - prem);
+      return '<div><dt>' + tag + '</dt><dd></dd></div>' +
+        '<div><dt>Prima estimada</dt><dd>' + money(prem) + ' /acción</dd></div>' +
+        '<div><dt>P(que te lleven las acciones)</dt><dd><strong class="' + probCls(pA) + '">' + probPct(pA) + '</strong></dd></div>' +
+        '<div><dt>Ganancia máx.</dt><dd>' + money(maxP) + ' <span class="mut">(' + pct(ret * 100) + ')</span></dd></div>' +
+        '<div><dt>Breakeven</dt><dd>' + money(S - prem) + '</dd></div>';
+    };
+    let html = '<div class="calc-out">' + one(hv, 'Con HV 60d (estadística)');
+    if (iv) html += one(iv, 'Con IV de mercado');
+    html += '</div><p class="news-note">Cubierto = ya tienes las 100 acciones. Probabilidades del modelo, no garantías.</p>';
+    $('#covOut').innerHTML = html;
   });
 }
 
