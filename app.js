@@ -9,6 +9,7 @@ const TABS = {
   medium: { label: 'Medio', score: 'mediumScore', cov: 'mediumCoverage' },
   long:   { label: 'Largo', score: 'longScore',   cov: 'longCoverage' },
   mine:   { label: 'Mías', score: 'longScore',   cov: 'longCoverage' },
+  calc:   { label: 'Calc', score: null, cov: null },
 };
 
 const state = {
@@ -456,6 +457,155 @@ function bindNews() {
   });
 }
 
+/* ---------- Calc: probabilidad por trade (port de prob_calc.py) ---------- */
+function erf(x) {
+  const s = x < 0 ? -1 : 1; x = Math.abs(x);
+  const t = 1 / (1 + 0.3275911 * x);
+  const y = 1 - (((((1.061405429 * t - 1.453152027) * t + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t) * Math.exp(-x * x);
+  return s * y;
+}
+const ncdf = (x) => 0.5 * (1 + erf(x / Math.SQRT2));
+function bs_call(S, K, T, r, q, sig) {
+  if (T <= 0 || sig <= 0) return Math.max(S - K, 0);
+  const sT = sig * Math.sqrt(T);
+  const d1 = (Math.log(S / K) + (r - q + 0.5 * sig * sig) * T) / sT;
+  const d2 = d1 - sT;
+  return S * Math.exp(-q * T) * ncdf(d1) - K * Math.exp(-r * T) * ncdf(d2);
+}
+function bs_put(S, K, T, r, q, sig) {
+  return bs_call(S, K, T, r, q, sig) - S * Math.exp(-q * T) + K * Math.exp(-r * T);
+}
+function cspread_val(S, K1, K2, T, r, q, sig) {
+  return bs_call(S, K1, T, r, q, sig) - bs_call(S, K2, T, r, q, sig);
+}
+function pspread_val(S, K1, K2, T, r, q, sig) {
+  return bs_put(S, K2, T, r, q, sig) - bs_put(S, K1, T, r, q, sig);
+}
+function imp_vol(pricer, S, K1, K2, T, r, q, price) {
+  let lo = 0.01, hi = 3.0;
+  for (let i = 0; i < 80; i++) {
+    const mid = 0.5 * (lo + hi);
+    if (pricer(S, K1, K2, T, r, q, mid) < price) lo = mid; else hi = mid;
+  }
+  return 0.5 * (lo + hi);
+}
+function barrier_up(pricer, S, K1, K2, T, r, q, sig, target) {
+  const width = K2 - K1;
+  let lo = S, hi = K2;
+  while (pricer(hi, K1, K2, T, r, q, sig) < target) {
+    hi += width;
+    if (hi > S + 5 * width) return null;
+  }
+  for (let i = 0; i < 80; i++) {
+    const mid = 0.5 * (lo + hi);
+    if (pricer(mid, K1, K2, T, r, q, sig) < target) lo = mid; else hi = mid;
+  }
+  return 0.5 * (lo + hi);
+}
+function barrier_down(pricer, S, K1, K2, T, r, q, sig, target) {
+  const width = K2 - K1;
+  let lo = K1, hi = S;
+  while (pricer(lo, K1, K2, T, r, q, sig) < target) {
+    lo -= width;
+    if (lo < S - 5 * width) return null;
+  }
+  for (let i = 0; i < 80; i++) {
+    const mid = 0.5 * (lo + hi);
+    if (pricer(mid, K1, K2, T, r, q, sig) < target) hi = mid; else lo = mid;
+  }
+  return 0.5 * (lo + hi);
+}
+function p_touch_up(S, H, T, r, q, sig) {
+  if (H <= S) return 1.0;
+  if (T <= 0) return 0.0;
+  const nu = r - q - 0.5 * sig * sig;
+  const x = Math.log(H / S), sT = sig * Math.sqrt(T);
+  const p = ncdf(-(x - nu * T) / sT) + Math.exp(2 * nu * x / (sig * sig)) * ncdf(-(x + nu * T) / sT);
+  return Math.min(Math.max(p, 0), 0.999);
+}
+function p_touch_down(S, H, T, r, q, sig) {
+  if (H >= S) return 1.0;
+  if (T <= 0) return 0.0;
+  const nu = r - q - 0.5 * sig * sig;
+  const y = Math.log(S / H), sT = sig * Math.sqrt(T);
+  const p = ncdf(-(y + nu * T) / sT) + Math.exp(-2 * nu * y / (sig * sig)) * ncdf(-(y - nu * T) / sT);
+  return Math.min(Math.max(p, 0), 0.999);
+}
+
+function renderCalc() {
+  renderCount();
+  const box = $('#list');
+  box.innerHTML =
+    '<h3 class="sec-title">🧮 Probabilidad por trade</h3>' +
+    '<p class="rule-note">¿Qué chance tiene tu spread de tocar el target antes del vencimiento? ' +
+    'La IV se deduce de tu débito real. Fórmula validada contra simulación.</p>' +
+    '<form id="calcForm" class="calc-form">' +
+    '<label>Símbolo<input id="c_sym" list="csymlist" autocomplete="off" placeholder="Ej: SPY"><datalist id="csymlist">' + SYMLIST_HTML + '</datalist></label>' +
+    '<div id="c_info" class="mut"></div>' +
+    '<div class="calc-grid">' +
+    '<label>Tipo<select id="c_type"><option value="call">Call debit</option><option value="put">Put debit</option></select></label>' +
+    '<label>Días al vencimiento<input id="c_dte" type="number" min="1" value="20" inputmode="numeric"></label>' +
+    '<label>Strike largo<input id="c_k1" type="number" step="any" inputmode="decimal" placeholder="Ej: 780"></label>' +
+    '<label>Strike corto<input id="c_k2" type="number" step="any" inputmode="decimal" placeholder="Ej: 783"></label>' +
+    '<label>Débito pagado<input id="c_debit" type="number" step="0.01" min="0" inputmode="decimal" placeholder="Ej: 0.85"></label>' +
+    '<label>Target del spread<input id="c_target" type="number" step="0.01" min="0" inputmode="decimal" placeholder="Ej: 1.30"></label>' +
+    '</div>' +
+    '<p class="form-err" id="c_err" hidden></p>' +
+    '<button type="submit" class="btn">Calcular</button>' +
+    '</form><div id="calcOut"></div>';
+
+  const info = () => {
+    const st = stockBySym(($('#c_sym').value || '').trim().toUpperCase());
+    $('#c_info').textContent = st && st.price != null
+      ? 'Precio: ' + money(st.price) + (st.prob && st.prob.hv ? ' · HV 60d: ' + pct(st.prob.hv * 100) : ' · sin HV')
+      : '';
+  };
+  $('#c_sym').addEventListener('input', info);
+
+  $('#calcForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const err = $('#c_err');
+    const fail = (m) => { err.textContent = m; err.hidden = false; $('#calcOut').innerHTML = ''; };
+    err.hidden = true;
+    const sym = ($('#c_sym').value || '').trim().toUpperCase();
+    const st = stockBySym(sym);
+    if (!st) return fail('Símbolo no encontrado en la lista.');
+    const S = st.price, hv = st.prob && st.prob.hv;
+    if (!(S > 0)) return fail('Sin precio para ' + sym + '.');
+    if (!(hv > 0)) return fail('Sin volatilidad histórica para ' + sym + '.');
+    const isCall = $('#c_type').value === 'call';
+    const K1 = parseFloat($('#c_k1').value), K2 = parseFloat($('#c_k2').value);
+    const debit = parseFloat($('#c_debit').value), target = parseFloat($('#c_target').value);
+    const dte = parseInt($('#c_dte').value, 10);
+    if (!(K1 > 0 && K2 > K1)) return fail('Strikes inválidos: el corto debe ser mayor que el largo.');
+    if (!(debit > 0)) return fail('El débito debe ser mayor que 0.');
+    if (!(target > debit)) return fail('El target debe ser mayor que el débito (si no, ya estarías ahí).');
+    const width = K2 - K1;
+    if (!(target < width)) return fail('El target no puede pasar el ancho del spread ($' + width.toFixed(2) + ').');
+    if (!(dte >= 1)) return fail('El vencimiento debe ser al menos 1 día.');
+    const r = 0.045;
+    const q = st.dividendYield != null ? st.dividendYield / 100 : 0.01;
+    const T = dte / 365;
+    const pricer = isCall ? cspread_val : pspread_val;
+    const iv = imp_vol(pricer, S, K1, K2, T, r, q, debit);
+    const H = isCall
+      ? barrier_up(pricer, S, K1, K2, T, r, q, iv, target)
+      : barrier_down(pricer, S, K1, K2, T, r, q, iv, target);
+    if (H == null) return fail('No se encontró barrera para ese target con esa IV.');
+    const touch = isCall ? p_touch_up : p_touch_down;
+    const pHv = touch(S, H, T, r, q, hv);
+    const pIv = touch(S, H, T, r, q, iv);
+    const dir = isCall ? 'suba a' : 'baje a';
+    $('#calcOut').innerHTML =
+      '<div class="calc-out">' +
+      '<div><dt>IV implícita de tu débito</dt><dd>' + pct(iv * 100) + '</dd></div>' +
+      '<div><dt>Barrera</dt><dd>el spread vale ' + money(target) + ' si ' + sym + ' ' + dir + ' ' + money(H) + '</dd></div>' +
+      '<div><dt>P(tocar target) estadística</dt><dd><strong class="' + probCls(pHv) + '">' + probPct(pHv) + '</strong> <span class="mut">con HV 60d</span></dd></div>' +
+      '<div><dt>P(tocar target) mercado</dt><dd><strong class="' + probCls(pIv) + '">' + probPct(pIv) + '</strong> <span class="mut">con IV de tu débito</span></dd></div>' +
+      '</div><p class="news-note">Probabilidades del modelo, no garantías. El débito ya es tu pérdida máxima.</p>';
+  });
+}
+
 /* ---------- filas de acciones (con estrella de favorita) ---------- */
 function stockArticle(s, sk) {
   const sc = s[sk];
@@ -656,8 +806,9 @@ function renderMine() {
 function render() {
   // panel de filtros solo en Largo; toolbar oculta en Mías
   $('#filterPanel').style.display = state.tab === 'long' ? '' : 'none';
-  document.querySelector('.toolbarwrap').style.display = state.tab === 'mine' ? 'none' : '';
+  document.querySelector('.toolbarwrap').style.display = (state.tab === 'mine' || state.tab === 'calc') ? 'none' : '';
   if (state.tab === 'mine') { renderMine(); return; }
+  if (state.tab === 'calc') { renderCalc(); return; }
   renderCount();
 
   const list = visibleStocks();
