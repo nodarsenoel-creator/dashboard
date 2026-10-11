@@ -23,6 +23,7 @@ const state = {
 };
 
 let STOCKS = [];
+let BENCH = {};
 let NEWS = [];
 let META = {};
 let FAVS = [];
@@ -532,6 +533,9 @@ function p_touch_down(S, H, T, r, q, sig) {
   return Math.min(Math.max(p, 0), 0.999);
 }
 
+function calcStock(sym) {
+  return stockBySym(sym) || BENCH[sym] || null;
+}
 function renderCalc() {
   renderCount();
   const box = $('#list');
@@ -540,7 +544,7 @@ function renderCalc() {
     '<p class="rule-note">¿Qué chance tiene tu spread de tocar el target antes del vencimiento? ' +
     'La IV se deduce de tu débito real. Fórmula validada contra simulación.</p>' +
     '<form id="calcForm" class="calc-form">' +
-    '<label>Símbolo<input id="c_sym" list="csymlist" autocomplete="off" placeholder="Ej: SPY"><datalist id="csymlist">' + SYMLIST_HTML + '</datalist></label>' +
+    '<label>Símbolo<input id="c_sym" list="csymlist" autocomplete="off" placeholder="Ej: SPY"><datalist id="csymlist"><option value="SPY">SPDR S&P 500 ETF</option><option value="QQQ">Invesco QQQ Trust</option>' + SYMLIST_HTML + '</datalist></label>' +
     '<div id="c_info" class="mut"></div>' +
     '<div class="calc-grid">' +
     '<label>Tipo<select id="c_type"><option value="call">Call debit</option><option value="put">Put debit</option></select></label>' +
@@ -555,7 +559,7 @@ function renderCalc() {
     '</form><div id="calcOut"></div>';
 
   const info = () => {
-    const st = stockBySym(($('#c_sym').value || '').trim().toUpperCase());
+    const st = calcStock(($('#c_sym').value || '').trim().toUpperCase());
     $('#c_info').textContent = st && st.price != null
       ? 'Precio: ' + money(st.price) + (st.prob && st.prob.hv ? ' · HV 60d: ' + pct(st.prob.hv * 100) : ' · sin HV')
       : '';
@@ -568,7 +572,7 @@ function renderCalc() {
     const fail = (m) => { err.textContent = m; err.hidden = false; $('#calcOut').innerHTML = ''; };
     err.hidden = true;
     const sym = ($('#c_sym').value || '').trim().toUpperCase();
-    const st = stockBySym(sym);
+    const st = calcStock(sym);
     if (!st) return fail('Símbolo no encontrado en la lista.');
     const S = st.price, hv = st.prob && st.prob.hv;
     if (!(S > 0)) return fail('Sin precio para ' + sym + '.');
@@ -857,6 +861,7 @@ function init(data) {
   loadStore();
   renderTape(data.tape || []);
   NEWS = data.news || [];
+  BENCH = data.benchmarks || {};
   renderNews();
   bindNews();
   SYMLIST_HTML = STOCKS.map((s) =>
