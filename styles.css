@@ -97,6 +97,17 @@ body{
 .snews h4{margin:0 0 8px;}
 .rule-note{font-size:13px; color:var(--mut); margin:0 0 10px; line-height:1.45;}
 .rule-note strong{color:var(--txt);}
+
+/* ---------- calculadora ---------- */
+.calc-form{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:14px; margin-bottom:12px; display:grid; gap:10px;}
+.calc-form label{font-size:13px; color:var(--mut); display:grid; gap:4px;}
+.calc-form input, .calc-form select{padding:12px 8px; font-size:16px; border-radius:10px; border:1px solid var(--line); background:var(--bg); color:var(--txt); width:100%; box-sizing:border-box;}
+.calc-grid{display:grid; grid-template-columns:1fr 1fr; gap:10px;}
+#c_info{min-height:18px;}
+.calc-out{background:var(--card); border:1px solid rgba(56,189,248,.35); border-radius:12px; padding:14px; display:grid; gap:10px; box-shadow:0 0 18px rgba(56,189,248,.10);}
+.calc-out div{display:flex; justify-content:space-between; gap:10px; align-items:baseline;}
+.calc-out dt{color:var(--mut); font-size:13px;}
+.calc-out dd{margin:0; font-size:15px; text-align:right;}
 .empty p{color:var(--mut); font-size:14px; margin:0;}
 
 footer{padding:18px 16px 34px; color:var(--mut); font-size:13px;}
