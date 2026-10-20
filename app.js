@@ -227,16 +227,19 @@ function sigBadges(s) {
   if (!g) return '';
   let h = '';
   if (g.boll) h += '<span class="sigb boll">🟢 Bollinger</span>';
+  if (g.bollw) h += '<span class="sigb bollw">📗 Bollinger sem</span>';
   if (g.rp) h += '<span class="sigb rpiso">🔵 REBOTE piso</span>';
   if (g.rt) h += '<span class="sigb rtecho">🔴 REBOTE techo</span>';
   return h ? '<div class="sigrow">' + h + '</div>' : '';
 }
 function sigDetailHTML(s) {
   const g = s.sig;
-  if (!g || !(g.boll || g.rp || g.rt)) return '';
-  let h = '<h4>Señales de hoy</h4><div class="sigdetail">';
+  if (!g || !(g.boll || g.bollw || g.rp || g.rt)) return '';
+  let h = '<h4>Señales</h4><div class="sigdetail">';
   if (g.boll)
-    h += '<p>🟢 <b>Bollinger recuperando:</b> cerró bajo la banda inferior y volvió adentro — el gatillo del susto (filo fino en acciones, mejor en SPY).</p>';
+    h += '<p>🟢 <b>Bollinger recuperando (diaria):</b> ayer cerró bajo la banda inferior y hoy volvió adentro — el gatillo del susto. Backtest 2007–2026: PF 1.4 en acciones, 1.6 en calls/spreads.</p>';
+  if (g.bollw)
+    h += '<p>📗 <b>Bollinger recuperando (semanal):</b> la semana pasada cerró bajo la banda inferior y esta volvió adentro. Backtest 2007–2026: PF 2.7 en acciones, 3.0 en calls/spreads — la señal más fuerte del sistema.</p>';
   if (g.rp) {
     let flip = '';
     if (s.gexmap && s.gexmap.flip != null)
