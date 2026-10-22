@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bot en papel — SPY</title>
+<style>
+  body{background:#0f172a;color:#e2e8f0;font-family:-apple-system,system-ui,sans-serif;margin:0;padding:16px}
+  a{color:#38bdf8;text-decoration:none}
+  h1{font-size:20px;margin:0 0 2px}
+  .sub{color:#94a3b8;font-size:13px;margin:0 0 16px}
+  .card{background:#1e293b;border-radius:14px;padding:14px;margin-bottom:14px}
+  .card h2{font-size:16px;margin:0 0 8px}
+  .nums{display:flex;gap:18px;flex-wrap:wrap}
+  .num b{display:block;font-size:18px}
+  .num span{color:#94a3b8;font-size:12px}
+  .pos{color:#34d399}.neg{color:#f87171}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  td,th{padding:6px 4px;border-bottom:1px solid #334155;text-align:left}
+  th{color:#94a3b8;font-weight:600}
+  .empty{color:#94a3b8;font-size:13px}
+  .run{font-size:12.5px;color:#cbd5e1;padding:5px 0;border-bottom:1px solid #1e293b}
+  .run b{color:#e2e8f0}
+  .tag{background:#334155;border-radius:6px;padding:1px 6px;font-size:11px}
+</style>
+</head>
+<body>
+<p><a href="index.html">← Dashboard</a></p>
+<h1>🤖 Bot en papel — SPY</h1>
+<p class="sub" id="upd">Cargando…</p>
+<div id="books"></div>
+<div class="card"><h2>Actividad reciente</h2><div id="runs"></div></div>
+<script>
+const $=id=>document.getElementById(id);
+const money=v=>'$'+Number(v).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});
+const sgn=v=>(v>=0?'+':'')+money(v).replace('$-','$−');
+const cls=v=>v>=0?'pos':'neg';
+function posRow(p){
+  const pnl=p.pnl_abierto==null?'—':`<span class="${cls(p.pnl_abierto)}">${sgn(p.pnl_abierto)}</span>`;
+  return `<tr><td>${p.strategy}</td><td>${p.side==='call'?'Call':'Put'} ${p.k_long}/${p.k_short}</td>
+  <td>${p.expiry} (${p.dte}d)</td><td>${money(p.debit*100)}</td><td>${p.mark==null?'—':money(p.mark*100)}</td><td>${pnl}</td></tr>`;
+}
+function tradeRow(t){
+  return `<tr><td>${t.strategy}</td><td>${t.side==='call'?'Call':'Put'} ${t.k_long}/${t.k_short}</td>
+  <td>${t.entry_date} → ${t.exit_date}</td><td>${t.motivo||''}</td>
+  <td><span class="${cls(t.pnl)}">${sgn(t.pnl)}</span></td></tr>`;
+}
+function bookCard(name,b){
+  const titulo=name==='principal'?'Libro principal (con filtro flip)':'Libro sombra (sin filtro flip)';
+  let h=`<div class="card"><h2>${titulo}</h2><div class="nums">
+    <div class="num"><b>${money(b.equity)}</b><span>Valor total</span></div>
+    <div class="num"><b>${money(b.cash)}</b><span>Efectivo</span></div>
+    <div class="num"><b class="${cls(b.pnl_realizado)}">${sgn(b.pnl_realizado)}</b><span>Ganado/perdido cerrado</span></div></div>`;
+  h+=`<h2 style="margin-top:12px">Posiciones abiertas (${b.abiertas.length})</h2>`;
+  h+=b.abiertas.length?`<table><tr><th>Estrategia</th><th>Spread</th><th>Vence</th><th>Pagó</th><th>Vale</th><th>P&amp;L</th></tr>${b.abiertas.map(posRow).join('')}</table>`:`<p class="empty">Sin posiciones. El bot espera su señal.</p>`;
+  if(b.cerrados.length){
+    h+=`<h2 style="margin-top:12px">Trades cerrados</h2><table><tr><th>Estrategia</th><th>Spread</th><th>Fechas</th><th>Salida</th><th>P&amp;L</th></tr>${b.cerrados.map(tradeRow).join('')}</table>`;
+  }
+  return h+'</div>';
+}
+fetch('bot.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
+  $('upd').textContent='Plata falsa · Precios reales de SPY · Actualizado: '+d.updated.replace('T',' ').slice(0,16)+' · Bot creado el '+d.creado;
+  $('books').innerHTML=bookCard('principal',d.libros.principal)+bookCard('sombra',d.libros.sombra);
+  $('runs').innerHTML=d.runs.map(r=>{
+    const s=Object.entries(r.senales).filter(([k,v])=>v).map(([k])=>k).join(', ')||'sin señales';
+    const a=r.acciones&&r.acciones.length?r.acciones.join(' · '):'sin movimientos';
+    return `<div class="run"><b>${r.fecha}</b> · SPY $${r.spot} · RSI ${r.rsi} · <span class="tag">${s}</span> · ${a}</div>`;
+  }).join('')||'<p class="empty">Sin actividad todavía.</p>';
+}).catch(e=>{$('upd').textContent='No se pudo cargar bot.json';});
+</script>
+</body>
+</html>
