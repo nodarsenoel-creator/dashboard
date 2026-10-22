@@ -1,0 +1,53 @@
+{
+ "updated": "2026-10-22T16:31:00",
+ "creado": "2026-10-22",
+ "libros": {
+  "principal": {
+   "cash": 10000.0,
+   "equity": 10000.0,
+   "pnl_realizado": 0,
+   "abiertas": [],
+   "cerrados": []
+  },
+  "sombra": {
+   "cash": 10000.0,
+   "equity": 10000.0,
+   "pnl_realizado": 0,
+   "abiertas": [],
+   "cerrados": []
+  }
+ },
+ "runs": [
+  {
+   "fecha": "2026-10-22",
+   "spot": 763.96,
+   "rsi": 45.2,
+   "flip": null,
+   "flip_ok": null,
+   "senales": {
+    "rebote_piso": false,
+    "rebote_techo": false,
+    "boll": false
+   },
+   "acciones": [],
+   "avisos": [],
+   "libros": {
+    "principal": {
+     "equity": 10000.0,
+     "cash": 10000.0,
+     "abiertas": 0,
+     "trades_cerrados": 0,
+     "pnl_realizado": 0
+    },
+    "sombra": {
+     "equity": 10000.0,
+     "cash": 10000.0,
+     "abiertas": 0,
+     "trades_cerrados": 0,
+     "pnl_realizado": 0
+    }
+   },
+   "dry": false
+  }
+ ]
+}
