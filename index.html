@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-title" content="Dashboard">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Cpath d='M10 44 L24 30 L34 38 L54 18' stroke='%2334d399' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Cpath d='M10 44 L24 30 L34 38 L54 18' stroke='%2334d399' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="styles.css?v=25">
+<link rel="stylesheet" href="styles.css?v=26">
 </head>
 <body>
 <header class="app-header">
@@ -28,6 +28,14 @@
   </button>
   <div id="newsList" hidden></div>
   <p class="news-note">El punto de color es el tono estimado automáticamente (no es consejo). Toca un ticker para ver la acción.</p>
+</section>
+
+<section id="oppSec" class="news" aria-label="Oportunidades del día" hidden>
+  <button class="news-head" id="oppToggle" aria-expanded="false">
+    <strong>🎯 Oportunidades del día</strong><span id="oppCount" class="count"></span><span class="chev">▸</span>
+  </button>
+  <div id="oppList" hidden></div>
+  <p class="news-note">Pasan tu filtro de calidad (PER &lt; 30, ROE ≥ 15%, margen ≥ 10%, con dividendo) y están castigadas (día, semana, RSI o mes). Es información para tu lista de candidatas, no una señal de compra.</p>
 </section>
 
 <nav class="tabs" role="tablist" aria-label="Horizonte">
@@ -87,6 +95,6 @@
   <p class="disclaimer">Son screens cuantitativos, no asesoría financiera.</p>
 </footer>
 
-<script src="app.js?v=25"></script>
+<script src="app.js?v=26"></script>
 </body>
 </html>
