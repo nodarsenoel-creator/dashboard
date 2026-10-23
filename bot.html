@@ -29,6 +29,8 @@
 <h1>🤖 Bot en papel — SPY</h1>
 <p class="sub" id="upd">Cargando…</p>
 <div id="books"></div>
+<div id="swing"></div>
+<div class="card"><h2>🏆 Rentabilidad por estrategia</h2><div id="marcador"></div></div>
 <div class="card"><h2>Actividad reciente</h2><div id="runs"></div></div>
 <script>
 const $=id=>document.getElementById(id);
@@ -58,9 +60,39 @@ function bookCard(name,b){
   }
   return h+'</div>';
 }
+function swingRow(p){
+  const pnl=p.pnl_abierto==null?'—':`<span class="${cls(p.pnl_abierto)}">${sgn(p.pnl_abierto)}</span>`;
+  const est=p.estructura==='spread'?`Spread ${p.side} ${p.k_long}/${p.k_short}`:`${p.side==='call'?'Call':'Put'} sola ${p.k_long}`;
+  return `<tr><td><b>${p.symbol}</b></td><td>${est}</td>
+  <td>${p.expiry} (${p.dte}d)</td><td>${money(p.debit*100)}</td><td>${p.mark==null?'—':money(p.mark*100)}</td><td>${pnl}</td></tr>`;
+}
+function swingTradeRow(t){
+  const est=t.estructura==='spread'?`Spread ${t.side} ${t.k_long}/${t.k_short}`:`${t.side==='call'?'Call':'Put'} sola ${t.k_long}`;
+  return `<tr><td><b>${t.symbol}</b></td><td>${est}</td>
+  <td>${t.entry_date} → ${t.exit_date}</td><td>${t.motivo||''}</td>
+  <td><span class="${cls(t.pnl)}">${sgn(t.pnl)}</span></td></tr>`;
+}
+function swingCard(b){
+  let h=`<div class="card"><h2>Libro swing (escáner de opciones — todos los sentidos)</h2><div class="nums">
+    <div class="num"><b>${money(b.equity)}</b><span>Valor total</span></div>
+    <div class="num"><b>${money(b.cash)}</b><span>Efectivo</span></div>
+    <div class="num"><b class="${cls(b.pnl_realizado)}">${sgn(b.pnl_realizado)}</b><span>Ganado/perdido cerrado</span></div></div>`;
+  h+=`<h2 style="margin-top:12px">Posiciones abiertas (${b.abiertas.length})</h2>`;
+  h+=b.abiertas.length?`<table><tr><th>Acción</th><th>Estructura</th><th>Vence</th><th>Pagó</th><th>Vale</th><th>P&amp;L</th></tr>${b.abiertas.map(swingRow).join('')}</table>`:`<p class="empty">Sin posiciones. El escáner busca el setup que pase todos los frenos.</p>`;
+  if(b.cerrados.length){
+    h+=`<h2 style="margin-top:12px">Trades cerrados</h2><table><tr><th>Acción</th><th>Estructura</th><th>Fechas</th><th>Salida</th><th>P&amp;L</th></tr>${b.cerrados.map(swingTradeRow).join('')}</table>`;
+  }
+  return h+'</div>';
+}
+function marcadorHTML(rows){
+  if(!rows.length) return '<p class="empty">Sin trades cerrados todavía — el marcador se llena con cada salida, para ver qué estrategia da más.</p>';
+  return `<table><tr><th>Estrategia</th><th>Libro</th><th>Trades</th><th>Ganados</th><th>P&amp;L</th></tr>${rows.map(m=>`<tr><td>${m.estrategia}</td><td>${m.libro}</td><td>${m.trades}</td><td>${m.ganados}</td><td><span class="${cls(m.pnl)}">${sgn(m.pnl)}</span></td></tr>`).join('')}</table>`;
+}
 fetch('bot.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
   $('upd').textContent='Plata falsa · Precios reales de SPY · Actualizado: '+d.updated.replace('T',' ').slice(0,16)+' · Bot creado el '+d.creado;
   $('books').innerHTML=bookCard('principal',d.libros.principal)+bookCard('sombra',d.libros.sombra);
+  $('swing').innerHTML=d.swing?swingCard(d.swing):'';
+  $('marcador').innerHTML=marcadorHTML(d.marcador||[]);
   $('runs').innerHTML=d.runs.map(r=>{
     const s=Object.entries(r.senales).filter(([k,v])=>v).map(([k])=>k).join(', ')||'sin señales';
     const a=r.acciones&&r.acciones.length?r.acciones.join(' · '):'sin movimientos';
