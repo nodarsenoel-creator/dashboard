@@ -26,6 +26,7 @@ let STOCKS = [];
 let BENCH = {};
 let NEWS = [];
 let OPP = [];
+let OPTS = [];
 let META = {};
 let FAVS = [];
 let BUYS = [];
@@ -493,6 +494,43 @@ function bindOpp() {
     t.querySelector('.chev').textContent = open ? '▾' : '▸';
   });
   const ol = $('#oppList');
+  if (ol) ol.addEventListener('click', (e) => {
+    const b = e.target.closest('.nchip');
+    if (!b) return;
+    state.query = b.dataset.sym;
+    const si = $('#search'); if (si) si.value = state.query;
+    render();
+    const lst = $('#list'); if (lst) lst.scrollIntoView();
+  });
+}
+
+/* ---------- oportunidades en opciones ---------- */
+function renderOpts() {
+  const sec = $('#oppOptSec');
+  if (!sec) return;
+  if (!OPTS.length) { sec.hidden = true; return; }
+  sec.hidden = false;
+  $('#oppOptCount').textContent = OPTS.length + ' setups completos';
+  $('#oppOptList').innerHTML = OPTS.map((o) =>
+    '<div class="nitem"><div class="ntop">' +
+    '<button class="nchip" data-sym="' + esc(o.symbol) + '">' + esc(o.symbol) + '</button>' +
+    '<span class="ntitle" style="text-decoration:none">' + esc(o.company || '') + '</span>' +
+    (o.esNueva ? '<span>🆕</span>' : '') +
+    '</div>' +
+    '<div class="nmeta"><span><b>Spread call ' + num(o.kLong, 0) + '/' + num(o.kShort, 0) + '</b> · vence ' + esc(o.expiry) + ' (' + o.dte + 'd) · delta ' + num(o.delta, 2) + '</span></div>' +
+    '<div class="nmeta"><span>Débito ' + money(o.debit) + ' · BE ' + money(o.be) + ' · target ' + money(o.target) + ' · máx gana ' + money(o.maxProfit) + ' / máx pierde ' + money(o.maxLoss) + '</span></div>' +
+    '<div class="nmeta"><span>Spot ' + money(o.price) + ' · IV ' + num(o.ivPct, 0) + '% vs HV ' + num(o.hvPct, 0) + '% (×' + num(o.ivHv, 2) + ') · RSI ' + num(o.rsi, 0) + ' · sem ' + pct(o.perfWeek) + '</span></div>' +
+    '</div>').join('');
+}
+function bindOpts() {
+  const t = $('#oppOptToggle');
+  if (t) t.addEventListener('click', () => {
+    const l = $('#oppOptList'), open = l.hidden;
+    l.hidden = !open;
+    t.setAttribute('aria-expanded', String(open));
+    t.querySelector('.chev').textContent = open ? '▾' : '▸';
+  });
+  const ol = $('#oppOptList');
   if (ol) ol.addEventListener('click', (e) => {
     const b = e.target.closest('.nchip');
     if (!b) return;
@@ -1062,11 +1100,14 @@ function init(data) {
   renderTape(data.tape || []);
   NEWS = data.news || [];
   OPP = data.oportunidades || [];
+  OPTS = data.opciones || [];
   BENCH = data.benchmarks || {};
   renderNews();
   bindNews();
   renderOpp();
   bindOpp();
+  renderOpts();
+  bindOpts();
   SYMLIST_HTML = STOCKS.map((s) =>
     '<option value="' + esc(s.symbol) + '">' + esc(s.company) + '</option>').join('');
   $('#refreshed').textContent = 'Datos al: ' + fmtDate(META.refreshedAt);
