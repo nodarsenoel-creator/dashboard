@@ -511,14 +511,23 @@ function renderOpts() {
   if (!OPTS.length) { sec.hidden = true; return; }
   sec.hidden = false;
   $('#oppOptCount').textContent = OPTS.length + ' setups completos';
+  const estTxt = (o) => {
+    const lado = o.lado === 'call' ? 'call' : 'put';
+    if (o.estructura === 'spread') return 'Spread ' + lado + ' ' + num(o.kLong, 0) + '/' + num(o.kShort, 0);
+    return (o.lado === 'call' ? 'Call sola ' : 'Put sola ') + num(o.kLong, 0);
+  };
   $('#oppOptList').innerHTML = OPTS.map((o) =>
     '<div class="nitem"><div class="ntop">' +
+    '<span>' + (o.sentido === 'alcista' ? '🟢' : '🔴') + '</span>' +
     '<button class="nchip" data-sym="' + esc(o.symbol) + '">' + esc(o.symbol) + '</button>' +
     '<span class="ntitle" style="text-decoration:none">' + esc(o.company || '') + '</span>' +
     (o.esNueva ? '<span>🆕</span>' : '') +
     '</div>' +
-    '<div class="nmeta"><span><b>Spread call ' + num(o.kLong, 0) + '/' + num(o.kShort, 0) + '</b> · vence ' + esc(o.expiry) + ' (' + o.dte + 'd) · delta ' + num(o.delta, 2) + '</span></div>' +
-    '<div class="nmeta"><span>Débito ' + money(o.debit) + ' · BE ' + money(o.be) + ' · target ' + money(o.target) + ' · máx gana ' + money(o.maxProfit) + ' / máx pierde ' + money(o.maxLoss) + '</span></div>' +
+    '<div class="nmeta"><span><b>' + estTxt(o) + '</b> · vence ' + esc(o.expiry) + ' (' + o.dte + 'd) · delta ' + num(o.delta, 2) + '</span></div>' +
+    '<div class="nmeta"><span>Débito ' + money(o.debit) + ' · BE ' + money(o.be) +
+    (o.target ? ' · target ' + money(o.target) : ' · tendencia abierta') +
+    (o.maxProfit ? ' · máx gana ' + money(o.maxProfit) : '') +
+    ' · máx pierde ' + money(o.maxLoss) + '</span></div>' +
     '<div class="nmeta"><span>Spot ' + money(o.price) + ' · IV ' + num(o.ivPct, 0) + '% vs HV ' + num(o.hvPct, 0) + '% (×' + num(o.ivHv, 2) + ') · RSI ' + num(o.rsi, 0) + ' · sem ' + pct(o.perfWeek) + '</span></div>' +
     '</div>').join('');
 }
