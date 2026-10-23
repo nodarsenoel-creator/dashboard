@@ -25,6 +25,7 @@ const state = {
 let STOCKS = [];
 let BENCH = {};
 let NEWS = [];
+let OPP = [];
 let META = {};
 let FAVS = [];
 let BUYS = [];
@@ -452,6 +453,47 @@ function bindNews() {
   });
   const nl = $('#newsList');
   if (nl) nl.addEventListener('click', (e) => {
+    const b = e.target.closest('.nchip');
+    if (!b) return;
+    state.query = b.dataset.sym;
+    const si = $('#search'); if (si) si.value = state.query;
+    render();
+    const lst = $('#list'); if (lst) lst.scrollIntoView();
+  });
+}
+
+/* ---------- oportunidades del día ---------- */
+function renderOpp() {
+  const sec = $('#oppSec');
+  if (!sec) return;
+  if (!OPP.length) { sec.hidden = true; return; }
+  sec.hidden = false;
+  $('#oppCount').textContent = OPP.length + ' en la lista';
+  $('#oppList').innerHTML = OPP.map((o) =>
+    '<div class="nitem"><div class="ntop">' +
+    '<button class="nchip" data-sym="' + esc(o.symbol) + '">' + esc(o.symbol) + '</button>' +
+    '<span class="ntitle" style="text-decoration:none">' + esc(o.company || '') + '</span>' +
+    (o.esNueva ? '<span>🆕</span>' : '') +
+    '</div>' +
+    '<div class="nmeta"><span>' + money(o.price) + '</span>' +
+    '<span class="' + cls(o.changePct) + '">día ' + pct(o.changePct) + '</span>' +
+    '<span class="' + cls(o.perfWeek) + '">sem ' + pct(o.perfWeek) + '</span>' +
+    '<span class="' + cls(o.perfMonth) + '">mes ' + pct(o.perfMonth) + '</span>' +
+    '<span>RSI ' + num(o.rsi, 0) + '</span></div>' +
+    '<div class="nmeta"><span>PER ' + num(o.pe, 1) + ' · ROE ' + num(o.roe, 0) + '% · margen ' + num(o.netMargin, 0) + '% · div ' + num(o.dividendYield, 2) + '%</span></div>' +
+    '<div class="nmeta"><span>Castigo: ' + esc((o.motivos || []).join(' · ')) + '</span></div>' +
+    '</div>').join('');
+}
+function bindOpp() {
+  const t = $('#oppToggle');
+  if (t) t.addEventListener('click', () => {
+    const l = $('#oppList'), open = l.hidden;
+    l.hidden = !open;
+    t.setAttribute('aria-expanded', String(open));
+    t.querySelector('.chev').textContent = open ? '▾' : '▸';
+  });
+  const ol = $('#oppList');
+  if (ol) ol.addEventListener('click', (e) => {
     const b = e.target.closest('.nchip');
     if (!b) return;
     state.query = b.dataset.sym;
@@ -1019,9 +1061,12 @@ function init(data) {
   loadStore();
   renderTape(data.tape || []);
   NEWS = data.news || [];
+  OPP = data.oportunidades || [];
   BENCH = data.benchmarks || {};
   renderNews();
   bindNews();
+  renderOpp();
+  bindOpp();
   SYMLIST_HTML = STOCKS.map((s) =>
     '<option value="' + esc(s.symbol) + '">' + esc(s.company) + '</option>').join('');
   $('#refreshed').textContent = 'Datos al: ' + fmtDate(META.refreshedAt);
