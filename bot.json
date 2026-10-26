@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-26T19:53:26",
+ "updated": "2026-10-26T21:45:32",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -18,6 +18,51 @@
   }
  },
  "runs": [
+  {
+   "fecha": "2026-10-26",
+   "spot": 765.37,
+   "rsi": 47.3,
+   "flip": null,
+   "flip_ok": null,
+   "senales": {
+    "rebote_piso": false,
+    "rebote_techo": false,
+    "boll": false
+   },
+   "acciones": [
+    "[swing] ENTRADA NVDA spread call 195/245 exp 2027-03-19 d\u00e9bito $23.95 \u2014 esc\u00e1ner: alcista spread, delta 0.7, IV/HV 1.1 \u00b7 se\u00f1al del 2026-10-23"
+   ],
+   "avisos": [
+    "[swing] META: d\u00e9bito $6390 sobre el tope $2500 \u2014 no entra",
+    "[swing] MU: d\u00e9bito $11872 sobre el tope $2500 \u2014 no entra",
+    "[swing] SYK: d\u00e9bito $3480 sobre el tope $2500 \u2014 no entra",
+    "[swing] HD: d\u00e9bito $3320 sobre el tope $2500 \u2014 no entra"
+   ],
+   "libros": {
+    "principal": {
+     "equity": 10000.0,
+     "cash": 10000.0,
+     "abiertas": 0,
+     "trades_cerrados": 0,
+     "pnl_realizado": 0
+    },
+    "sombra": {
+     "equity": 10000.0,
+     "cash": 10000.0,
+     "abiertas": 0,
+     "trades_cerrados": 0,
+     "pnl_realizado": 0
+    },
+    "swing": {
+     "equity": 9960.0,
+     "cash": 6945.0,
+     "abiertas": 2,
+     "trades_cerrados": 0,
+     "pnl_realizado": 0
+    }
+   },
+   "dry": false
+  },
   {
    "fecha": "2026-10-23",
    "spot": 759.97,
@@ -241,8 +286,8 @@
   }
  ],
  "swing": {
-  "cash": 9340.0,
-  "equity": 9965.0,
+  "cash": 6945.0,
+  "equity": 9960.0,
   "pnl_realizado": 0,
   "abiertas": [
    {
@@ -259,8 +304,25 @@
     "target": 120.05,
     "note": "esc\u00e1ner: alcista spread, delta 0.65, IV/HV 0.92",
     "dte": 144,
-    "mark": 6.249999999999999,
-    "pnl_abierto": -35.0
+    "mark": 6.200000000000001,
+    "pnl_abierto": -40.0
+   },
+   {
+    "strategy": "ESCANER",
+    "symbol": "NVDA",
+    "side": "call",
+    "estructura": "spread",
+    "k_long": 195.0,
+    "k_short": 245.0,
+    "debit": 23.95,
+    "entry_date": "2026-10-26",
+    "entry_spot": 216.0,
+    "expiry": "2027-03-19",
+    "target": 243.37,
+    "note": "esc\u00e1ner: alcista spread, delta 0.7, IV/HV 1.1 \u00b7 se\u00f1al del 2026-10-23",
+    "dte": 144,
+    "mark": 23.95,
+    "pnl_abierto": 0.0
    }
   ],
   "cerrados": []
