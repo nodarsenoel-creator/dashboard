@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-23T19:25:40",
+ "updated": "2026-10-26T12:34:29",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -18,6 +18,44 @@
   }
  },
  "runs": [
+  {
+   "fecha": "2026-10-23",
+   "spot": 759.97,
+   "rsi": 42.1,
+   "flip": null,
+   "flip_ok": null,
+   "senales": {
+    "rebote_piso": false,
+    "rebote_techo": false,
+    "boll": false
+   },
+   "acciones": [],
+   "avisos": [],
+   "libros": {
+    "principal": {
+     "equity": 10000.0,
+     "cash": 10000.0,
+     "abiertas": 0,
+     "trades_cerrados": 0,
+     "pnl_realizado": 0
+    },
+    "sombra": {
+     "equity": 10000.0,
+     "cash": 10000.0,
+     "abiertas": 0,
+     "trades_cerrados": 0,
+     "pnl_realizado": 0
+    },
+    "swing": {
+     "equity": 10000.0,
+     "cash": 9340.0,
+     "abiertas": 1,
+     "trades_cerrados": 0,
+     "pnl_realizado": 0
+    }
+   },
+   "dry": false
+  },
   {
    "fecha": "2026-10-23",
    "spot": 759.97,
@@ -204,7 +242,7 @@
  ],
  "swing": {
   "cash": 9340.0,
-  "equity": 10000.0,
+  "equity": 10017.5,
   "pnl_realizado": 0,
   "abiertas": [
    {
@@ -220,9 +258,9 @@
     "expiry": "2027-03-19",
     "target": 120.05,
     "note": "esc\u00e1ner: alcista spread, delta 0.65, IV/HV 0.92",
-    "dte": 147,
-    "mark": 6.6000000000000005,
-    "pnl_abierto": 0.0
+    "dte": 144,
+    "mark": 6.775,
+    "pnl_abierto": 17.5
    }
   ],
   "cerrados": []
