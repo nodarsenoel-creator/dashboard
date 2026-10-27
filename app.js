@@ -475,6 +475,7 @@ function renderOpp() {
     '<button class="nchip" data-sym="' + esc(o.symbol) + '">' + esc(o.symbol) + '</button>' +
     '<span class="ntitle" style="text-decoration:none">' + esc(o.company || '') + '</span>' +
     (o.esNueva ? '<span>🆕</span>' : '') +
+    '<span class="tag tag-dca">Para DCA</span>' +
     '</div>' +
     '<div class="nmeta"><span>' + money(o.price) + '</span>' +
     '<span class="' + cls(o.changePct) + '">día ' + pct(o.changePct) + '</span>' +
@@ -522,6 +523,7 @@ function renderOpts() {
     '<button class="nchip" data-sym="' + esc(o.symbol) + '">' + esc(o.symbol) + '</button>' +
     '<span class="ntitle" style="text-decoration:none">' + esc(o.company || '') + '</span>' +
     (o.esNueva ? '<span>🆕</span>' : '') +
+    '<span class="tag tag-papel">Solo papel</span>' +
     '</div>' +
     '<div class="nmeta"><span><b>' + estTxt(o) + '</b> · vence ' + esc(o.expiry) + ' (' + o.dte + 'd) · delta ' + num(o.delta, 2) + '</span></div>' +
     '<div class="nmeta"><span>Débito ' + money(o.debit) + ' · BE ' + money(o.be) +
