@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T19:53:24",
+ "updated": "2026-10-27T21:42:22",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -18,6 +18,48 @@
   }
  },
  "runs": [
+  {
+   "fecha": "2026-10-27",
+   "spot": 769.66,
+   "rsi": 51.1,
+   "flip": null,
+   "flip_ok": null,
+   "senales": {
+    "rebote_piso": false,
+    "rebote_techo": false,
+    "boll": false
+   },
+   "acciones": [
+    "[swing] ENTRADA NVDA spread call 195/245 exp 2027-03-19 d\u00e9bito $24.70 \u2014 esc\u00e1ner: alcista spread, delta 0.71, IV/HV 1.11 \u00b7 se\u00f1al del 2026-10-26"
+   ],
+   "avisos": [
+    "[swing] MU: d\u00e9bito $13435 sobre el tope $2500 \u2014 no entra"
+   ],
+   "libros": {
+    "principal": {
+     "equity": 10000.0,
+     "cash": 10000.0,
+     "abiertas": 0,
+     "trades_cerrados": 0,
+     "pnl_realizado": 0
+    },
+    "sombra": {
+     "equity": 10000.0,
+     "cash": 10000.0,
+     "abiertas": 0,
+     "trades_cerrados": 0,
+     "pnl_realizado": 0
+    },
+    "swing": {
+     "equity": 10080.0,
+     "cash": 7610.0,
+     "abiertas": 1,
+     "trades_cerrados": 2,
+     "pnl_realizado": 80.0
+    }
+   },
+   "dry": false
+  },
   {
    "fecha": "2026-10-26",
    "spot": 765.37,
@@ -286,10 +328,28 @@
   }
  ],
  "swing": {
-  "cash": 10080.0,
+  "cash": 7610.0,
   "equity": 10080.0,
   "pnl_realizado": 80.0,
-  "abiertas": [],
+  "abiertas": [
+   {
+    "strategy": "ESCANER",
+    "symbol": "NVDA",
+    "side": "call",
+    "estructura": "spread",
+    "k_long": 195.0,
+    "k_short": 245.0,
+    "debit": 24.7,
+    "entry_date": "2026-10-27",
+    "entry_spot": 217.94000244140625,
+    "expiry": "2027-03-19",
+    "target": 243.37,
+    "note": "esc\u00e1ner: alcista spread, delta 0.71, IV/HV 1.11 \u00b7 se\u00f1al del 2026-10-26",
+    "dte": 143,
+    "mark": 24.700000000000006,
+    "pnl_abierto": 0.0
+   }
+  ],
   "cerrados": [
    {
     "strategy": "ESCANER",
