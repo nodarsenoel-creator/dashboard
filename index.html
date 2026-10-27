@@ -12,7 +12,7 @@
 <meta name="apple-mobile-web-app-title" content="Dashboard">
 <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Cpath d='M10 44 L24 30 L34 38 L54 18' stroke='%2334d399' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f172a'/%3E%3Cpath d='M10 44 L24 30 L34 38 L54 18' stroke='%2334d399' stroke-width='5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="styles.css?v=28">
+<link rel="stylesheet" href="styles.css?v=29">
 </head>
 <body>
 <header class="app-header">
@@ -30,20 +30,21 @@
   <p class="news-note">El punto de color es el tono estimado automáticamente (no es consejo). Toca un ticker para ver la acción.</p>
 </section>
 
+<p class="tag-legend">Etiquetas: <span class="tag tag-dca">Para DCA</span> candidata para tu compra quincenal · <span class="tag tag-papel">Solo papel</span> solo en el bot de papel, nunca real · <span class="tag tag-noop">No operar</span> todo lo demás del dashboard es solo para mirar.</p>
 <section id="oppSec" class="news" aria-label="Oportunidades del día" hidden>
   <button class="news-head" id="oppToggle" aria-expanded="false">
-    <strong>🎯 Oportunidades del día</strong><span id="oppCount" class="count"></span><span class="chev">▸</span>
+    <strong>🎯 Oportunidades del día</strong><span class="tag tag-dca">Para DCA</span><span id="oppCount" class="count"></span><span class="chev">▸</span>
   </button>
   <div id="oppList" hidden></div>
-  <p class="news-note">Pasan tu filtro de calidad (PER &lt; 30, ROE ≥ 15%, margen ≥ 10%, con dividendo) y están castigadas (día, semana, RSI o mes). Es información para tu lista de candidatas, no una señal de compra.</p>
+  <p class="news-note">Pasan tu filtro de calidad (PER &lt; 30, ROE ≥ 15%, margen ≥ 10%, con dividendo) y están castigadas (día, semana, RSI o mes). Es información para tu lista de candidatas, no una señal de compra. Etiqueta Para DCA: candidatas para tu compra quincenal de largo plazo, no son trades.</p>
 </section>
 
 <section id="oppOptSec" class="news" aria-label="Oportunidades en opciones" hidden>
   <button class="news-head" id="oppOptToggle" aria-expanded="false">
-    <strong>🎯 Oportunidades en opciones</strong><span id="oppOptCount" class="count"></span><span class="chev">▸</span>
+    <strong>🎯 Oportunidades en opciones</strong><span class="tag tag-papel">Solo papel</span><span id="oppOptCount" class="count"></span><span class="chev">▸</span>
   </button>
   <div id="oppOptList" hidden></div>
-  <p class="news-note">Setups swing en TODOS los sentidos que cumplen TODAS tus reglas de contrato: contexto (alcista: calidad + sobre EMA200, en retroceso o rompiendo; bajista: bajo EMA200, rebote agotado o rompiendo mínimos), IV no cara contra su historia, pata larga delta 0.60–0.80, ~150 días al vencimiento; con nivel target definido arma spread vendiendo en el target y sin nivel va sola; débito ≤ 50% del ancho y breakeven antes del target. Precios de cadena con ~15 min de retraso (CBOE). Es un setup candidato, no una orden.</p>
+  <p class="news-note">Setups swing en TODOS los sentidos que cumplen TODAS tus reglas de contrato: contexto (alcista: calidad + sobre EMA200, en retroceso o rompiendo; bajista: bajo EMA200, rebote agotado o rompiendo mínimos), IV no cara contra su historia, pata larga delta 0.60–0.80, ~150 días al vencimiento; con nivel target definido arma spread vendiendo en el target y sin nivel va sola; débito ≤ 50% del ancho y breakeven antes del target. Precios de cadena con ~15 min de retraso (CBOE). Es un setup candidato, no una orden. Etiqueta Solo papel: estos setups solo se operan en el bot de papel, nunca con dinero real. En real, las opciones son solo SPY y te llegan por la alerta de la mañana.</p>
 </section>
 
 <nav class="tabs" role="tablist" aria-label="Horizonte">
@@ -103,6 +104,6 @@
   <p class="disclaimer">Son screens cuantitativos, no asesoría financiera.</p>
 </footer>
 
-<script src="app.js?v=28"></script>
+<script src="app.js?v=29"></script>
 </body>
 </html>
