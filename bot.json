@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-27T17:08:30",
+ "updated": "2026-10-27T17:23:27",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -286,27 +286,11 @@
   }
  ],
  "swing": {
-  "cash": 6945.0,
-  "equity": 10075.0,
-  "pnl_realizado": 0,
-  "abiertas": [
-   {
-    "strategy": "ESCANER",
-    "symbol": "NEM",
-    "side": "call",
-    "estructura": "spread",
-    "k_long": 105.0,
-    "k_short": 120.0,
-    "debit": 6.6,
-    "entry_date": "2026-10-23",
-    "entry_spot": 108.87000274658203,
-    "expiry": "2027-03-19",
-    "target": 120.05,
-    "note": "esc\u00e1ner: alcista spread, delta 0.65, IV/HV 0.92",
-    "dte": 143,
-    "mark": 6.550000000000001,
-    "pnl_abierto": -5.0
-   },
+  "cash": 10080.0,
+  "equity": 10080.0,
+  "pnl_realizado": 80.0,
+  "abiertas": [],
+  "cerrados": [
    {
     "strategy": "ESCANER",
     "symbol": "NVDA",
@@ -316,16 +300,36 @@
     "k_short": 245.0,
     "debit": 23.95,
     "entry_date": "2026-10-26",
-    "entry_spot": 216.0,
-    "expiry": "2027-03-19",
-    "target": 243.37,
-    "note": "esc\u00e1ner: alcista spread, delta 0.7, IV/HV 1.1 \u00b7 se\u00f1al del 2026-10-23",
-    "dte": 143,
-    "mark": 24.750000000000004,
-    "pnl_abierto": 80.0
+    "exit_date": "2026-10-27",
+    "exit_value": 24.8,
+    "pnl": 85.0,
+    "motivo": "cierre manual",
+    "note": "esc\u00e1ner: alcista spread, delta 0.7, IV/HV 1.1 \u00b7 se\u00f1al del 2026-10-23"
+   },
+   {
+    "strategy": "ESCANER",
+    "symbol": "NEM",
+    "side": "call",
+    "estructura": "spread",
+    "k_long": 105.0,
+    "k_short": 120.0,
+    "debit": 6.6,
+    "entry_date": "2026-10-23",
+    "exit_date": "2026-10-27",
+    "exit_value": 6.55,
+    "pnl": -5.0,
+    "motivo": "cierre manual",
+    "note": "esc\u00e1ner: alcista spread, delta 0.65, IV/HV 0.92"
    }
-  ],
-  "cerrados": []
+  ]
  },
- "marcador": []
+ "marcador": [
+  {
+   "estrategia": "ESCANER spread",
+   "libro": "swing",
+   "trades": 2,
+   "ganados": 1,
+   "pnl": 80.0
+  }
+ ]
 }
