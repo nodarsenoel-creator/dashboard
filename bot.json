@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-29T16:38:28",
+ "updated": "2026-10-29T16:53:29",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -386,7 +386,7 @@
     "target": 243.37,
     "note": "esc\u00e1ner: alcista spread, delta 0.71, IV/HV 1.11 \u00b7 se\u00f1al del 2026-10-26",
     "dte": 141,
-    "mark": 22.799999999999997,
+    "mark": 22.799999999999994,
     "pnl_abierto": -190.0
    }
   ],
