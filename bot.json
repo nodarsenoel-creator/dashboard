@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-30T17:08:30",
+ "updated": "2026-10-30T17:23:30",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -411,7 +411,7 @@
  ],
  "swing": {
   "cash": 6670.0,
-  "equity": 9540.0,
+  "equity": 9502.5,
   "pnl_realizado": 80.0,
   "abiertas": [
    {
@@ -428,8 +428,8 @@
     "target": 243.37,
     "note": "esc\u00e1ner: alcista spread, delta 0.71, IV/HV 1.11 \u00b7 se\u00f1al del 2026-10-26",
     "dte": 140,
-    "mark": 19.15,
-    "pnl_abierto": -555.0
+    "mark": 19.125,
+    "pnl_abierto": -557.5
    },
    {
     "strategy": "ESCANER",
@@ -445,8 +445,8 @@
     "target": 301.81,
     "note": "esc\u00e1ner: alcista spread, delta 0.62, IV/HV 1.13 \u00b7 se\u00f1al del 2026-10-28",
     "dte": 140,
-    "mark": 9.549999999999997,
-    "pnl_abierto": 15.0
+    "mark": 9.200000000000003,
+    "pnl_abierto": -20.0
    }
   ],
   "cerrados": [
