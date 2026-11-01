@@ -30,6 +30,7 @@
 <p class="sub" id="upd">Cargando…</p>
 <div id="books"></div>
 <div id="swing"></div>
+<div id="otros"></div>
 <div class="card"><h2>🏆 Rentabilidad por estrategia</h2><div id="marcador"></div></div>
 <div class="card"><h2>Actividad reciente</h2><div id="runs"></div></div>
 <script>
@@ -84,6 +85,34 @@ function swingCard(b){
   }
   return h+'</div>';
 }
+function otrosRow(p){
+  const pnl=p.pnl_abierto==null?'—':`<span class="${cls(p.pnl_abierto)}">${sgn(p.pnl_abierto)}</span>`;
+  const est=p.k_long!=null?`Spread call ${p.k_long}/${p.k_short}`:(p.shares?`Acciones ${Number(p.shares).toFixed(2)}`:'—');
+  const vence=p.expiry?`${p.expiry} (${p.dte}d)`:'—';
+  const pago=p.k_long!=null?money(p.debit*100):money(p.debit);
+  const vale=p.mark==null?'—':(p.k_long!=null?money(p.mark*100):money(p.mark));
+  return `<tr><td><b>${p.symbol||p.ticker||''}</b></td><td>${est}</td>
+  <td>${vence}</td><td>${pago}</td><td>${vale}</td><td>${pnl}</td></tr>`;
+}
+function otrosTradeRow(t){
+  const est=t.k_long?`Spread ${t.k_long}/${t.k_short}`:'—';
+  return `<tr><td><b>${t.symbol||t.ticker||''}</b></td><td>${est}</td>
+  <td>${t.entry_date} → ${t.exit_date}</td><td>${t.motivo||''}</td>
+  <td><span class="${cls(t.pnl)}">${sgn(t.pnl)}</span></td></tr>`;
+}
+function otrosCard(b){
+  let h=`<div class="card"><h2>${b.titulo}${b.archivado?' · ARCHIVADO':''}</h2><div class="nums">
+    <div class="num"><b>${money(b.equity)}</b><span>Valor total</span></div>
+    <div class="num"><b>${money(b.cash)}</b><span>Efectivo</span></div>
+    <div class="num"><b class="${cls(b.pnl_realizado)}">${sgn(b.pnl_realizado)}</b><span>Ganado/perdido cerrado</span></div></div>`;
+  if(b.last_bar_date) h+=`<p class="sub">Última barra del libro: ${b.last_bar_date}</p>`;
+  h+=`<h2 style="margin-top:12px">Posiciones abiertas (${b.abiertas.length})</h2>`;
+  h+=b.abiertas.length?`<table><tr><th>Acción</th><th>Estructura</th><th>Vence</th><th>Pagó</th><th>Vale</th><th>P&amp;L</th></tr>${b.abiertas.map(otrosRow).join('')}</table>`:`<p class="empty">Sin posiciones abiertas en este libro.</p>`;
+  if(b.cerrados.length){
+    h+=`<h2 style="margin-top:12px">Trades cerrados</h2><table><tr><th>Acción</th><th>Estructura</th><th>Fechas</th><th>Salida</th><th>P&amp;L</th></tr>${b.cerrados.map(otrosTradeRow).join('')}</table>`;
+  }
+  return h+'</div>';
+}
 function marcadorHTML(rows){
   if(!rows.length) return '<p class="empty">Sin trades cerrados todavía — el marcador se llena con cada salida, para ver qué estrategia da más.</p>';
   return `<table><tr><th>Estrategia</th><th>Libro</th><th>Trades</th><th>Ganados</th><th>P&amp;L</th></tr>${rows.map(m=>`<tr><td>${m.estrategia}</td><td>${m.libro}</td><td>${m.trades}</td><td>${m.ganados}</td><td><span class="${cls(m.pnl)}">${sgn(m.pnl)}</span></td></tr>`).join('')}</table>`;
@@ -92,6 +121,7 @@ fetch('bot.json',{cache:'no-store'}).then(r=>r.json()).then(d=>{
   $('upd').textContent='Plata falsa · Precios reales de SPY · Actualizado: '+d.updated.replace('T',' ').slice(0,16)+' · Bot creado el '+d.creado;
   $('books').innerHTML=bookCard('principal',d.libros.principal)+bookCard('sombra',d.libros.sombra);
   $('swing').innerHTML=d.swing?swingCard(d.swing):'';
+  $('otros').innerHTML=(d.otros_libros||[]).map(otrosCard).join('');
   $('marcador').innerHTML=marcadorHTML(d.marcador||[]);
   $('runs').innerHTML=d.runs.map(r=>{
     const s=Object.entries(r.senales).filter(([k,v])=>v).map(([k])=>k).join(', ')||'sin señales';
