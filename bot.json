@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-30T21:42:16",
+ "updated": "2026-11-01T18:27:46",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -465,7 +465,7 @@
     "expiry": "2027-03-19",
     "target": 243.37,
     "note": "esc\u00e1ner: alcista spread, delta 0.71, IV/HV 1.11 \u00b7 se\u00f1al del 2026-10-26",
-    "dte": 140,
+    "dte": 138,
     "mark": 19.85,
     "pnl_abierto": -485.0
    },
@@ -482,7 +482,7 @@
     "expiry": "2027-03-19",
     "target": 301.81,
     "note": "esc\u00e1ner: alcista spread, delta 0.62, IV/HV 1.13 \u00b7 se\u00f1al del 2026-10-28",
-    "dte": 140,
+    "dte": 138,
     "mark": 9.899999999999999,
     "pnl_abierto": 50.0
    }
@@ -527,6 +527,203 @@
    "trades": 2,
    "ganados": 1,
    "pnl": 80.0
+  }
+ ],
+ "otros_libros": [
+  {
+   "key": "rsi20",
+   "titulo": "Libro RSI20 (papel) \u2014 sustituye a Mag-7",
+   "archivado": false,
+   "cash": 767.5,
+   "equity": 1000.0,
+   "pnl_realizado": 0.0,
+   "last_bar_date": "2026-10-30",
+   "abiertas": [
+    {
+     "symbol": "RDDT",
+     "ticker": "RDDT",
+     "strategy": "RSI20",
+     "side": "call",
+     "k_long": 90.0,
+     "k_short": 95.0,
+     "shares": null,
+     "debit": 2.325000000000001,
+     "entry_date": "2026-10-30",
+     "entry_spot": 91.7300033569336,
+     "expiry": "2027-01-15",
+     "dte": 75,
+     "mark": 2.325000000000001,
+     "pnl_abierto": 0.0,
+     "target": 3.6625000000000005
+    }
+   ],
+   "cerrados": []
+  },
+  {
+   "key": "piso",
+   "titulo": "Libro PISO rebote multi-acci\u00f3n (papel)",
+   "archivado": false,
+   "cash": 8105.0,
+   "equity": 9834.0,
+   "pnl_realizado": 0.0,
+   "last_bar_date": "2026-10-30",
+   "abiertas": [
+    {
+     "symbol": "BG",
+     "ticker": "BG",
+     "strategy": "PISO",
+     "side": "call",
+     "k_long": 95.0,
+     "k_short": 110.0,
+     "shares": null,
+     "debit": 3.3,
+     "entry_date": "2026-10-29",
+     "entry_spot": 96.0199966430664,
+     "expiry": "2026-11-20",
+     "dte": 19,
+     "mark": 3.9,
+     "pnl_abierto": 60.0,
+     "target": 9.149999999999999
+    },
+    {
+     "symbol": "APP",
+     "ticker": "APP",
+     "strategy": "PISO",
+     "side": "call",
+     "k_long": 230.0,
+     "k_short": 277.5,
+     "shares": null,
+     "debit": 15.65,
+     "entry_date": "2026-10-30",
+     "entry_spot": 228.5,
+     "expiry": "2026-11-20",
+     "dte": 19,
+     "mark": 15.65,
+     "pnl_abierto": 0.0,
+     "target": 31.575000000000003
+    }
+   ],
+   "cerrados": []
+  },
+  {
+   "key": "etfboll",
+   "titulo": "Libro ETF-BOLL (papel)",
+   "archivado": false,
+   "cash": 6011.03,
+   "equity": 9953.3,
+   "pnl_realizado": 0.0,
+   "last_bar_date": "2026-10-30",
+   "abiertas": [
+    {
+     "symbol": "XLC",
+     "ticker": "XLC",
+     "strategy": null,
+     "side": "call",
+     "k_long": null,
+     "k_short": null,
+     "shares": 9.68974564376848,
+     "debit": 103.13999938964844,
+     "entry_date": "2026-10-28",
+     "entry_spot": 103.13999938964844,
+     "expiry": null,
+     "dte": null,
+     "mark": 99.9000015258789,
+     "pnl_abierto": -31.39,
+     "target": null
+    },
+    {
+     "symbol": "XLC",
+     "ticker": "XLC",
+     "strategy": null,
+     "side": "call",
+     "k_long": null,
+     "k_short": null,
+     "shares": 9.8554633034014,
+     "debit": 101.20999908447266,
+     "entry_date": "2026-10-29",
+     "entry_spot": 101.20999908447266,
+     "expiry": null,
+     "dte": null,
+     "mark": 99.9000015258789,
+     "pnl_abierto": -12.91,
+     "target": null
+    },
+    {
+     "symbol": "XLC",
+     "ticker": "XLC",
+     "strategy": null,
+     "side": "call",
+     "k_long": null,
+     "k_short": null,
+     "shares": 9.958485706200735,
+     "debit": 99.9000015258789,
+     "entry_date": "2026-10-30",
+     "entry_spot": 99.9000015258789,
+     "expiry": null,
+     "dte": null,
+     "mark": 99.9000015258789,
+     "pnl_abierto": 0.0,
+     "target": null
+    },
+    {
+     "symbol": "SPY",
+     "ticker": "SPY",
+     "strategy": null,
+     "side": "call",
+     "k_long": null,
+     "k_short": null,
+     "shares": 1.316430391960241,
+     "debit": 755.719970703125,
+     "entry_date": "2026-10-30",
+     "entry_spot": 755.719970703125,
+     "expiry": null,
+     "dte": null,
+     "mark": 755.719970703125,
+     "pnl_abierto": 0.0,
+     "target": null
+    }
+   ],
+   "cerrados": []
+  },
+  {
+   "key": "finas",
+   "titulo": "Libro Finas (SPY, acciones \u2014 papel)",
+   "archivado": false,
+   "cash": 10000.0,
+   "equity": 10000.0,
+   "pnl_realizado": 0.0,
+   "last_bar_date": "2026-10-30",
+   "abiertas": [],
+   "cerrados": []
+  },
+  {
+   "key": "mag7",
+   "titulo": "Libro Mag-7 din\u00e1mico \u2014 ARCHIVADO 2026-10-31",
+   "archivado": true,
+   "cash": 9553.61,
+   "equity": 10000.0,
+   "pnl_realizado": 0.0,
+   "last_bar_date": "2026-10-30",
+   "abiertas": [
+    {
+     "symbol": "SCHW",
+     "ticker": "SCHW",
+     "strategy": null,
+     "side": "call",
+     "k_long": 85,
+     "k_short": 95,
+     "shares": null,
+     "debit": 4.4639430924605,
+     "entry_date": "2026-10-30",
+     "entry_spot": 88.05000305175781,
+     "expiry": null,
+     "dte": null,
+     "mark": null,
+     "pnl_abierto": null,
+     "target": 7.23197154623025
+    }
+   ],
+   "cerrados": []
   }
  ]
 }
