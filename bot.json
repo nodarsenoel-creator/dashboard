@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-02T17:08:32",
+ "updated": "2026-11-02T17:23:43",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -449,7 +449,7 @@
  ],
  "swing": {
   "cash": 6670.0,
-  "equity": 9782.5,
+  "equity": 9815.0,
   "pnl_realizado": 80.0,
   "abiertas": [
    {
@@ -466,8 +466,8 @@
     "target": 243.37,
     "note": "esc\u00e1ner: alcista spread, delta 0.71, IV/HV 1.11 \u00b7 se\u00f1al del 2026-10-26",
     "dte": 137,
-    "mark": 20.475,
-    "pnl_abierto": -422.5
+    "mark": 20.65,
+    "pnl_abierto": -405.0
    },
    {
     "strategy": "ESCANER",
@@ -483,8 +483,8 @@
     "target": 301.81,
     "note": "esc\u00e1ner: alcista spread, delta 0.62, IV/HV 1.13 \u00b7 se\u00f1al del 2026-10-28",
     "dte": 137,
-    "mark": 10.649999999999999,
-    "pnl_abierto": 125.0
+    "mark": 10.799999999999997,
+    "pnl_abierto": 140.0
    }
   ],
   "cerrados": [
@@ -552,8 +552,8 @@
      "entry_spot": 91.7300033569336,
      "expiry": "2027-01-15",
      "dte": 74,
-     "mark": 2.375,
-     "pnl_abierto": 5.0,
+     "mark": 2.4499999999999993,
+     "pnl_abierto": 12.5,
      "target": 3.6625000000000005
     }
    ],
@@ -627,8 +627,8 @@
      "entry_spot": 103.13999938964844,
      "expiry": null,
      "dte": null,
-     "mark": 100.87999725341797,
-     "pnl_abierto": -21.9,
+     "mark": 100.8550033569336,
+     "pnl_abierto": -22.14,
      "target": null
     },
     {
@@ -644,8 +644,8 @@
      "entry_spot": 101.20999908447266,
      "expiry": null,
      "dte": null,
-     "mark": 100.87999725341797,
-     "pnl_abierto": -3.25,
+     "mark": 100.8550033569336,
+     "pnl_abierto": -3.5,
      "target": null
     },
     {
@@ -661,8 +661,8 @@
      "entry_spot": 99.9000015258789,
      "expiry": null,
      "dte": null,
-     "mark": 100.87999725341797,
-     "pnl_abierto": 9.76,
+     "mark": 100.8550033569336,
+     "pnl_abierto": 9.51,
      "target": null
     },
     {
@@ -678,8 +678,8 @@
      "entry_spot": 755.719970703125,
      "expiry": null,
      "dte": null,
-     "mark": 759.75,
-     "pnl_abierto": 5.31,
+     "mark": 759.2708129882812,
+     "pnl_abierto": 4.67,
      "target": null
     }
    ],
