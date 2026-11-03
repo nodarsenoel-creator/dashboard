@@ -1,29 +1,27 @@
 {
- "updated": "2026-11-03T18:45:04",
+ "updated": "2026-11-03T23:48:27",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
-   "cash": 8680.5,
+   "cash": 10000.0,
    "equity": 10000.0,
-   "pnl_realizado": 0,
-   "abiertas": [
+   "pnl_realizado": -0.5,
+   "abiertas": [],
+   "cerrados": [
     {
      "strategy": "BOLL",
      "side": "call",
      "k_long": 754.0,
      "k_short": 784.0,
-     "width": 30.0,
      "debit": 13.2,
      "entry_date": "2026-11-03",
-     "entry_spot": 754.35,
-     "expiry": "2026-12-04",
-     "note": "reingreso banda inferior",
-     "dte": 31,
-     "mark": 13.195,
-     "pnl_abierto": -0.5
+     "exit_date": "2026-11-03",
+     "exit_value": 13.195,
+     "pnl": -0.5,
+     "motivo": "cierre_manual_noel",
+     "note": "reingreso banda inferior"
     }
-   ],
-   "cerrados": []
+   ]
   },
   "sombra": {
    "cash": 10000.0,
@@ -514,27 +512,11 @@
   }
  ],
  "swing": {
-  "cash": 7330.0,
+  "cash": 9790.0,
   "equity": 9790.0,
-  "pnl_realizado": 260.0,
-  "abiertas": [
-   {
-    "strategy": "ESCANER",
-    "symbol": "NVDA",
-    "side": "call",
-    "estructura": "spread",
-    "k_long": 195.0,
-    "k_short": 245.0,
-    "debit": 24.7,
-    "entry_date": "2026-10-27",
-    "entry_spot": 217.94000244140625,
-    "expiry": "2027-03-19",
-    "target": 243.37,
-    "note": "esc\u00e1ner: alcista spread, delta 0.71, IV/HV 1.11 \u00b7 se\u00f1al del 2026-10-26",
-    "dte": 136,
-    "mark": 20.825,
-    "pnl_abierto": -387.5
-   },
+  "pnl_realizado": -210.0,
+  "abiertas": [],
+  "cerrados": [
    {
     "strategy": "ESCANER",
     "symbol": "NEM",
@@ -544,16 +526,27 @@
     "k_short": 115.0,
     "debit": 4.6,
     "entry_date": "2026-11-02",
-    "entry_spot": 109.08999633789062,
-    "expiry": "2027-03-19",
-    "target": 120.05,
-    "note": "esc\u00e1ner: alcista spread, delta 0.67, IV/HV 0.91 \u00b7 se\u00f1al del 2026-10-30",
-    "dte": 136,
-    "mark": 3.775000000000002,
-    "pnl_abierto": -82.5
-   }
-  ],
-  "cerrados": [
+    "exit_date": "2026-11-03",
+    "exit_value": 3.78,
+    "pnl": -82.0,
+    "motivo": "cierre manual",
+    "note": "esc\u00e1ner: alcista spread, delta 0.67, IV/HV 0.91 \u00b7 se\u00f1al del 2026-10-30"
+   },
+   {
+    "strategy": "ESCANER",
+    "symbol": "NVDA",
+    "side": "call",
+    "estructura": "spread",
+    "k_long": 195.0,
+    "k_short": 245.0,
+    "debit": 24.7,
+    "entry_date": "2026-10-27",
+    "exit_date": "2026-11-03",
+    "exit_value": 20.82,
+    "pnl": -388.0,
+    "motivo": "cierre manual",
+    "note": "esc\u00e1ner: alcista spread, delta 0.71, IV/HV 1.11 \u00b7 se\u00f1al del 2026-10-26"
+   },
    {
     "strategy": "ESCANER",
     "symbol": "EXPE",
@@ -603,11 +596,18 @@
  },
  "marcador": [
   {
+   "estrategia": "BOLL",
+   "libro": "principal",
+   "trades": 1,
+   "ganados": 0,
+   "pnl": -0.5
+  },
+  {
    "estrategia": "ESCANER spread",
    "libro": "swing",
-   "trades": 3,
+   "trades": 5,
    "ganados": 2,
-   "pnl": 260.0
+   "pnl": -210.0
   }
  ],
  "otros_libros": [
@@ -615,30 +615,24 @@
    "key": "rsi20",
    "titulo": "Libro RSI20 (papel) \u2014 sustituye a Mag-7",
    "archivado": false,
-   "cash": 767.5,
-   "equity": 1010.0,
-   "pnl_realizado": 0.0,
+   "cash": 1007.4,
+   "equity": 1007.4,
+   "pnl_realizado": 7.4,
    "last_bar_date": "2026-11-03",
-   "abiertas": [
+   "abiertas": [],
+   "cerrados": [
     {
      "symbol": "RDDT",
      "ticker": "RDDT",
-     "strategy": "RSI20",
      "side": "call",
-     "k_long": 90.0,
-     "k_short": 95.0,
-     "shares": null,
-     "debit": 2.325000000000001,
+     "k_long": "90.0",
+     "k_short": "95.0",
      "entry_date": "2026-10-30",
-     "entry_spot": 91.7300033569336,
-     "expiry": "2027-01-15",
-     "dte": 73,
-     "mark": 2.4250000000000007,
-     "pnl_abierto": 10.0,
-     "target": 3.6625000000000005
+     "exit_date": "2026-11-03",
+     "motivo": "cierre_manual_noel",
+     "pnl": 7.4
     }
-   ],
-   "cerrados": []
+   ]
   },
   {
    "key": "piso",
@@ -689,139 +683,19 @@
    "key": "etfboll",
    "titulo": "Libro ETF-BOLL (papel)",
    "archivado": false,
-   "cash": 3023.28,
-   "equity": 10017.33,
-   "pnl_realizado": 0.0,
+   "cash": 10013.13,
+   "equity": 10013.13,
+   "pnl_realizado": 13.13,
    "last_bar_date": "2026-11-03",
-   "abiertas": [
-    {
-     "symbol": "XLC",
-     "ticker": "XLC",
-     "strategy": null,
-     "side": "call",
-     "k_long": null,
-     "k_short": null,
-     "shares": 9.68974564376848,
-     "debit": 103.13999938964844,
-     "entry_date": "2026-10-28",
-     "entry_spot": 103.13999938964844,
-     "expiry": null,
-     "dte": null,
-     "mark": 101.44000244140625,
-     "pnl_abierto": -16.47,
-     "target": null
-    },
-    {
-     "symbol": "XLC",
-     "ticker": "XLC",
-     "strategy": null,
-     "side": "call",
-     "k_long": null,
-     "k_short": null,
-     "shares": 9.8554633034014,
-     "debit": 101.20999908447266,
-     "entry_date": "2026-10-29",
-     "entry_spot": 101.20999908447266,
-     "expiry": null,
-     "dte": null,
-     "mark": 101.44000244140625,
-     "pnl_abierto": 2.27,
-     "target": null
-    },
-    {
-     "symbol": "XLC",
-     "ticker": "XLC",
-     "strategy": null,
-     "side": "call",
-     "k_long": null,
-     "k_short": null,
-     "shares": 9.958485706200735,
-     "debit": 99.9000015258789,
-     "entry_date": "2026-10-30",
-     "entry_spot": 99.9000015258789,
-     "expiry": null,
-     "dte": null,
-     "mark": 101.44000244140625,
-     "pnl_abierto": 15.34,
-     "target": null
-    },
-    {
-     "symbol": "SPY",
-     "ticker": "SPY",
-     "strategy": null,
-     "side": "call",
-     "k_long": null,
-     "k_short": null,
-     "shares": 1.316430391960241,
-     "debit": 755.719970703125,
-     "entry_date": "2026-10-30",
-     "entry_spot": 755.719970703125,
-     "expiry": null,
-     "dte": null,
-     "mark": 754.3499755859375,
-     "pnl_abierto": -1.8,
-     "target": null
-    },
-    {
-     "symbol": "SPY",
-     "ticker": "SPY",
-     "strategy": null,
-     "side": "call",
-     "k_long": null,
-     "k_short": null,
-     "shares": 1.3233861126437734,
-     "debit": 752.0999755859375,
-     "entry_date": "2026-11-02",
-     "entry_spot": 752.0999755859375,
-     "expiry": null,
-     "dte": null,
-     "mark": 754.3499755859375,
-     "pnl_abierto": 2.98,
-     "target": null
-    },
-    {
-     "symbol": "XLK",
-     "ticker": "XLK",
-     "strategy": null,
-     "side": "call",
-     "k_long": null,
-     "k_short": null,
-     "shares": 5.7129988292749125,
-     "debit": 174.22000122070312,
-     "entry_date": "2026-11-02",
-     "entry_spot": 174.22000122070312,
-     "expiry": null,
-     "dte": null,
-     "mark": 176.50999450683594,
-     "pnl_abierto": 13.08,
-     "target": null
-    },
-    {
-     "symbol": "QQQ",
-     "ticker": "QQQ",
-     "strategy": null,
-     "side": "call",
-     "k_long": null,
-     "k_short": null,
-     "shares": 1.4613613821442184,
-     "debit": 681.0900268554688,
-     "entry_date": "2026-11-02",
-     "entry_spot": 681.0900268554688,
-     "expiry": null,
-     "dte": null,
-     "mark": 685.280029296875,
-     "pnl_abierto": 6.12,
-     "target": null
-    }
-   ],
+   "abiertas": [],
    "cerrados": []
   },
   {
    "key": "finas",
    "titulo": "Libro Finas (SPY, acciones \u2014 papel)",
    "archivado": false,
-   "cash": 7500.0,
-   "equity": 10000.0,
+   "cash": 9999.75,
+   "equity": 9999.75,
    "pnl_realizado": 0.0,
    "last_bar_date": "2026-11-03",
    "abiertas": [],
