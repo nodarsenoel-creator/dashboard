@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-03T22:42:16",
+ "updated": "2026-11-03T18:45:04",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -616,9 +616,9 @@
    "titulo": "Libro RSI20 (papel) \u2014 sustituye a Mag-7",
    "archivado": false,
    "cash": 767.5,
-   "equity": 990.0,
+   "equity": 1010.0,
    "pnl_realizado": 0.0,
-   "last_bar_date": "2026-11-02",
+   "last_bar_date": "2026-11-03",
    "abiertas": [
     {
      "symbol": "RDDT",
@@ -644,73 +644,55 @@
    "key": "piso",
    "titulo": "Libro PISO rebote multi-acci\u00f3n (papel)",
    "archivado": false,
-   "cash": 7345.0,
-   "equity": 10035.0,
-   "pnl_realizado": 0.0,
-   "last_bar_date": "2026-11-02",
-   "abiertas": [
+   "cash": 10714.7,
+   "equity": 10714.7,
+   "pnl_realizado": 714.7,
+   "last_bar_date": "2026-11-03",
+   "abiertas": [],
+   "cerrados": [
     {
      "symbol": "BG",
      "ticker": "BG",
-     "strategy": "PISO",
      "side": "call",
-     "k_long": 95.0,
-     "k_short": 110.0,
-     "shares": null,
-     "debit": 3.3,
+     "k_long": "95.0",
+     "k_short": "110.0",
      "entry_date": "2026-10-29",
-     "entry_spot": 96.0199966430664,
-     "expiry": "2026-11-20",
-     "dte": 17,
-     "mark": 2.525,
-     "pnl_abierto": -77.5,
-     "target": 9.149999999999999
+     "exit_date": "2026-11-03",
+     "motivo": "cierre_manual_noel",
+     "pnl": -80.1
     },
     {
      "symbol": "APP",
      "ticker": "APP",
-     "strategy": "PISO",
      "side": "call",
-     "k_long": 230.0,
-     "k_short": 277.5,
-     "shares": null,
-     "debit": 15.65,
+     "k_long": "230.0",
+     "k_short": "277.5",
      "entry_date": "2026-10-30",
-     "entry_spot": 228.5,
-     "expiry": "2026-11-20",
-     "dte": 17,
-     "mark": 20.2,
-     "pnl_abierto": 455.0,
-     "target": 31.575000000000003
+     "exit_date": "2026-11-03",
+     "motivo": "cierre_manual_noel",
+     "pnl": 452.4
     },
     {
      "symbol": "COIN",
      "ticker": "COIN",
-     "strategy": "PISO",
      "side": "call",
-     "k_long": 140.0,
-     "k_short": 180.0,
-     "shares": null,
-     "debit": 7.6000000000000005,
+     "k_long": "140.0",
+     "k_short": "180.0",
      "entry_date": "2026-11-02",
-     "entry_spot": 137.8300018310547,
-     "expiry": "2026-11-20",
-     "dte": 17,
-     "mark": 11.05,
-     "pnl_abierto": 345.0,
-     "target": 23.8
+     "exit_date": "2026-11-03",
+     "motivo": "cierre_manual_noel",
+     "pnl": 342.4
     }
-   ],
-   "cerrados": []
+   ]
   },
   {
    "key": "etfboll",
    "titulo": "Libro ETF-BOLL (papel)",
    "archivado": false,
    "cash": 3023.28,
-   "equity": 9957.37,
+   "equity": 10017.33,
    "pnl_realizado": 0.0,
-   "last_bar_date": "2026-11-02",
+   "last_bar_date": "2026-11-03",
    "abiertas": [
     {
      "symbol": "XLC",
@@ -838,10 +820,10 @@
    "key": "finas",
    "titulo": "Libro Finas (SPY, acciones \u2014 papel)",
    "archivado": false,
-   "cash": 10000.0,
+   "cash": 7500.0,
    "equity": 10000.0,
    "pnl_realizado": 0.0,
-   "last_bar_date": "2026-11-02",
+   "last_bar_date": "2026-11-03",
    "abiertas": [],
    "cerrados": []
   },
