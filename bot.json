@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-04T20:53:32",
+ "updated": "2026-11-04T22:42:35",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -32,6 +32,46 @@
   }
  },
  "runs": [
+  {
+   "fecha": "2026-11-04",
+   "spot": 766.81,
+   "rsi": 50.7,
+   "flip": null,
+   "flip_ok": null,
+   "senales": {
+    "rebote_piso": false,
+    "rebote_techo": false,
+    "boll": false
+   },
+   "acciones": [],
+   "avisos": [
+    "[swing] NEM: d\u00e9bito ya no pasa el 50% del ancho \u2014 no entra"
+   ],
+   "libros": {
+    "principal": {
+     "equity": 10000.0,
+     "cash": 10000.0,
+     "abiertas": 0,
+     "trades_cerrados": 1,
+     "pnl_realizado": -0.5
+    },
+    "sombra": {
+     "equity": 10000.0,
+     "cash": 10000.0,
+     "abiertas": 0,
+     "trades_cerrados": 0,
+     "pnl_realizado": 0
+    },
+    "swing": {
+     "equity": 9790.0,
+     "cash": 9790.0,
+     "abiertas": 0,
+     "trades_cerrados": 5,
+     "pnl_realizado": -210.0
+    }
+   },
+   "dry": false
+  },
   {
    "fecha": "2026-11-03",
    "spot": 754.35,
@@ -452,37 +492,6 @@
    "fecha": "2026-10-23",
    "spot": 759.97,
    "rsi": 42.1,
-   "flip": null,
-   "flip_ok": null,
-   "senales": {
-    "rebote_piso": false,
-    "rebote_techo": false,
-    "boll": false
-   },
-   "acciones": [],
-   "avisos": [],
-   "libros": {
-    "principal": {
-     "equity": 10000.0,
-     "cash": 10000.0,
-     "abiertas": 0,
-     "trades_cerrados": 0,
-     "pnl_realizado": 0
-    },
-    "sombra": {
-     "equity": 10000.0,
-     "cash": 10000.0,
-     "abiertas": 0,
-     "trades_cerrados": 0,
-     "pnl_realizado": 0
-    }
-   },
-   "dry": false
-  },
-  {
-   "fecha": "2026-10-22",
-   "spot": 763.96,
-   "rsi": 45.2,
    "flip": null,
    "flip_ok": null,
    "senales": {
