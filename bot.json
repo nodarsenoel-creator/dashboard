@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T22:42:15",
+ "updated": "2026-11-05T18:29:59",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -651,11 +651,29 @@
    "key": "rsi20",
    "titulo": "Libro RSI20 (papel) \u2014 sustituye a Mag-7",
    "archivado": false,
-   "cash": 1007.4,
+   "cash": 287.4,
    "equity": 1007.4,
    "pnl_realizado": 7.4,
-   "last_bar_date": "2026-11-04",
-   "abiertas": [],
+   "last_bar_date": "2026-11-05",
+   "abiertas": [
+    {
+     "symbol": "CAT",
+     "ticker": "CAT",
+     "strategy": "RSI20",
+     "side": "call",
+     "k_long": 560.0,
+     "k_short": 580.0,
+     "shares": null,
+     "debit": 7.200000000000003,
+     "entry_date": "2026-11-05",
+     "entry_spot": 553.6400146484375,
+     "expiry": "2027-02-19",
+     "dte": 106,
+     "mark": 7.200000000000003,
+     "pnl_abierto": 0.0,
+     "target": 13.600000000000001
+    }
+   ],
    "cerrados": [
     {
      "symbol": "RDDT",
@@ -674,10 +692,10 @@
    "key": "piso",
    "titulo": "Libro PISO rebote multi-acci\u00f3n (papel)",
    "archivado": false,
-   "cash": 8349.7,
-   "equity": 10714.7,
+   "cash": 8279.7,
+   "equity": 9669.7,
    "pnl_realizado": 714.7,
-   "last_bar_date": "2026-11-04",
+   "last_bar_date": "2026-11-05",
    "abiertas": [
     {
      "symbol": "CMI",
@@ -695,6 +713,23 @@
      "mark": 13.2,
      "pnl_abierto": -1045.0,
      "target": 36.825
+    },
+    {
+     "symbol": "AKAM",
+     "ticker": "AKAM",
+     "strategy": "PISO",
+     "side": "call",
+     "k_long": 85.0,
+     "k_short": 90.0,
+     "shares": null,
+     "debit": 0.7000000000000002,
+     "entry_date": "2026-11-05",
+     "entry_spot": 77.83999633789062,
+     "expiry": "2026-11-27",
+     "dte": 22,
+     "mark": 0.7000000000000002,
+     "pnl_abierto": 0.0,
+     "target": 2.85
     }
    ],
    "cerrados": [
@@ -737,10 +772,10 @@
    "key": "etfboll",
    "titulo": "Libro ETF-BOLL (papel)",
    "archivado": false,
-   "cash": 9011.82,
-   "equity": 10012.53,
+   "cash": 4020.44,
+   "equity": 9979.76,
    "pnl_realizado": 13.13,
-   "last_bar_date": "2026-11-04",
+   "last_bar_date": "2026-11-05",
    "abiertas": [
     {
      "symbol": "XLE",
@@ -758,6 +793,91 @@
      "mark": 61.630001068115234,
      "pnl_abierto": -29.78,
      "target": null
+    },
+    {
+     "symbol": "XLK",
+     "ticker": "XLK",
+     "strategy": null,
+     "side": "call",
+     "k_long": null,
+     "k_short": null,
+     "shares": 6.144086470811466,
+     "debit": 162.3800048828125,
+     "entry_date": "2026-11-05",
+     "entry_spot": 162.3800048828125,
+     "expiry": null,
+     "dte": null,
+     "mark": 162.3800048828125,
+     "pnl_abierto": 0.0,
+     "target": null
+    },
+    {
+     "symbol": "XLE",
+     "ticker": "XLE",
+     "strategy": null,
+     "side": "call",
+     "k_long": null,
+     "k_short": null,
+     "shares": 16.188167675482063,
+     "debit": 61.630001068115234,
+     "entry_date": "2026-11-05",
+     "entry_spot": 61.630001068115234,
+     "expiry": null,
+     "dte": null,
+     "mark": 61.630001068115234,
+     "pnl_abierto": 0.0,
+     "target": null
+    },
+    {
+     "symbol": "QQQ",
+     "ticker": "QQQ",
+     "strategy": null,
+     "side": "call",
+     "k_long": null,
+     "k_short": null,
+     "shares": 1.5418851865429701,
+     "debit": 647.0499877929688,
+     "entry_date": "2026-11-05",
+     "entry_spot": 647.0499877929688,
+     "expiry": null,
+     "dte": null,
+     "mark": 647.0499877929688,
+     "pnl_abierto": 0.0,
+     "target": null
+    },
+    {
+     "symbol": "SPY",
+     "ticker": "SPY",
+     "strategy": null,
+     "side": "call",
+     "k_long": null,
+     "k_short": null,
+     "shares": 1.361087027463558,
+     "debit": 733.0,
+     "entry_date": "2026-11-05",
+     "entry_spot": 733.0,
+     "expiry": null,
+     "dte": null,
+     "mark": 733.0,
+     "pnl_abierto": 0.0,
+     "target": null
+    },
+    {
+     "symbol": "XLI",
+     "ticker": "XLI",
+     "strategy": null,
+     "side": "call",
+     "k_long": null,
+     "k_short": null,
+     "shares": 6.140683102325581,
+     "debit": 162.47000122070312,
+     "entry_date": "2026-11-05",
+     "entry_spot": 162.47000122070312,
+     "expiry": null,
+     "dte": null,
+     "mark": 162.47000122070312,
+     "pnl_abierto": 0.0,
+     "target": null
     }
    ],
    "cerrados": []
@@ -769,7 +889,7 @@
    "cash": 9999.75,
    "equity": 9999.75,
    "pnl_realizado": 0.0,
-   "last_bar_date": "2026-11-04",
+   "last_bar_date": "2026-11-05",
    "abiertas": [],
    "cerrados": []
   },
