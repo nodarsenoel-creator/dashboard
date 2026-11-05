@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T20:53:26",
+ "updated": "2026-11-05T22:42:15",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -32,6 +32,46 @@
   }
  },
  "runs": [
+  {
+   "fecha": "2026-11-05",
+   "spot": 733.0,
+   "rsi": 33.5,
+   "flip": null,
+   "flip_ok": null,
+   "senales": {
+    "rebote_piso": false,
+    "rebote_techo": false,
+    "boll": false
+   },
+   "acciones": [
+    "[swing] ENTRADA CRM spread call 210/230 exp 2027-03-19 d\u00e9bito $9.95 \u2014 esc\u00e1ner: alcista spread, delta 0.65, IV/HV 0.85 \u00b7 se\u00f1al del 2026-11-04"
+   ],
+   "avisos": [],
+   "libros": {
+    "principal": {
+     "equity": 10000.0,
+     "cash": 10000.0,
+     "abiertas": 0,
+     "trades_cerrados": 1,
+     "pnl_realizado": -0.5
+    },
+    "sombra": {
+     "equity": 10000.0,
+     "cash": 10000.0,
+     "abiertas": 0,
+     "trades_cerrados": 0,
+     "pnl_realizado": 0
+    },
+    "swing": {
+     "equity": 9790.0,
+     "cash": 8795.0,
+     "abiertas": 1,
+     "trades_cerrados": 5,
+     "pnl_realizado": -210.0
+    }
+   },
+   "dry": false
+  },
   {
    "fecha": "2026-11-04",
    "spot": 766.81,
@@ -487,44 +527,31 @@
     }
    },
    "dry": false
-  },
-  {
-   "fecha": "2026-10-23",
-   "spot": 759.97,
-   "rsi": 42.1,
-   "flip": null,
-   "flip_ok": null,
-   "senales": {
-    "rebote_piso": false,
-    "rebote_techo": false,
-    "boll": false
-   },
-   "acciones": [],
-   "avisos": [],
-   "libros": {
-    "principal": {
-     "equity": 10000.0,
-     "cash": 10000.0,
-     "abiertas": 0,
-     "trades_cerrados": 0,
-     "pnl_realizado": 0
-    },
-    "sombra": {
-     "equity": 10000.0,
-     "cash": 10000.0,
-     "abiertas": 0,
-     "trades_cerrados": 0,
-     "pnl_realizado": 0
-    }
-   },
-   "dry": false
   }
  ],
  "swing": {
-  "cash": 9790.0,
+  "cash": 8795.0,
   "equity": 9790.0,
   "pnl_realizado": -210.0,
-  "abiertas": [],
+  "abiertas": [
+   {
+    "strategy": "ESCANER",
+    "symbol": "CRM",
+    "side": "call",
+    "estructura": "spread",
+    "k_long": 210.0,
+    "k_short": 230.0,
+    "debit": 9.95,
+    "entry_date": "2026-11-05",
+    "entry_spot": 222.41000366210938,
+    "expiry": "2027-03-19",
+    "target": 252.42,
+    "note": "esc\u00e1ner: alcista spread, delta 0.65, IV/HV 0.85 \u00b7 se\u00f1al del 2026-11-04",
+    "dte": 134,
+    "mark": 9.949999999999996,
+    "pnl_abierto": -0.0
+   }
+  ],
   "cerrados": [
    {
     "strategy": "ESCANER",
@@ -665,8 +692,8 @@
      "entry_spot": 471.8399963378906,
      "expiry": "2026-11-20",
      "dte": 15,
-     "mark": 13.125,
-     "pnl_abierto": -1052.5,
+     "mark": 13.2,
+     "pnl_abierto": -1045.0,
      "target": 36.825
     }
    ],
@@ -728,8 +755,8 @@
      "entry_spot": 63.52000045776367,
      "expiry": null,
      "dte": null,
-     "mark": 62.040000915527344,
-     "pnl_abierto": -23.32,
+     "mark": 61.630001068115234,
+     "pnl_abierto": -29.78,
      "target": null
     }
    ],
