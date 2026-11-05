@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-05T18:38:30",
+ "updated": "2026-11-05T18:53:28",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -665,8 +665,8 @@
      "entry_spot": 471.8399963378906,
      "expiry": "2026-11-20",
      "dte": 15,
-     "mark": 16.425,
-     "pnl_abierto": -722.5,
+     "mark": 15.825,
+     "pnl_abierto": -782.5,
      "target": 36.825
     }
    ],
@@ -728,8 +728,8 @@
      "entry_spot": 63.52000045776367,
      "expiry": null,
      "dte": null,
-     "mark": 62.9900016784668,
-     "pnl_abierto": -8.35,
+     "mark": 62.77000045776367,
+     "pnl_abierto": -11.82,
      "target": null
     }
    ],
