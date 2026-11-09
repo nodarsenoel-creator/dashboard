@@ -531,6 +531,7 @@ function renderOpts() {
     (o.maxProfit ? ' · máx gana ' + money(o.maxProfit) : '') +
     ' · máx pierde ' + money(o.maxLoss) + '</span></div>' +
     '<div class="nmeta"><span>Spot ' + money(o.price) + ' · IV ' + num(o.ivPct, 0) + '% vs HV ' + num(o.hvPct, 0) + '% (×' + num(o.ivHv, 2) + ') · RSI ' + num(o.rsi, 0) + ' · sem ' + pct(o.perfWeek) + '</span></div>' +
+    (o.btPf != null ? '<div class="nmeta"><span>✅ Backtest aprobado · PF ' + num(o.btPf, 2) + ' · n=' + o.btN + ' · ' + esc(o.btFecha || '') + '</span></div>' : '') +
     '</div>').join('');
 }
 function bindOpts() {
