@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T21:57:43",
+ "updated": "2026-11-10T22:42:40",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -32,6 +32,46 @@
   }
  },
  "runs": [
+  {
+   "fecha": "2026-11-10",
+   "spot": 749.92,
+   "rsi": 44.6,
+   "flip": null,
+   "flip_ok": null,
+   "senales": {
+    "rebote_piso": false,
+    "rebote_techo": false,
+    "boll": false
+   },
+   "acciones": [
+    "[swing] ENTRADA XOM spread call 160/175 exp 2027-04-16 d\u00e9bito $6.88 \u2014 esc\u00e1ner: alcista spread, delta 0.62, IV/HV 1.12 \u00b7 se\u00f1al del 2026-11-09"
+   ],
+   "avisos": [],
+   "libros": {
+    "principal": {
+     "equity": 10000.0,
+     "cash": 10000.0,
+     "abiertas": 0,
+     "trades_cerrados": 1,
+     "pnl_realizado": -0.5
+    },
+    "sombra": {
+     "equity": 10000.0,
+     "cash": 10000.0,
+     "abiertas": 0,
+     "trades_cerrados": 0,
+     "pnl_realizado": 0
+    },
+    "swing": {
+     "equity": 9637.5,
+     "cash": 8107.0,
+     "abiertas": 2,
+     "trades_cerrados": 5,
+     "pnl_realizado": -210.0
+    }
+   },
+   "dry": false
+  },
   {
    "fecha": "2026-11-09",
    "spot": 752.69,
@@ -477,49 +517,11 @@
     }
    },
    "dry": false
-  },
-  {
-   "fecha": "2026-10-23",
-   "spot": 759.97,
-   "rsi": 42.1,
-   "flip": null,
-   "flip_ok": null,
-   "senales": {
-    "rebote_piso": false,
-    "rebote_techo": false,
-    "boll": false
-   },
-   "acciones": [],
-   "avisos": [],
-   "libros": {
-    "principal": {
-     "equity": 10000.0,
-     "cash": 10000.0,
-     "abiertas": 0,
-     "trades_cerrados": 0,
-     "pnl_realizado": 0
-    },
-    "sombra": {
-     "equity": 10000.0,
-     "cash": 10000.0,
-     "abiertas": 0,
-     "trades_cerrados": 0,
-     "pnl_realizado": 0
-    },
-    "swing": {
-     "equity": 10000.0,
-     "cash": 9340.0,
-     "abiertas": 1,
-     "trades_cerrados": 0,
-     "pnl_realizado": 0
-    }
-   },
-   "dry": false
   }
  ],
  "swing": {
-  "cash": 8795.0,
-  "equity": 9637.5,
+  "cash": 8107.0,
+  "equity": 9637.0,
   "pnl_realizado": -210.0,
   "abiertas": [
    {
@@ -538,6 +540,23 @@
     "dte": 129,
     "mark": 8.424999999999997,
     "pnl_abierto": -152.5
+   },
+   {
+    "strategy": "ESCANER",
+    "symbol": "XOM",
+    "side": "call",
+    "estructura": "spread",
+    "k_long": 160.0,
+    "k_short": 175.0,
+    "debit": 6.88,
+    "entry_date": "2026-11-10",
+    "entry_spot": 164.47000122070312,
+    "expiry": "2027-04-16",
+    "target": 188.5,
+    "note": "esc\u00e1ner: alcista spread, delta 0.62, IV/HV 1.12 \u00b7 se\u00f1al del 2026-11-09",
+    "dte": 157,
+    "mark": 6.875,
+    "pnl_abierto": -0.5
    }
   ],
   "cerrados": [
