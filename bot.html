@@ -87,15 +87,16 @@ function swingCard(b){
 }
 function otrosRow(p){
   const pnl=p.pnl_abierto==null?'—':`<span class="${cls(p.pnl_abierto)}">${sgn(p.pnl_abierto)}</span>`;
-  const est=p.k_long!=null?`Spread call ${p.k_long}/${p.k_short}`:(p.shares?`Acciones ${Number(p.shares).toFixed(2)}`:'—');
+  const esOpcion=p.k_long!=null||p.estructura!=null;
+  const est=p.estructura?p.estructura:(p.k_long!=null?`Spread call ${p.k_long}/${p.k_short}`:(p.shares?`Acciones ${Number(p.shares).toFixed(2)}`:'—'));
   const vence=p.expiry?`${p.expiry} (${p.dte}d)`:'—';
-  const pago=p.k_long!=null?money(p.debit*100):money(p.debit);
-  const vale=p.mark==null?'—':(p.k_long!=null?money(p.mark*100):money(p.mark));
+  const pago=esOpcion?money(p.debit*100):money(p.debit);
+  const vale=p.mark==null?'—':(esOpcion?money(p.mark*100):money(p.mark));
   return `<tr><td><b>${p.symbol||p.ticker||''}</b></td><td>${est}</td>
   <td>${vence}</td><td>${pago}</td><td>${vale}</td><td>${pnl}</td></tr>`;
 }
 function otrosTradeRow(t){
-  const est=t.k_long?`Spread ${t.k_long}/${t.k_short}`:'—';
+  const est=t.estructura?t.estructura:(t.k_long?`Spread ${t.k_long}/${t.k_short}`:'—');
   return `<tr><td><b>${t.symbol||t.ticker||''}</b></td><td>${est}</td>
   <td>${t.entry_date} → ${t.exit_date}</td><td>${t.motivo||''}</td>
   <td><span class="${cls(t.pnl)}">${sgn(t.pnl)}</span></td></tr>`;
