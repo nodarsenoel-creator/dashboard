@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-11T15:53:32",
+ "updated": "2026-11-11T16:08:33",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -521,7 +521,7 @@
  ],
  "swing": {
   "cash": 8107.0,
-  "equity": 9699.5,
+  "equity": 9702.0,
   "pnl_realizado": -210.0,
   "abiertas": [
    {
@@ -538,8 +538,8 @@
     "target": 252.42,
     "note": "esc\u00e1ner: alcista spread, delta 0.65, IV/HV 0.85 \u00b7 se\u00f1al del 2026-11-04",
     "dte": 128,
-    "mark": 8.925,
-    "pnl_abierto": -102.5
+    "mark": 9.0,
+    "pnl_abierto": -95.0
    },
    {
     "strategy": "ESCANER",
@@ -555,8 +555,8 @@
     "target": 188.5,
     "note": "esc\u00e1ner: alcista spread, delta 0.62, IV/HV 1.12 \u00b7 se\u00f1al del 2026-11-09",
     "dte": 156,
-    "mark": 7.000000000000002,
-    "pnl_abierto": 12.0
+    "mark": 6.950000000000001,
+    "pnl_abierto": 7.0
    }
   ],
   "cerrados": [
@@ -677,8 +677,8 @@
      "entry_spot": 553.6400146484375,
      "expiry": "2027-02-19",
      "dte": 100,
-     "mark": 12.800000000000004,
-     "pnl_abierto": 560.0,
+     "mark": 12.575000000000003,
+     "pnl_abierto": 537.5,
      "target": 13.600000000000001
     }
    ],
@@ -720,8 +720,8 @@
      "entry_spot": 471.8399963378906,
      "expiry": "2026-11-20",
      "dte": 9,
-     "mark": 14.950000000000001,
-     "pnl_abierto": -870.0,
+     "mark": 15.25,
+     "pnl_abierto": -840.0,
      "target": 36.825
     },
     {
@@ -738,8 +738,8 @@
      "entry_spot": 77.83999633789062,
      "expiry": "2026-11-27",
      "dte": 16,
-     "mark": 2.4250000000000007,
-     "pnl_abierto": 172.5,
+     "mark": 2.3500000000000005,
+     "pnl_abierto": 165.0,
      "target": 2.85
     },
     {
@@ -823,8 +823,8 @@
      "entry_spot": 63.52000045776367,
      "expiry": null,
      "dte": null,
-     "mark": 63.025001525878906,
-     "pnl_abierto": -7.8,
+     "mark": 62.98500061035156,
+     "pnl_abierto": -8.43,
      "target": null
     },
     {
@@ -841,8 +841,8 @@
      "entry_spot": 162.3800048828125,
      "expiry": null,
      "dte": null,
-     "mark": 175.0,
-     "pnl_abierto": 77.54,
+     "mark": 174.85000610351562,
+     "pnl_abierto": 76.62,
      "target": null
     },
     {
@@ -859,8 +859,8 @@
      "entry_spot": 61.630001068115234,
      "expiry": null,
      "dte": null,
-     "mark": 63.025001525878906,
-     "pnl_abierto": 22.58,
+     "mark": 62.98500061035156,
+     "pnl_abierto": 21.93,
      "target": null
     },
     {
@@ -877,8 +877,8 @@
      "entry_spot": 647.0499877929688,
      "expiry": null,
      "dte": null,
-     "mark": 690.9899291992188,
-     "pnl_abierto": 67.75,
+     "mark": 690.4749755859375,
+     "pnl_abierto": 66.96,
      "target": null
     },
     {
@@ -895,8 +895,8 @@
      "entry_spot": 733.0,
      "expiry": null,
      "dte": null,
-     "mark": 757.9699096679688,
-     "pnl_abierto": 33.99,
+     "mark": 758.0700073242188,
+     "pnl_abierto": 34.12,
      "target": null
     },
     {
@@ -913,8 +913,8 @@
      "entry_spot": 61.619998931884766,
      "expiry": null,
      "dte": null,
-     "mark": 63.025001525878906,
-     "pnl_abierto": 22.82,
+     "mark": 62.98500061035156,
+     "pnl_abierto": 22.17,
      "target": null
     },
     {
@@ -931,8 +931,8 @@
      "entry_spot": 735.2899780273438,
      "expiry": null,
      "dte": null,
-     "mark": 757.9699096679688,
-     "pnl_abierto": 30.86,
+     "mark": 758.0700073242188,
+     "pnl_abierto": 31.0,
      "target": null
     },
     {
@@ -949,8 +949,8 @@
      "entry_spot": 164.74000549316406,
      "expiry": null,
      "dte": null,
-     "mark": 175.0,
-     "pnl_abierto": 62.32,
+     "mark": 174.85000610351562,
+     "pnl_abierto": 61.41,
      "target": null
     }
    ],
@@ -1028,7 +1028,7 @@
    "cash": 0.0,
    "equity": 0.0,
    "pnl_realizado": 0.0,
-   "last_bar_date": "2026-11-10T15:30:00-05:00",
+   "last_bar_date": "2026-11-11T09:30:00-05:00",
    "abiertas": [],
    "cerrados": []
   }
