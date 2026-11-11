@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-10T22:42:40",
+ "updated": "2026-11-11T14:38:39",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -537,7 +537,7 @@
     "expiry": "2027-03-19",
     "target": 252.42,
     "note": "esc\u00e1ner: alcista spread, delta 0.65, IV/HV 0.85 \u00b7 se\u00f1al del 2026-11-04",
-    "dte": 129,
+    "dte": 128,
     "mark": 8.424999999999997,
     "pnl_abierto": -152.5
    },
@@ -554,7 +554,7 @@
     "expiry": "2027-04-16",
     "target": 188.5,
     "note": "esc\u00e1ner: alcista spread, delta 0.62, IV/HV 1.12 \u00b7 se\u00f1al del 2026-11-09",
-    "dte": 157,
+    "dte": 156,
     "mark": 6.875,
     "pnl_abierto": -0.5
    }
@@ -659,9 +659,9 @@
    "titulo": "Libro RSI20 (papel) \u2014 sustituye a Mag-7",
    "archivado": false,
    "cash": 287.4,
-   "equity": 1344.9,
+   "equity": 1259.9,
    "pnl_realizado": 7.4,
-   "last_bar_date": "2026-11-09",
+   "last_bar_date": "2026-11-10",
    "abiertas": [
     {
      "symbol": "CAT",
@@ -676,9 +676,9 @@
      "entry_date": "2026-11-05",
      "entry_spot": 553.6400146484375,
      "expiry": "2027-02-19",
-     "dte": 101,
-     "mark": 9.724999999999994,
-     "pnl_abierto": 252.5,
+     "dte": 100,
+     "mark": 12.93,
+     "pnl_abierto": 573.0,
      "target": 13.600000000000001
     }
    ],
@@ -702,9 +702,9 @@
    "titulo": "Libro PISO rebote multi-acci\u00f3n (papel)",
    "archivado": false,
    "cash": 8207.2,
-   "equity": 10457.2,
+   "equity": 9712.2,
    "pnl_realizado": 714.7,
-   "last_bar_date": "2026-11-09",
+   "last_bar_date": "2026-11-10",
    "abiertas": [
     {
      "symbol": "CMI",
@@ -719,9 +719,9 @@
      "entry_date": "2026-11-04",
      "entry_spot": 471.8399963378906,
      "expiry": "2026-11-20",
-     "dte": 10,
-     "mark": 13.275,
-     "pnl_abierto": -1037.5,
+     "dte": 9,
+     "mark": 14.18,
+     "pnl_abierto": -947.0,
      "target": 36.825
     },
     {
@@ -737,9 +737,9 @@
      "entry_date": "2026-11-05",
      "entry_spot": 77.83999633789062,
      "expiry": "2026-11-27",
-     "dte": 17,
-     "mark": 1.775,
-     "pnl_abierto": 107.5,
+     "dte": 16,
+     "mark": 1.5500000000000003,
+     "pnl_abierto": 85.0,
      "target": 2.85
     },
     {
@@ -755,9 +755,9 @@
      "entry_date": "2026-11-06",
      "entry_spot": 313.0,
      "expiry": "2026-11-27",
-     "dte": 17,
-     "mark": -1.4249999999999998,
-     "pnl_abierto": -215.0,
+     "dte": 16,
+     "mark": 0.20999999999999996,
+     "pnl_abierto": -51.5,
      "target": 2.8625
     }
    ],
@@ -805,9 +805,9 @@
    "titulo": "Libro ETF-BOLL (papel)",
    "archivado": false,
    "cash": 2090.28,
-   "equity": 10258.7,
+   "equity": 10233.02,
    "pnl_realizado": 88.37,
-   "last_bar_date": "2026-11-09",
+   "last_bar_date": "2026-11-10",
    "abiertas": [
     {
      "symbol": "XLE",
@@ -823,8 +823,8 @@
      "entry_spot": 63.52000045776367,
      "expiry": null,
      "dte": null,
-     "mark": 62.209999084472656,
-     "pnl_abierto": -20.64,
+     "mark": 62.380001068115234,
+     "pnl_abierto": -17.96,
      "target": null
     },
     {
@@ -841,8 +841,8 @@
      "entry_spot": 162.3800048828125,
      "expiry": null,
      "dte": null,
-     "mark": 168.91000366210938,
-     "pnl_abierto": 40.12,
+     "mark": 173.8000030517578,
+     "pnl_abierto": 70.17,
      "target": null
     },
     {
@@ -859,8 +859,8 @@
      "entry_spot": 61.630001068115234,
      "expiry": null,
      "dte": null,
-     "mark": 62.209999084472656,
-     "pnl_abierto": 9.39,
+     "mark": 62.380001068115234,
+     "pnl_abierto": 12.14,
      "target": null
     },
     {
@@ -877,8 +877,8 @@
      "entry_spot": 647.0499877929688,
      "expiry": null,
      "dte": null,
-     "mark": 674.760009765625,
-     "pnl_abierto": 42.73,
+     "mark": 687.6500244140625,
+     "pnl_abierto": 62.6,
      "target": null
     },
     {
@@ -895,8 +895,8 @@
      "entry_spot": 733.0,
      "expiry": null,
      "dte": null,
-     "mark": 749.9199829101562,
-     "pnl_abierto": 23.03,
+     "mark": 756.880126953125,
+     "pnl_abierto": 32.5,
      "target": null
     },
     {
@@ -913,8 +913,8 @@
      "entry_spot": 61.619998931884766,
      "expiry": null,
      "dte": null,
-     "mark": 62.209999084472656,
-     "pnl_abierto": 9.58,
+     "mark": 62.380001068115234,
+     "pnl_abierto": 12.34,
      "target": null
     },
     {
@@ -931,8 +931,8 @@
      "entry_spot": 735.2899780273438,
      "expiry": null,
      "dte": null,
-     "mark": 749.9199829101562,
-     "pnl_abierto": 19.91,
+     "mark": 756.880126953125,
+     "pnl_abierto": 29.38,
      "target": null
     },
     {
@@ -949,8 +949,8 @@
      "entry_spot": 164.74000549316406,
      "expiry": null,
      "dte": null,
-     "mark": 168.91000366210938,
-     "pnl_abierto": 25.33,
+     "mark": 173.8000030517578,
+     "pnl_abierto": 55.03,
      "target": null
     }
    ],
@@ -961,9 +961,9 @@
    "titulo": "Libro Finas (SPY, acciones \u2014 papel)",
    "archivado": false,
    "cash": 7500.83,
-   "equity": 10001.1,
+   "equity": 9991.9,
    "pnl_realizado": 0.0,
-   "last_bar_date": "2026-11-09",
+   "last_bar_date": "2026-11-10",
    "abiertas": [],
    "cerrados": []
   },
@@ -1001,31 +1001,25 @@
    "key": "rsi2call",
    "titulo": "Libro RSI2 long call (papel)",
    "archivado": false,
-   "cash": 2766.0,
-   "equity": 5790.0,
-   "pnl_realizado": 0.0,
-   "last_bar_date": "2026-11-09",
-   "abiertas": [
+   "cash": 4814.4,
+   "equity": 4814.4,
+   "pnl_realizado": -185.6,
+   "last_bar_date": "2026-11-10",
+   "abiertas": [],
+   "cerrados": [
     {
      "symbol": "QQQ",
      "ticker": "QQQ",
-     "strategy": "RSI2",
      "side": "call",
-     "k_long": 685.0,
+     "k_long": "685.0",
      "k_short": null,
      "estructura": "Call larga 685.0",
-     "shares": null,
-     "debit": 22.34,
      "entry_date": "2026-11-02",
-     "entry_spot": 681.09,
-     "expiry": "2027-01-01",
-     "dte": 52,
-     "mark": 20.509999999999998,
-     "pnl_abierto": -183.0,
-     "target": null
+     "exit_date": "2026-11-10",
+     "motivo": "contraria",
+     "pnl": -185.6
     }
-   ],
-   "cerrados": []
+   ]
   },
   {
    "key": "stochrsi",
