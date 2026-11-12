@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T03:52:42",
+ "updated": "2026-11-12T03:54:50",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -1123,7 +1123,7 @@
    "cash": 5000.0,
    "equity": 5000.0,
    "pnl_realizado": 0.0,
-   "last_bar_date": null,
+   "last_bar_date": "2026-11-11",
    "abiertas": [],
    "cerrados": []
   }
