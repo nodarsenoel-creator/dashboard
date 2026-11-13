@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-12T22:42:19",
+ "updated": "2026-11-13T14:38:33",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -526,7 +526,7 @@
     "expiry": "2027-03-19",
     "target": 252.42,
     "note": "esc\u00e1ner: alcista spread, delta 0.65, IV/HV 0.85 \u00b7 se\u00f1al del 2026-11-04",
-    "dte": 127,
+    "dte": 126,
     "mark": 8.850000000000001,
     "pnl_abierto": -110.0
    },
@@ -543,7 +543,7 @@
     "expiry": "2027-04-16",
     "target": 188.5,
     "note": "esc\u00e1ner: alcista spread, delta 0.62, IV/HV 1.12 \u00b7 se\u00f1al del 2026-11-09",
-    "dte": 155,
+    "dte": 154,
     "mark": 7.599999999999998,
     "pnl_abierto": 72.0
    }
@@ -648,9 +648,9 @@
    "titulo": "Libro RSI20 (papel) \u2014 sustituye a Mag-7",
    "archivado": false,
    "cash": 287.4,
-   "equity": 1477.4,
+   "equity": 1574.9,
    "pnl_realizado": 7.4,
-   "last_bar_date": "2026-11-11",
+   "last_bar_date": "2026-11-12",
    "abiertas": [
     {
      "symbol": "CAT",
@@ -665,9 +665,9 @@
      "entry_date": "2026-11-05",
      "entry_spot": 553.6400146484375,
      "expiry": "2027-02-19",
-     "dte": 99,
-     "mark": 12.875,
-     "pnl_abierto": 567.5,
+     "dte": 98,
+     "mark": 20.799999999999997,
+     "pnl_abierto": 1360.0,
      "target": 13.600000000000001
     }
    ],
@@ -691,9 +691,9 @@
    "titulo": "Libro PISO rebote multi-acci\u00f3n (papel)",
    "archivado": false,
    "cash": 8207.2,
-   "equity": 10284.7,
+   "equity": 8999.7,
    "pnl_realizado": 714.7,
-   "last_bar_date": "2026-11-11",
+   "last_bar_date": "2026-11-12",
    "abiertas": [
     {
      "symbol": "CMI",
@@ -708,9 +708,9 @@
      "entry_date": "2026-11-04",
      "entry_spot": 471.8399963378906,
      "expiry": "2026-11-20",
-     "dte": 8,
-     "mark": 12.8,
-     "pnl_abierto": -1085.0,
+     "dte": 7,
+     "mark": 12.4,
+     "pnl_abierto": -1125.0,
      "target": 36.825
     },
     {
@@ -726,9 +726,9 @@
      "entry_date": "2026-11-05",
      "entry_spot": 77.83999633789062,
      "expiry": "2026-11-27",
-     "dte": 15,
-     "mark": 2.1999999999999997,
-     "pnl_abierto": 150.0,
+     "dte": 14,
+     "mark": 1.9500000000000002,
+     "pnl_abierto": 125.0,
      "target": 2.85
     },
     {
@@ -744,9 +744,9 @@
      "entry_date": "2026-11-06",
      "entry_spot": 313.0,
      "expiry": "2026-11-27",
-     "dte": 15,
-     "mark": 0.32499999999999973,
-     "pnl_abierto": -40.0,
+     "dte": 14,
+     "mark": 0.25,
+     "pnl_abierto": -47.5,
      "target": 2.8625
     }
    ],
@@ -794,9 +794,9 @@
    "titulo": "Libro ETF-BOLL (papel)",
    "archivado": false,
    "cash": 2090.28,
-   "equity": 10406.5,
+   "equity": 10434.82,
    "pnl_realizado": 88.37,
-   "last_bar_date": "2026-11-11",
+   "last_bar_date": "2026-11-12",
    "abiertas": [
     {
      "symbol": "XLE",
@@ -812,8 +812,8 @@
      "entry_spot": 63.52000045776367,
      "expiry": null,
      "dte": null,
-     "mark": 64.33000183105469,
-     "pnl_abierto": 12.76,
+     "mark": 64.52999877929688,
+     "pnl_abierto": 15.91,
      "target": null
     },
     {
@@ -830,8 +830,8 @@
      "entry_spot": 162.3800048828125,
      "expiry": null,
      "dte": null,
-     "mark": 173.77000427246094,
-     "pnl_abierto": 69.98,
+     "mark": 171.89999389648438,
+     "pnl_abierto": 58.49,
      "target": null
     },
     {
@@ -848,8 +848,8 @@
      "entry_spot": 61.630001068115234,
      "expiry": null,
      "dte": null,
-     "mark": 64.33000183105469,
-     "pnl_abierto": 43.71,
+     "mark": 64.52999877929688,
+     "pnl_abierto": 46.95,
      "target": null
     },
     {
@@ -866,8 +866,8 @@
      "entry_spot": 647.0499877929688,
      "expiry": null,
      "dte": null,
-     "mark": 688.1699829101562,
-     "pnl_abierto": 63.4,
+     "mark": 684.5899047851562,
+     "pnl_abierto": 57.88,
      "target": null
     },
     {
@@ -884,8 +884,8 @@
      "entry_spot": 733.0,
      "expiry": null,
      "dte": null,
-     "mark": 757.1199951171875,
-     "pnl_abierto": 32.83,
+     "mark": 756.6400756835938,
+     "pnl_abierto": 32.18,
      "target": null
     },
     {
@@ -902,8 +902,8 @@
      "entry_spot": 61.619998931884766,
      "expiry": null,
      "dte": null,
-     "mark": 64.33000183105469,
-     "pnl_abierto": 44.01,
+     "mark": 64.52999877929688,
+     "pnl_abierto": 47.25,
      "target": null
     },
     {
@@ -920,8 +920,8 @@
      "entry_spot": 735.2899780273438,
      "expiry": null,
      "dte": null,
-     "mark": 757.1199951171875,
-     "pnl_abierto": 29.71,
+     "mark": 756.6400756835938,
+     "pnl_abierto": 29.05,
      "target": null
     },
     {
@@ -938,8 +938,8 @@
      "entry_spot": 164.74000549316406,
      "expiry": null,
      "dte": null,
-     "mark": 173.77000427246094,
-     "pnl_abierto": 54.85,
+     "mark": 171.89999389648438,
+     "pnl_abierto": 43.49,
      "target": null
     }
    ],
@@ -952,7 +952,7 @@
    "cash": 10024.51,
    "equity": 10024.51,
    "pnl_realizado": 0.0,
-   "last_bar_date": "2026-11-11",
+   "last_bar_date": "2026-11-12",
    "abiertas": [],
    "cerrados": []
   },
@@ -993,7 +993,7 @@
    "cash": 4814.4,
    "equity": 4814.4,
    "pnl_realizado": -185.6,
-   "last_bar_date": "2026-11-11",
+   "last_bar_date": "2026-11-12",
    "abiertas": [],
    "cerrados": [
     {
@@ -1335,7 +1335,7 @@
    "cash": 5000.0,
    "equity": 5000.0,
    "pnl_realizado": 0.0,
-   "last_bar_date": "2026-11-11",
+   "last_bar_date": "2026-11-12",
    "abiertas": [],
    "cerrados": []
   }
