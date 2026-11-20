@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20T18:38:33",
+ "updated": "2026-11-20T18:53:31",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -701,8 +701,8 @@
      "entry_spot": 145.97999572753906,
      "expiry": "2027-02-19",
      "dte": 91,
-     "mark": 2.0250000000000004,
-     "pnl_abierto": -45.0,
+     "mark": 1.9250000000000007,
+     "pnl_abierto": -55.0,
      "target": 3.737499999999999
     }
    ],
@@ -762,8 +762,8 @@
      "entry_spot": 309.1400146484375,
      "expiry": "2026-12-18",
      "dte": 28,
-     "mark": 4.4,
-     "pnl_abierto": 5.0,
+     "mark": 4.549999999999999,
+     "pnl_abierto": 20.0,
      "target": 7.175
     },
     {
@@ -871,8 +871,8 @@
      "entry_spot": 61.619998931884766,
      "expiry": null,
      "dte": null,
-     "mark": 61.185001373291016,
-     "pnl_abierto": -7.06,
+     "mark": 61.22999954223633,
+     "pnl_abierto": -6.33,
      "target": null
     },
     {
@@ -889,8 +889,8 @@
      "entry_spot": 735.2899780273438,
      "expiry": null,
      "dte": null,
-     "mark": 702.010009765625,
-     "pnl_abierto": -45.29,
+     "mark": 701.4099731445312,
+     "pnl_abierto": -46.11,
      "target": null
     },
     {
@@ -907,8 +907,8 @@
      "entry_spot": 164.74000549316406,
      "expiry": null,
      "dte": null,
-     "mark": 152.72000122070312,
-     "pnl_abierto": -73.01,
+     "mark": 152.52000427246094,
+     "pnl_abierto": -74.22,
      "target": null
     }
    ],
@@ -978,8 +978,8 @@
      "entry_spot": 732.4400024414062,
      "expiry": "2027-01-15",
      "dte": 56,
-     "mark": 10.225,
-     "pnl_abierto": -1227.5,
+     "mark": 10.435,
+     "pnl_abierto": -1206.5,
      "target": null
     }
    ],
