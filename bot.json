@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-20T17:08:34",
+ "updated": "2026-11-20T17:23:32",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -683,8 +683,8 @@
      "entry_spot": 553.6400146484375,
      "expiry": "2027-02-19",
      "dte": 91,
-     "mark": 6.575000000000003,
-     "pnl_abierto": -62.5,
+     "mark": 7.275000000000006,
+     "pnl_abierto": 7.5,
      "target": 13.600000000000001
     },
     {
@@ -701,7 +701,7 @@
      "entry_spot": 145.97999572753906,
      "expiry": "2027-02-19",
      "dte": 91,
-     "mark": 1.9000000000000021,
+     "mark": 1.9000000000000004,
      "pnl_abierto": -57.5,
      "target": 3.737499999999999
     }
@@ -762,8 +762,8 @@
      "entry_spot": 309.1400146484375,
      "expiry": "2026-12-18",
      "dte": 28,
-     "mark": 4.9,
-     "pnl_abierto": 55.0,
+     "mark": 4.35,
+     "pnl_abierto": 0.0,
      "target": 7.175
     },
     {
@@ -780,8 +780,8 @@
      "entry_spot": 67.77999877929688,
      "expiry": "2026-12-18",
      "dte": 28,
-     "mark": 1.75,
-     "pnl_abierto": -10.0,
+     "mark": 1.775,
+     "pnl_abierto": -7.5,
      "target": 3.425
     }
    ],
@@ -871,8 +871,8 @@
      "entry_spot": 61.619998931884766,
      "expiry": null,
      "dte": null,
-     "mark": 61.1349983215332,
-     "pnl_abierto": -7.88,
+     "mark": 61.109901428222656,
+     "pnl_abierto": -8.28,
      "target": null
     },
     {
@@ -889,8 +889,8 @@
      "entry_spot": 735.2899780273438,
      "expiry": null,
      "dte": null,
-     "mark": 701.97998046875,
-     "pnl_abierto": -45.33,
+     "mark": 700.6599731445312,
+     "pnl_abierto": -47.13,
      "target": null
     },
     {
@@ -907,8 +907,8 @@
      "entry_spot": 164.74000549316406,
      "expiry": null,
      "dte": null,
-     "mark": 152.10000610351562,
-     "pnl_abierto": -76.77,
+     "mark": 151.97999572753906,
+     "pnl_abierto": -77.5,
      "target": null
     }
    ],
@@ -978,8 +978,8 @@
      "entry_spot": 732.4400024414062,
      "expiry": "2027-01-15",
      "dte": 56,
-     "mark": 10.92,
-     "pnl_abierto": -1158.0,
+     "mark": 10.775,
+     "pnl_abierto": -1172.5,
      "target": null
     }
    ],
