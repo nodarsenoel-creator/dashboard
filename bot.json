@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T17:23:31",
+ "updated": "2026-11-23T17:38:35",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -25,7 +25,7 @@
   },
   "sombra": {
    "cash": 7674.0,
-   "equity": 11638.0,
+   "equity": 11616.0,
    "pnl_realizado": 0,
    "abiertas": [
     {
@@ -40,8 +40,8 @@
      "expiry": "2026-12-11",
      "note": "sin flip (forward-test)",
      "dte": 18,
-     "mark": 39.64,
-     "pnl_abierto": 1638.0
+     "mark": 39.42,
+     "pnl_abierto": 1616.0
     }
    ],
    "cerrados": []
@@ -702,8 +702,8 @@
      "entry_spot": 553.6400146484375,
      "expiry": "2027-02-19",
      "dte": 88,
-     "mark": 8.050000000000004,
-     "pnl_abierto": 85.0,
+     "mark": 8.274999999999999,
+     "pnl_abierto": 107.5,
      "target": 13.600000000000001
     },
     {
@@ -720,7 +720,7 @@
      "entry_spot": 145.97999572753906,
      "expiry": "2027-02-19",
      "dte": 88,
-     "mark": 3.3750000000000036,
+     "mark": 3.375,
      "pnl_abierto": 90.0,
      "target": 3.737499999999999
     }
@@ -763,8 +763,8 @@
      "entry_spot": 309.1400146484375,
      "expiry": "2026-12-18",
      "dte": 25,
-     "mark": 5.700000000000001,
-     "pnl_abierto": 135.0,
+     "mark": 5.75,
+     "pnl_abierto": 140.0,
      "target": 7.175
     },
     {
@@ -781,8 +781,8 @@
      "entry_spot": 67.77999877929688,
      "expiry": "2026-12-18",
      "dte": 25,
-     "mark": 1.5999999999999999,
-     "pnl_abierto": -25.0,
+     "mark": 1.6750000000000003,
+     "pnl_abierto": -17.5,
      "target": 3.425
     },
     {
@@ -799,8 +799,8 @@
      "entry_spot": 291.1400146484375,
      "expiry": "2026-12-11",
      "dte": 18,
-     "mark": 2.6999999999999993,
-     "pnl_abierto": 80.0,
+     "mark": 3.0,
+     "pnl_abierto": 110.0,
      "target": 3.45
     }
    ],
@@ -954,8 +954,8 @@
      "entry_spot": 732.4400024414062,
      "expiry": "2027-01-15",
      "dte": 53,
-     "mark": 18.1,
-     "pnl_abierto": -440.0,
+     "mark": 17.83,
+     "pnl_abierto": -467.0,
      "target": null
     }
    ],
