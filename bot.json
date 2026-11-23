@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T15:23:33",
+ "updated": "2026-11-23T15:38:37",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -25,7 +25,7 @@
   },
   "sombra": {
    "cash": 7674.0,
-   "equity": 11560.0,
+   "equity": 11761.5,
    "pnl_realizado": 0,
    "abiertas": [
     {
@@ -40,8 +40,8 @@
      "expiry": "2026-12-11",
      "note": "sin flip (forward-test)",
      "dte": 18,
-     "mark": 38.86,
-     "pnl_abierto": 1560.0
+     "mark": 40.875,
+     "pnl_abierto": 1761.5
     }
    ],
    "cerrados": []
@@ -702,8 +702,8 @@
      "entry_spot": 553.6400146484375,
      "expiry": "2027-02-19",
      "dte": 88,
-     "mark": 10.0,
-     "pnl_abierto": 280.0,
+     "mark": 9.75,
+     "pnl_abierto": 255.0,
      "target": 13.600000000000001
     },
     {
@@ -720,8 +720,8 @@
      "entry_spot": 145.97999572753906,
      "expiry": "2027-02-19",
      "dte": 88,
-     "mark": 3.5749999999999993,
-     "pnl_abierto": 110.0,
+     "mark": 2.75,
+     "pnl_abierto": 27.5,
      "target": 3.737499999999999
     }
    ],
@@ -763,8 +763,8 @@
      "entry_spot": 309.1400146484375,
      "expiry": "2026-12-18",
      "dte": 25,
-     "mark": 5.549999999999999,
-     "pnl_abierto": 120.0,
+     "mark": 5.850000000000001,
+     "pnl_abierto": 150.0,
      "target": 7.175
     },
     {
@@ -781,8 +781,8 @@
      "entry_spot": 67.77999877929688,
      "expiry": "2026-12-18",
      "dte": 25,
-     "mark": 1.6999999999999997,
-     "pnl_abierto": -15.0,
+     "mark": 1.525,
+     "pnl_abierto": -32.5,
      "target": 3.425
     },
     {
@@ -799,8 +799,8 @@
      "entry_spot": 291.1400146484375,
      "expiry": "2026-12-11",
      "dte": 18,
-     "mark": 2.5500000000000043,
-     "pnl_abierto": 65.0,
+     "mark": 2.849999999999998,
+     "pnl_abierto": 95.0,
      "target": 3.45
     }
    ],
@@ -954,8 +954,8 @@
      "entry_spot": 732.4400024414062,
      "expiry": "2027-01-15",
      "dte": 53,
-     "mark": 17.355,
-     "pnl_abierto": -514.5,
+     "mark": 18.854999999999997,
+     "pnl_abierto": -364.5,
      "target": null
     }
    ],
