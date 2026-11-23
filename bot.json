@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T15:38:37",
+ "updated": "2026-11-23T15:53:34",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -25,7 +25,7 @@
   },
   "sombra": {
    "cash": 7674.0,
-   "equity": 11761.5,
+   "equity": 11858.0,
    "pnl_realizado": 0,
    "abiertas": [
     {
@@ -40,8 +40,8 @@
      "expiry": "2026-12-11",
      "note": "sin flip (forward-test)",
      "dte": 18,
-     "mark": 40.875,
-     "pnl_abierto": 1761.5
+     "mark": 41.84,
+     "pnl_abierto": 1858.0
     }
    ],
    "cerrados": []
@@ -702,8 +702,8 @@
      "entry_spot": 553.6400146484375,
      "expiry": "2027-02-19",
      "dte": 88,
-     "mark": 9.75,
-     "pnl_abierto": 255.0,
+     "mark": 9.574999999999989,
+     "pnl_abierto": 237.5,
      "target": 13.600000000000001
     },
     {
@@ -720,8 +720,8 @@
      "entry_spot": 145.97999572753906,
      "expiry": "2027-02-19",
      "dte": 88,
-     "mark": 2.75,
-     "pnl_abierto": 27.5,
+     "mark": 3.325000000000003,
+     "pnl_abierto": 85.0,
      "target": 3.737499999999999
     }
    ],
@@ -763,8 +763,8 @@
      "entry_spot": 309.1400146484375,
      "expiry": "2026-12-18",
      "dte": 25,
-     "mark": 5.850000000000001,
-     "pnl_abierto": 150.0,
+     "mark": 5.699999999999999,
+     "pnl_abierto": 135.0,
      "target": 7.175
     },
     {
@@ -781,8 +781,8 @@
      "entry_spot": 67.77999877929688,
      "expiry": "2026-12-18",
      "dte": 25,
-     "mark": 1.525,
-     "pnl_abierto": -32.5,
+     "mark": 1.5499999999999998,
+     "pnl_abierto": -30.0,
      "target": 3.425
     },
     {
@@ -799,8 +799,8 @@
      "entry_spot": 291.1400146484375,
      "expiry": "2026-12-11",
      "dte": 18,
-     "mark": 2.849999999999998,
-     "pnl_abierto": 95.0,
+     "mark": 3.4499999999999993,
+     "pnl_abierto": 155.0,
      "target": 3.45
     }
    ],
@@ -954,8 +954,8 @@
      "entry_spot": 732.4400024414062,
      "expiry": "2027-01-15",
      "dte": 53,
-     "mark": 18.854999999999997,
-     "pnl_abierto": -364.5,
+     "mark": 19.515,
+     "pnl_abierto": -298.5,
      "target": null
     }
    ],
