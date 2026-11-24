@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-23T22:42:13",
+ "updated": "2026-11-24T14:38:37",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -25,7 +25,7 @@
   },
   "sombra": {
    "cash": 7674.0,
-   "equity": 11626.0,
+   "equity": 11023.0,
    "pnl_realizado": 0,
    "abiertas": [
     {
@@ -39,9 +39,9 @@
      "entry_spot": 689.81,
      "expiry": "2026-12-11",
      "note": "sin flip (forward-test)",
-     "dte": 18,
-     "mark": 39.52,
-     "pnl_abierto": 1626.0
+     "dte": 17,
+     "mark": 33.49,
+     "pnl_abierto": 1023.0
     }
    ],
    "cerrados": []
@@ -549,7 +549,7 @@
     "expiry": "2027-03-19",
     "target": 252.42,
     "note": "esc\u00e1ner: alcista spread, delta 0.65, IV/HV 0.85 \u00b7 se\u00f1al del 2026-11-04",
-    "dte": 116,
+    "dte": 115,
     "mark": null,
     "pnl_abierto": null
    },
@@ -566,7 +566,7 @@
     "expiry": "2027-04-16",
     "target": 188.5,
     "note": "esc\u00e1ner: alcista spread, delta 0.62, IV/HV 1.12 \u00b7 se\u00f1al del 2026-11-09",
-    "dte": 144,
+    "dte": 143,
     "mark": null,
     "pnl_abierto": null
    }
@@ -685,10 +685,10 @@
    "key": "rsi20",
    "titulo": "Libro RSI20 (papel) \u2014 sustituye a Mag-7",
    "archivado": false,
-   "cash": 39.9,
-   "equity": 944.9,
-   "pnl_realizado": 7.4,
-   "last_bar_date": "2026-11-20",
+   "cash": 454.8,
+   "equity": 1227.3,
+   "pnl_realizado": 174.8,
+   "last_bar_date": "2026-11-23",
    "abiertas": [
     {
      "symbol": "CAT",
@@ -703,28 +703,10 @@
      "entry_date": "2026-11-05",
      "entry_spot": 553.6400146484375,
      "expiry": "2027-02-19",
-     "dte": 88,
-     "mark": 7.725000000000001,
-     "pnl_abierto": 52.5,
-     "target": 13.600000000000001
-    },
-    {
-     "symbol": "NVDA",
-     "ticker": "NVDA",
-     "strategy": "RSI20",
-     "side": "call",
-     "k_long": 145.0,
-     "k_short": 150.0,
-     "estructura": null,
-     "shares": null,
-     "debit": 2.474999999999998,
-     "entry_date": "2026-11-19",
-     "entry_spot": 145.97999572753906,
-     "expiry": "2027-02-19",
-     "dte": 88,
-     "mark": 4.175000000000004,
+     "dte": 87,
+     "mark": 8.899999999999999,
      "pnl_abierto": 170.0,
-     "target": 3.737499999999999
+     "target": 13.600000000000001
     }
    ],
    "cerrados": [
@@ -739,6 +721,18 @@
      "exit_date": "2026-11-03",
      "motivo": "cierre_manual_noel",
      "pnl": 7.4
+    },
+    {
+     "symbol": "NVDA",
+     "ticker": "NVDA",
+     "side": "call",
+     "k_long": "145.0",
+     "k_short": "150.0",
+     "estructura": null,
+     "entry_date": "2026-11-19",
+     "exit_date": "2026-11-23",
+     "motivo": "meta_50pct",
+     "pnl": 167.4
     }
    ]
   },
@@ -747,9 +741,9 @@
    "titulo": "Libro PISO rebote multi-acci\u00f3n (papel)",
    "archivado": false,
    "cash": 8769.4,
-   "equity": 9516.9,
+   "equity": 9821.9,
    "pnl_realizado": -420.6,
-   "last_bar_date": "2026-11-20",
+   "last_bar_date": "2026-11-23",
    "abiertas": [
     {
      "symbol": "FFIV",
@@ -764,9 +758,9 @@
      "entry_date": "2026-11-13",
      "entry_spot": 309.1400146484375,
      "expiry": "2026-12-18",
-     "dte": 25,
-     "mark": 6.050000000000001,
-     "pnl_abierto": 170.0,
+     "dte": 24,
+     "mark": 8.79,
+     "pnl_abierto": 444.0,
      "target": 7.175
     },
     {
@@ -782,9 +776,9 @@
      "entry_date": "2026-11-18",
      "entry_spot": 67.77999877929688,
      "expiry": "2026-12-18",
-     "dte": 25,
-     "mark": 1.6249999999999998,
-     "pnl_abierto": -22.5,
+     "dte": 24,
+     "mark": 1.53,
+     "pnl_abierto": -32.0,
      "target": 3.425
     },
     {
@@ -800,9 +794,9 @@
      "entry_date": "2026-11-20",
      "entry_spot": 291.1400146484375,
      "expiry": "2026-12-11",
-     "dte": 18,
-     "mark": 2.8500000000000014,
-     "pnl_abierto": 95.0,
+     "dte": 17,
+     "mark": 1.1999999999999993,
+     "pnl_abierto": -70.0,
      "target": 3.45
     }
    ],
@@ -888,7 +882,7 @@
    "cash": 9819.56,
    "equity": 9819.56,
    "pnl_realizado": -180.43,
-   "last_bar_date": "2026-11-20",
+   "last_bar_date": "2026-11-23",
    "abiertas": [],
    "cerrados": []
   },
@@ -896,10 +890,10 @@
    "key": "finas",
    "titulo": "Libro Finas (SPY, acciones \u2014 papel)",
    "archivado": false,
-   "cash": 9940.85,
-   "equity": 9940.85,
+   "cash": 7450.2,
+   "equity": 9933.6,
    "pnl_realizado": 0.0,
-   "last_bar_date": "2026-11-20",
+   "last_bar_date": "2026-11-23",
    "abiertas": [],
    "cerrados": []
   },
@@ -938,9 +932,9 @@
    "titulo": "Libro RSI2 long call (papel)",
    "archivado": false,
    "cash": 2564.4,
-   "equity": 3524.9,
+   "equity": 4301.4,
    "pnl_realizado": -185.6,
-   "last_bar_date": "2026-11-20",
+   "last_bar_date": "2026-11-23",
    "abiertas": [
     {
      "symbol": "SPY",
@@ -955,9 +949,9 @@
      "entry_date": "2026-11-17",
      "entry_spot": 732.4400024414062,
      "expiry": "2027-01-15",
-     "dte": 53,
-     "mark": 17.369999999999997,
-     "pnl_abierto": -513.0,
+     "dte": 52,
+     "mark": 14.34,
+     "pnl_abierto": -816.0,
      "target": null
     }
    ],
@@ -7842,7 +7836,7 @@
    "cash": 5000.0,
    "equity": 5000.0,
    "pnl_realizado": 0.0,
-   "last_bar_date": "2026-11-20",
+   "last_bar_date": "2026-11-23",
    "abiertas": [],
    "cerrados": []
   }
