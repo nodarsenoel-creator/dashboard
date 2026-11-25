@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-24T22:42:20",
+ "updated": "2026-11-25T14:38:30",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -25,7 +25,7 @@
   },
   "sombra": {
    "cash": 7674.0,
-   "equity": 11188.0,
+   "equity": 10324.0,
    "pnl_realizado": 0,
    "abiertas": [
     {
@@ -39,9 +39,9 @@
      "entry_spot": 689.81,
      "expiry": "2026-12-11",
      "note": "sin flip (forward-test)",
-     "dte": 17,
-     "mark": 35.14,
-     "pnl_abierto": 1188.0
+     "dte": 16,
+     "mark": 26.5,
+     "pnl_abierto": 324.0
     }
    ],
    "cerrados": []
@@ -552,7 +552,7 @@
     "expiry": "2027-03-19",
     "target": 252.42,
     "note": "esc\u00e1ner: alcista spread, delta 0.65, IV/HV 0.85 \u00b7 se\u00f1al del 2026-11-04",
-    "dte": 115,
+    "dte": 114,
     "mark": null,
     "pnl_abierto": null
    },
@@ -569,7 +569,7 @@
     "expiry": "2027-04-16",
     "target": 188.5,
     "note": "esc\u00e1ner: alcista spread, delta 0.62, IV/HV 1.12 \u00b7 se\u00f1al del 2026-11-09",
-    "dte": 143,
+    "dte": 142,
     "mark": null,
     "pnl_abierto": null
    }
@@ -689,9 +689,9 @@
    "titulo": "Libro RSI20 (papel) \u2014 sustituye a Mag-7",
    "archivado": false,
    "cash": 454.8,
-   "equity": 1227.3,
+   "equity": 1304.8,
    "pnl_realizado": 174.8,
-   "last_bar_date": "2026-11-23",
+   "last_bar_date": "2026-11-24",
    "abiertas": [
     {
      "symbol": "CAT",
@@ -706,9 +706,9 @@
      "entry_date": "2026-11-05",
      "entry_spot": 553.6400146484375,
      "expiry": "2027-02-19",
-     "dte": 87,
-     "mark": 8.5,
-     "pnl_abierto": 130.0,
+     "dte": 86,
+     "mark": 6.390000000000001,
+     "pnl_abierto": -81.0,
      "target": 13.600000000000001
     }
    ],
@@ -744,9 +744,9 @@
    "titulo": "Libro PISO rebote multi-acci\u00f3n (papel)",
    "archivado": false,
    "cash": 8769.4,
-   "equity": 9821.9,
+   "equity": 9674.4,
    "pnl_realizado": -420.6,
-   "last_bar_date": "2026-11-23",
+   "last_bar_date": "2026-11-24",
    "abiertas": [
     {
      "symbol": "FFIV",
@@ -761,9 +761,9 @@
      "entry_date": "2026-11-13",
      "entry_spot": 309.1400146484375,
      "expiry": "2026-12-18",
-     "dte": 24,
-     "mark": 5.25,
-     "pnl_abierto": 90.0,
+     "dte": 23,
+     "mark": 10.139999999999999,
+     "pnl_abierto": 579.0,
      "target": 7.175
     },
     {
@@ -779,9 +779,9 @@
      "entry_date": "2026-11-18",
      "entry_spot": 67.77999877929688,
      "expiry": "2026-12-18",
-     "dte": 24,
-     "mark": 0.9,
-     "pnl_abierto": -95.0,
+     "dte": 23,
+     "mark": 0.74,
+     "pnl_abierto": -111.0,
      "target": 3.425
     },
     {
@@ -797,9 +797,9 @@
      "entry_date": "2026-11-20",
      "entry_spot": 291.1400146484375,
      "expiry": "2026-12-11",
-     "dte": 17,
-     "mark": 2.8999999999999986,
-     "pnl_abierto": 100.0,
+     "dte": 16,
+     "mark": 4.099999999999998,
+     "pnl_abierto": 220.0,
      "target": 3.45
     }
    ],
@@ -885,7 +885,7 @@
    "cash": 9819.56,
    "equity": 9819.56,
    "pnl_realizado": -180.43,
-   "last_bar_date": "2026-11-23",
+   "last_bar_date": "2026-11-24",
    "abiertas": [],
    "cerrados": []
   },
@@ -894,9 +894,9 @@
    "titulo": "Libro Finas (SPY, acciones \u2014 papel)",
    "archivado": false,
    "cash": 7450.2,
-   "equity": 9933.6,
+   "equity": 9921.53,
    "pnl_realizado": 0.0,
-   "last_bar_date": "2026-11-23",
+   "last_bar_date": "2026-11-24",
    "abiertas": [],
    "cerrados": []
   },
@@ -934,30 +934,11 @@
    "key": "rsi2call",
    "titulo": "Libro RSI2 long call (papel)",
    "archivado": false,
-   "cash": 2564.4,
-   "equity": 4301.4,
-   "pnl_realizado": -185.6,
-   "last_bar_date": "2026-11-23",
-   "abiertas": [
-    {
-     "symbol": "SPY",
-     "ticker": "SPY",
-     "strategy": "RSI2",
-     "side": "call",
-     "k_long": 735.0,
-     "k_short": null,
-     "estructura": "Call larga 735.0",
-     "shares": null,
-     "debit": 22.5,
-     "entry_date": "2026-11-17",
-     "entry_spot": 732.4400024414062,
-     "expiry": "2027-01-15",
-     "dte": 52,
-     "mark": 14.165,
-     "pnl_abierto": -833.5,
-     "target": null
-    }
-   ],
+   "cash": 3978.3,
+   "equity": 3978.3,
+   "pnl_realizado": -1021.7,
+   "last_bar_date": "2026-11-24",
+   "abiertas": [],
    "cerrados": [
     {
      "symbol": "QQQ",
@@ -970,6 +951,18 @@
      "exit_date": "2026-11-10",
      "motivo": "contraria",
      "pnl": -185.6
+    },
+    {
+     "symbol": "SPY",
+     "ticker": "SPY",
+     "side": "call",
+     "k_long": "735.0",
+     "k_short": null,
+     "estructura": "Call larga 735.0",
+     "entry_date": "2026-11-17",
+     "exit_date": "2026-11-24",
+     "motivo": "contraria",
+     "pnl": -836.1
     }
    ]
   },
@@ -7737,7 +7730,7 @@
    "cash": 5000.0,
    "equity": 5000.0,
    "pnl_realizado": 0.0,
-   "last_bar_date": "2026-11-23",
+   "last_bar_date": "2026-11-24",
    "abiertas": [],
    "cerrados": []
   }
