@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27T18:23:32",
+ "updated": "2026-11-27T18:38:29",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -25,7 +25,7 @@
   },
   "sombra": {
    "cash": 7674.0,
-   "equity": 11718.0,
+   "equity": 11840.0,
    "pnl_realizado": 0,
    "abiertas": [
     {
@@ -40,8 +40,8 @@
      "expiry": "2026-12-11",
      "note": "sin flip (forward-test)",
      "dte": 14,
-     "mark": 40.44,
-     "pnl_abierto": 1718.0
+     "mark": 41.660000000000004,
+     "pnl_abierto": 1840.0
     }
    ],
    "cerrados": []
