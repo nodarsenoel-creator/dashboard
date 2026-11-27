@@ -1,5 +1,5 @@
 {
- "updated": "2026-11-27T16:08:31",
+ "updated": "2026-11-27T16:23:35",
  "creado": "2026-10-22",
  "libros": {
   "principal": {
@@ -25,7 +25,7 @@
   },
   "sombra": {
    "cash": 7674.0,
-   "equity": 11630.0,
+   "equity": 11633.0,
    "pnl_realizado": 0,
    "abiertas": [
     {
@@ -40,8 +40,8 @@
      "expiry": "2026-12-11",
      "note": "sin flip (forward-test)",
      "dte": 14,
-     "mark": 39.56,
-     "pnl_abierto": 1630.0
+     "mark": 39.59,
+     "pnl_abierto": 1633.0
     }
    ],
    "cerrados": []
@@ -707,8 +707,8 @@
      "entry_spot": 553.6400146484375,
      "expiry": "2027-02-19",
      "dte": 84,
-     "mark": 9.499999999999993,
-     "pnl_abierto": 230.0,
+     "mark": 10.100000000000001,
+     "pnl_abierto": 290.0,
      "target": 13.600000000000001
     }
    ],
@@ -780,8 +780,8 @@
      "entry_spot": 67.77999877929688,
      "expiry": "2026-12-18",
      "dte": 21,
-     "mark": 1.7500000000000002,
-     "pnl_abierto": -10.0,
+     "mark": 1.7,
+     "pnl_abierto": -15.0,
      "target": 3.425
     },
     {
@@ -798,8 +798,8 @@
      "entry_spot": 346.2699890136719,
      "expiry": "2026-12-18",
      "dte": 21,
-     "mark": 5.75,
-     "pnl_abierto": 115.0,
+     "mark": 5.299999999999997,
+     "pnl_abierto": 70.0,
      "target": 7.300000000000001
     }
    ],
